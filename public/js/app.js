@@ -2,5 +2,7 @@
 angular.module('callforirishApp', [
     'ngRoute',
     'appRoutes',
-    'MainCtrl'
+    'MainCtrl',
+    'LoginCtrl',
+    'RegisterCtrl'
 ]);

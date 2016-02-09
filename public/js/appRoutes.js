@@ -3,11 +3,23 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
     $routeProvider
 
-        // home page
-        .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'MainController'
-        });
+    // home page
+    .when('/', {
+        templateUrl: 'views/home.html',
+        controller: 'MainController'
+    })
+
+    // login page
+    .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
+    })
+
+    // register page
+    .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterController'
+    });
 
     $locationProvider.html5Mode(true);
 
