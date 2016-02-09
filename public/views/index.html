@@ -35,6 +35,14 @@
     <!-- ANGULAR APP-->
     <script src="js/app.js"></script>
 
+    <!-- NAVBAR COLLAPSE HANDLER -->
+    <script type="text/javascript">
+        $(document).on('click','.navbar-collapse.in',function(e) {
+            if( $(e.target).is('a') ) {
+                $(this).collapse('hide');
+            }
+        });
+    </script>
 </head>
 
 
