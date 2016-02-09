@@ -5,6 +5,36 @@
     -webkit-border-radius: 0 !important;
 }
 
-.navbar-inverse{
+/*== LAYOUT ==*/
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    min-height: 100%;
+    position: relative;
+}
+
+#content, {
+    padding-bottom: 30px; /*MUST BE SAME AS FOOTER HEIGHT!*/
+}
+
+.navbar-inverse {
     margin-bottom: 60px;
 }
+
+#footer {
+    position: absolute;
+    height: 30px;
+    width: 100%;
+    bottom: 0;
+}
+/*--------*/
+
+
+/*== STYLE ==*/
+
+/*--------*/
+

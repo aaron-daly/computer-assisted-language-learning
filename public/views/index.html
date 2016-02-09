@@ -39,6 +39,7 @@
 
 
 <body ng-app="callforirishApp">
+<div id="container">
 
     <!-- HEADER -->
     <nav class="navbar navbar-inverse">
@@ -63,11 +64,17 @@
     </nav>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
-    <div class="container">
+    <div class="container" id="content">
         <div ng-view></div>
     </div>
 
     <!-- FOOTER -->
+    <footer id="footer">
+        <div class="text-center">
+            <p>All rights reserved by Ralphy Enterprises <span class="glyphicon glyphicon-copyright-mark"></span></p>
+        </div>
+    </footer>
 
+</div>
 </body>
 </html>
