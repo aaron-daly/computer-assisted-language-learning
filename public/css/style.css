@@ -17,8 +17,8 @@ html,body {
     position: relative;
 }
 
-#content, {
-    padding-bottom: 30px; /*MUST BE SAME AS FOOTER HEIGHT!*/
+#content {
+    padding-bottom: 60px; /*MUST AT LEAST SAME AS FOOTER HEIGHT!*/
 }
 
 .navbar-inverse {
