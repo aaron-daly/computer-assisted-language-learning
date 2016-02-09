@@ -1,0 +1,6 @@
+/*-- REMOVE BOOTSTRAP'S ROUNDED CORNERS --*/
+* {
+    border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+}
