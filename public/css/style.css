@@ -4,3 +4,7 @@
     -moz-border-radius: 0 !important;
     -webkit-border-radius: 0 !important;
 }
+
+.navbar-inverse{
+    margin-bottom: 60px;
+}
