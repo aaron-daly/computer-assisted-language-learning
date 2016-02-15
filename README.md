@@ -1,1 +1,3 @@
-# call-for-irish
+# Calli
+
+Computer Assisted Language Learning for Irish.
