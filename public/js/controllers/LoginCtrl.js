@@ -4,4 +4,5 @@ angular.module('LoginCtrl', []).controller('LoginController', function($scope) {
     $(document).ready(function(){
         $(this).scrollTop(0);
     });
+
 });
