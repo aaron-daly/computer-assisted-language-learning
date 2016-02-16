@@ -4,5 +4,6 @@ angular.module('callforirishApp', [
     'appRoutes',
     'MainCtrl',
     'LoginCtrl',
-    'RegisterCtrl'
+    'RegisterCtrl',
+    'PreviewCtrl'
 ]);

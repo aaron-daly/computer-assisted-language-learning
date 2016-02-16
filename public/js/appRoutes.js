@@ -15,6 +15,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         controller: 'LoginController'
     })
 
+    // preview page
+        .when('/preview', {
+            templateUrl: 'views/preview.html',
+            controller: 'PreviewController'
+        })
+
     // register page
     .when('/register', {
         templateUrl: 'views/register.html',
