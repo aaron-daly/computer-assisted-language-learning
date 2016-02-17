@@ -1,15 +1,17 @@
-{"questions":[
+{
+  "scenario": "sweetshop",
+  "level": "1",
+  "questions":[
+    {
+      "question":"Conas ata tu?",
+      "option1":"Ta me go maith",
+      "option2": "Nil"
+    },
 
-  {
-    "question":"Conas ata tu?",
-    "option1":"Ta me go maith",
-    "option2": "Nil"
-  },
-
-  {
-    "question": "What sweets you want?",
-    "option1": "chocolate",
-    "option2": "crisps"
-  }
-
-]}
+    {
+      "question": "What sweets you want?",
+      "option1": "chocolate",
+      "option2": "crisps"
+    }
+  ]
+}
