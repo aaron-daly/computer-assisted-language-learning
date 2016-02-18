@@ -1,19 +1,18 @@
 <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
     <h1><span class="glyphicon glyphicon-log-in"></span> Login</h1>
-    <form action="#" method="post">
+    <form>
 
         <div class="form-group">
             <label>Username</label>
-            <input type="text" class="form-control" name="username" placeholder="Example: Bob123">
+            <input type="text" class="form-control" name="username" ng-model="username" required />
         </div>
 
         <div class="form-group">
-            <label>Password</label>
-            <input type="text" class="form-control" name="password" placeholder="********">
+            <label>Class</label>
+            <input type="text" class="form-control" name="class" ng-model="class" required />
         </div>
 
-        <button type="submit" class="btn btn-info">Login</button>
+        <button class="btn btn-info" ng-click="login();">Login</button>
+        <p class="text-danger" ng-show="$scope.invalid-input">Error, please enter all fields!</p>
     </form>
-    <hr>
-    <p>Forgot your password? <a href="/password-change">Change password here!</a></p>
 </div>

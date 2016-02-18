@@ -1,6 +1,6 @@
 // public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope', '$http',
-    function($scope, $http) {
+angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope',
+    function($scope) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -188,6 +188,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope', '$h
         };
 
 
+        //REPLAYS CURRENT GAME
         $scope.replayGame = function() {
             $scope.recordedQuestions = [];
             $scope.recordedAnswers = [];
