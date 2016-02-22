@@ -1,10 +1,11 @@
 // public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope',
+angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope', '$http',
     function($scope) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
+
 
         //TO BE DONE --- GET JSON FILES WORKING!!!!
         var scenario = {
