@@ -17,20 +17,20 @@ angular.module('calliApp')
                 login: function(user) {
                     return $http.post('/login', user)
                         .success(function(data) {
-                            console.log('successful login: ' + data.token);
                             token.saveToken(data.token);
                             $location.path('profile');
+
+                            console.log('successful login: ' + token.currentUser());
                         })
                         .error(function() {
                             $location.path('/login');
                         })
                 },
                 logout: function() {
-                    return $http.get('/logout')
-                        .success(function() {
-                            $window.localStorage.removeItem('calli-token');
-                            $location.path('/');
-                        });
+                    console.log('Successful log out: ' + token.currentUser());
+
+                    $window.localStorage.removeItem('calli-token');
+                    $location.path('/');
                 }
             }
         }

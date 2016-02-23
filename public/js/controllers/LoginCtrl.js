@@ -7,7 +7,6 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$locat
         });
 
         $scope.login = function() {
-            console.log('login-control');
             auth.login({
                 username: $scope.username,
                 password: $scope.password

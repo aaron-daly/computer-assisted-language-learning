@@ -9,6 +9,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', 'au
         });
 
         $scope.user = token.currentUser();
-        console.log($scope.user);
+
     }
 ]);
