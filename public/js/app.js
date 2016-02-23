@@ -2,9 +2,11 @@
 angular.module('calliApp', [
     'ngRoute',
     'MainCtrl',
+    'NavigationCtrl',
     'LoginCtrl',
     'RegisterCtrl',
-    'PreviewCtrl'
+    'PreviewCtrl',
+    'ProfileCtrl'
 ]).config(['$locationProvider', '$routeProvider',
     function ($locationProvider, $routeProvider) {
 
@@ -12,7 +14,7 @@ angular.module('calliApp', [
             // home page
             .when('/', {
                 templateUrl: 'views/home.html',
-                controller: 'MainController'
+                controller: 'MainController',
             })
             // login page
             .when('/login', {

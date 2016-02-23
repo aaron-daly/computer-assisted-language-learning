@@ -11,6 +11,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var session = require('express-session');
+var config = require('./config/config');
 
 // configuration ===========================================
 var app = express();
@@ -36,7 +37,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 
 //passport
-app.use(session({ secret: 'calliwins' }));
+var secret = config.secret;
+app.use(session({ secret: secret }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

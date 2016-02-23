@@ -23,9 +23,11 @@
 
     <!-- ANGULAR CONTROLLERS-->
     <script src="js/controllers/MainCtrl.js"></script>
+    <script src="js/controllers/NavigationCtrl.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
     <script src="js/controllers/RegisterCtrl.js"></script>
     <script src="js/controllers/PreviewCtrl.js"></script>
+    <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/app.js"></script>
 
     <!-- ANGULAR SERVICES-->
@@ -49,7 +51,7 @@
 <div id="container">
 
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" ng-controller="NavigationController">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse-1" aria-expanded="false">
@@ -65,7 +67,8 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li><a href="/preview">Preview</a></li>
-                    <li><a href="/login">Login</a></li>
+                    <li ng-if="!isLoggedIn()"><a href="/login">Login</a></li>
+                    <li ng-if="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
 
                 </ul>
             </div>

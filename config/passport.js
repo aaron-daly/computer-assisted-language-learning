@@ -16,6 +16,7 @@ module.exports = function(passport) {
         });
     });
 
+
     passport.use('register', new LocalStrategy({
             usernameField : 'username',
             passwordField : 'password',
