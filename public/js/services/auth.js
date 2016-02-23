@@ -9,6 +9,9 @@ angular.module('calliApp')
                     return $http.post('/register', user)
                         .success(function(data) {
                             $location.path('/profile');
+                            token.saveToken(data.token);
+
+                            console.log('successful registration: ' + token.currentUser());
                         })
                         .error(function() {
                             $location.path('/register');
