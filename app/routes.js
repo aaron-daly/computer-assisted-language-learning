@@ -1,43 +1,28 @@
+var passport = require('passport');
+
 // app/routes.js
-
-// grab the nerd model we just created
-// var Nerd = require('./models/nerd');
-
-var Scenario = require('./models/Scenario');
-var Question = require('./models/Question');
-
 module.exports = function(app) {
 
-    // server routes ===========================================================
-    // handle things like api calls
-    // authentication routes
 
+    // REGISTER
+    app.post('/register', passport.authenticate('register', {
+        successRedirect: '/profile',
+        failureRedirect: '/register'
+    }));
 
+    //LOGIN
+    app.post('/login', passport.authenticate('login', {
+        successRedirect: '/profile',
+        failureRedirect: '/login'
+    }));
 
-    /* sample api route
-    app.get('/api/nerds', function(req, res) {
-        // use mongoose to get all nerds in the database
-        Nerd.find(function(err, nerds) {
-
-            // if there is an error retrieving, send the error.
-            // nothing after res.send(err) will execute
-            if (err)
-                res.send(err);
-
-            res.json(nerds); // return all nerds in JSON format
-        });
-    }); */
-
-    // route to handle creating goes here (app.post)
-
-    // route to handle delete goes here (app.delete)
-
-    // frontend routes =========================================================
-    // route to handle all angular requests
-
+    function isLoggedIn(req, res, next) {
+        if(req.isAuthenticated())
+            return next();
+        res.redirect('/');
+    }
 
     app.get('*', function(req, res) {
         res.sendfile('./public/views/index.html'); // load our public/index.html file
     });
-
 };

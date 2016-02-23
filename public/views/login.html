@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
     <h1><span class="glyphicon glyphicon-log-in"></span> Login</h1>
-    <form>
+    <form name="login-form" ng-submit="login()" role="form">
 
         <div class="form-group">
             <label>Username</label>
@@ -8,11 +8,10 @@
         </div>
 
         <div class="form-group">
-            <label>Class</label>
-            <input type="text" class="form-control" name="class" ng-model="class" required />
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" ng-model="password" required />
         </div>
 
-        <button class="btn btn-info" ng-click="login();">Login</button>
-        <p class="text-danger" ng-show="$scope.invalid-input">Error, please enter all fields!</p>
+        <button type="submit" class="btn btn-info">Login</button>
     </form>
 </div>
