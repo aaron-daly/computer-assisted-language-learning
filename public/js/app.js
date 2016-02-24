@@ -7,6 +7,7 @@ angular.module('calliApp', [
     'RegisterCtrl',
     'PreviewCtrl',
     'Mini2Ctrl',
+    'Mini3Ctrl',
     'ProfileCtrl'
 ]).config(['$locationProvider', '$routeProvider',
     function ($locationProvider, $routeProvider) {
@@ -31,6 +32,11 @@ angular.module('calliApp', [
             .when('/mini2', {
                 templateUrl: 'views/mini2.html',
                 controller: 'Mini2Controller'
+            })
+            // mini2 page
+            .when('/mini3', {
+                templateUrl: 'views/mini3.html',
+                controller: 'Mini3Controller'
             })
             // register page
             .when('/register', {
