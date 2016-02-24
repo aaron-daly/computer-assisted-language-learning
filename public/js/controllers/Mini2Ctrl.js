@@ -1,8 +1,13 @@
-// public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', '$http',
+/**
+ * Created by Raphaelle on 24/02/2016.
+ */
+/**
+ * Created by Raphaelle on 24/02/2016.
+ */
+angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$location', '$http',
     function($scope,$location) {
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(this).scrollTop(0);
         });
         $scope.preview = function() {
@@ -16,11 +21,11 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         };
         //TO BE DONE --- GET JSON FILES WORKING!!!!
         var scenario = {
-        "scenario": "sweetshop",
+            "scenario": "picture",
             "level": "1",
             "questions":[
                 {
-                    "question": "How are you?",
+                    "question": "Whats in da foto?",
                     "position": "1",
                     "answers": [
                         {
@@ -98,7 +103,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         //APPEND HTML FOR A QUESTION
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#preview-body').append('<h1>' + q + '</h1>');
+            $('#mini2-body').append('<h1>' + q + '</h1>');
             $scope.recordQuestion(q);
         };
 
@@ -107,13 +112,13 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         $scope.appendAnswer = function(pos, val) {
             console.log('appending ANS: ' + val.answer);
             var idtag = 'q' + pos + 'b' + val.branch;
-            $('#preview-body').append('<button id="' + idtag + '" class="btn btn-success answer-button">' + val.answer + '</button>');
+            $('#mini2-body').append('<button id="' + idtag + '" class="btn btn-success answer-button">' + val.answer + '</button>');
         };
 
 
         //APPEND SOME HTML WITH TAG 'tag' AND CONTENT 't'
         $scope.appendText = function(tag, t) {
-            $('#preview-body').append(tag + t);
+            $('#mini2-body').append(tag + t);
         };
 
 
@@ -134,7 +139,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         //LOAD NEXT QUESTION WITH ANSWERS
         $scope.loadQuestion = function(pos) {
 
-            $('#preview-body').empty().hide();
+            $('#mini2-body').empty().hide();
 
             if(pos > 0) { //We haven't reached delimiter 0, i.e. answer choosen has a preceding question
                 var data = questions[pos-1];
@@ -145,7 +150,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
                     $scope.appendAnswer(key, val);
                 });
 
-                $('#preview-body').fadeIn("fast");
+                $('#mini2-body').fadeIn("fast");
 
                 $('.answer-button').click(function () {
                     $scope.recordAnswer($(this).html());
@@ -185,12 +190,12 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
                 $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
                 $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
-                $('#preview-body').append('<hr>');
+                $('#mini2-body').append('<hr>');
             }
 
-            $('#preview-header').hide();
+            $('#mini2-header').hide();
 
-            $('#preview-body').fadeIn('slow');
+            $('#mini2-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
         };
 
@@ -200,8 +205,8 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             $scope.recordedQuestions = [];
             $scope.recordedAnswers = [];
             initialQuestion = 1;
-            $('#preview-body').empty();
-            $('#preview-header').show();
+            $('#mini2-body').empty();
+            $('#mini2-header').show();
             $('#replay-button').hide();
             $scope.init();
         };
@@ -209,10 +214,10 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
         //INITIALISE VIEW
         $scope.init = function() {
-            $('#preview-container').hide();
-            $('#preview-body').hide();
+            $('#mini2-container').hide();
+            $('#mini2-body').hide();
             $('#replay-button').hide();
-            $('#preview-container').fadeIn("slow");
+            $('#mini2-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");
         };
@@ -224,6 +229,5 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         $scope.init();
 
     }
-
 
 ]);
