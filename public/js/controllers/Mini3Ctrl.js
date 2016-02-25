@@ -1,28 +1,44 @@
-// public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', '$http',
+/**
+ * Created by Raphaelle on 24/02/2016.
+ */
+
+angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$location', '$http',
     function($scope,$location) {
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(this).scrollTop(0);
         });
-
-        $scope.preview = function() {
+        $scope.preview = function () {
             $location.path('/preview');
         };
-        $scope.mini2 = function() {
+        $scope.mini2 = function () {
             $location.path('/mini2');
         };
-        $scope.mini3 = function() {
+        $scope.mini3 = function () {
             $location.path('/mini3');
         };
-
+        $scope.results = function () {
+            $location.path('/results');
+        };
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+        function drag(event) {
+            event.dataTransfer = 'text';
+            event.dataTransfer.setData('text',event.target.id);
+        }
+        function drop(event) {
+            event.preventDefault();
+            var data =event.dataTransfer.getData('text');
+            event.target.appendChild(document.getElementById(data));
+        }
         //TO BE DONE --- GET JSON FILES WORKING!!!!
         var scenario = {
-        "scenario": "sweetshop",
+            "scenario": "picture",
             "level": "1",
             "questions":[
                 {
-                    "question": "How are you?",
+                    "question": "Which word matches the image?",
                     "position": "1",
                     "answers": [
                         {
@@ -100,7 +116,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         //APPEND HTML FOR A QUESTION
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#preview-body').append('<h1>' + q + '</h1>');
+            $('#mini3-body').append('<h1>' + q + '</h1>');
             $scope.recordQuestion(q);
         };
 
@@ -109,13 +125,13 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         $scope.appendAnswer = function(pos, val) {
             console.log('appending ANS: ' + val.answer);
             var idtag = 'q' + pos + 'b' + val.branch;
-            $('#preview-body').append('<button id="' + idtag + '" class="btn btn-success answer-button">' + val.answer + '</button>');
+            $('#mini3-body').append('<button id="' + idtag + '" class="btn btn-success answer-button">' + val.answer + '</button>');
         };
 
 
         //APPEND SOME HTML WITH TAG 'tag' AND CONTENT 't'
         $scope.appendText = function(tag, t) {
-            $('#preview-body').append(tag + t);
+            $('#mini3-body').append(tag + t);
         };
 
 
@@ -136,7 +152,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         //LOAD NEXT QUESTION WITH ANSWERS
         $scope.loadQuestion = function(pos) {
 
-            $('#preview-body').empty().hide();
+            $('#mini3-body').empty().hide();
 
             if(pos > 0) { //We haven't reached delimiter 0, i.e. answer choosen has a preceding question
                 var data = questions[pos-1];
@@ -147,7 +163,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
                     $scope.appendAnswer(key, val);
                 });
 
-                $('#preview-body').fadeIn("fast");
+                $('#mini3-body').fadeIn("fast");
 
                 $('.answer-button').click(function () {
                     $scope.recordAnswer($(this).html());
@@ -168,7 +184,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
         //INITIALISE MINI-GAME
         $scope.initGame = function() { //initiate preview game
-            $('#play-button').hide();
+            $('button').hide();
             $scope.loadQuestion(initialQuestion); //load initial question
         };
 
@@ -187,12 +203,12 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
                 $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
                 $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
-                $('#preview-body').append('<hr>');
+                $('#mini3-body').append('<hr>');
             }
 
-            $('#preview-header').hide();
+            $('#mini3-header').hide();
 
-            $('#preview-body').fadeIn('slow');
+            $('#mini3-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
         };
 
@@ -202,8 +218,8 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             $scope.recordedQuestions = [];
             $scope.recordedAnswers = [];
             initialQuestion = 1;
-            $('#preview-body').empty();
-            $('#preview-header').show();
+            $('#mini3-body').empty();
+            $('#mini3-header').show();
             $('#replay-button').hide();
             $scope.init();
         };
@@ -211,22 +227,13 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
         //INITIALISE VIEW
         $scope.init = function() {
-            $('#preview-container').hide();
-            $('#preview-body').hide();
+            $('#mini3-container').hide();
+            $('#mini3-body').hide();
             $('#replay-button').hide();
-            $('#preview-container').fadeIn("slow");
+            $('#mini3-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");
         };
-
-
-        var url = 'http://www.abair.tcd.ie/api/?input=dia%20dhuit&format=mp3';
-        $http.get(url)
-            .then(function(response){
-            console.log(response);
-        }, function(error){
-            console.log(error);
-        });
 
 
         //--------------------------------------------------
