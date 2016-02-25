@@ -14,7 +14,7 @@ angular.module('calliApp', [
             // home page
             .when('/', {
                 templateUrl: 'views/home.html',
-                controller: 'MainController',
+                controller: 'MainController'
             })
             // login page
             .when('/login', {

@@ -39,11 +39,23 @@
 
     <!-- NAVBAR COLLAPSE HANDLER -->
     <script type="text/javascript">
-        $(document).on('click','.navbar-collapse.in',function(e) {
-            if( $(e.target).is('a') ) {
+
+        /*
+        $(document).on('click','.navbar-collapse.in',function(event) {
+            if($(event.target).is('a')) {
                 $(this).collapse('hide');
             }
         });
+        */
+
+        $(document).ready(function() {
+            $(document).click(function(event) {
+                var navOpen = $('.navbar-collapse').hasClass('in');
+                if(navOpen) {
+                    $('button.navbar-toggle').click();
+                }
+            })
+        })
     </script>
 </head>
 
@@ -67,7 +79,7 @@
             <div class="collapse navbar-collapse" id="nav-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="/preview">Preview</a></li>
+                    <li ng-if="isLoggedIn()"><a href="/preview">Preview</a></li>
                     <li ng-if="!isLoggedIn()"><a href="/login">Login</a></li>
                     <li ng-if="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
 

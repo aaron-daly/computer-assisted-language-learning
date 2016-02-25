@@ -9,7 +9,6 @@ angular.module('calliApp')
         };
         token.isLoggedIn = function(){
             var userToken = token.getToken();
-
             if(userToken){
                 var payload = JSON.parse($window.atob(userToken.split('.')[1]));
                 return payload.exp > Date.now() / 1000;
@@ -21,9 +20,10 @@ angular.module('calliApp')
             if(token.isLoggedIn()){
                 var userToken = token.getToken();
                 var payload = JSON.parse($window.atob(userToken.split('.')[1]));
-                return payload.username;
+                return payload;
             }
         };
+
         token.currentUserId = function(){
             if(token.isLoggedIn()){
                 var userToken = token.getToken();

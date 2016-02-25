@@ -28,13 +28,22 @@ angular.module('calliApp')
                         .error(function() {
                             error.setLoginError('Could not log in!');
                             $location.path('/login');
-                        })
+                        });
                 },
                 logout: function() {
                     console.log('Successful log out: ' + token.currentUser());
 
                     $window.localStorage.removeItem('calli-token');
                     $location.path('/');
+                },
+                remove: function() {
+                    return $http.post('/unregister', user)
+                        .success(function(data) {
+                            $window.localStorage.removeItem('calli-token');
+                            $location.path('/');
+                        })
+                        .error(function() {
+                        });
                 }
             }
         }

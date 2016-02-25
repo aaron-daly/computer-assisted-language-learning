@@ -9,7 +9,8 @@ angular.module('RegisterCtrl', []).controller('RegisterController', ['$scope', '
         $scope.register = function() {
             auth.register({
                 username: $scope.username,
-                password: $scope.password
+                password: $scope.password,
+                role: $scope.role
             });
         };
 

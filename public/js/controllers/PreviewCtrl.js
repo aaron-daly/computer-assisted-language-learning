@@ -1,11 +1,10 @@
 // public/js/controllers/PreviewCtrl.js
 angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope', '$http',
-    function($scope) {
+    function($scope, $http) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
-
 
         //TO BE DONE --- GET JSON FILES WORKING!!!!
         var scenario = {
@@ -159,7 +158,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope', '$h
 
         //INITIALISE MINI-GAME
         $scope.initGame = function() { //initiate preview game
-            $('button').hide();
+            $('#play-button').hide();
             $scope.loadQuestion(initialQuestion); //load initial question
         };
 
@@ -209,6 +208,15 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope', '$h
             $('#preview-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
         };
+
+
+        var url = 'http://www.abair.tcd.ie/api/?input=dia%20dhuit&format=mp3';
+        $http.get(url)
+            .then(function(response){
+            console.log(response);
+        }, function(error){
+            console.log(error);
+        });
 
 
         //--------------------------------------------------

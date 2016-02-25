@@ -6,8 +6,8 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$locatio
             $(this).scrollTop(0);
         });
 
-        $scope.preview = function() {
-            $location.path('/preview');
+        $scope.loginRedirect = function() {
+            $location.path('/register');
         }
     }
 ]);
