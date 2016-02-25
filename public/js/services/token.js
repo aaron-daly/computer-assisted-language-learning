@@ -1,4 +1,5 @@
 angular.module('calliApp')
+
     .factory('token', ['$http', '$window',
         function($http, $window){
 
@@ -16,8 +17,7 @@ angular.module('calliApp')
                 return $window.localStorage.removeItem('calli-token');
             };
 
-            token.isLoggedIn = function(){
-
+            token.isLoggedIn = function() {
                 var userToken = token.getToken();
                 var currentDate = Date.now();
 

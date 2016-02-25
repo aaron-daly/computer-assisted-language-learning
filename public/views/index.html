@@ -27,6 +27,8 @@
     <script src="js/controllers/LoginCtrl.js"></script>
     <script src="js/controllers/RegisterCtrl.js"></script>
     <script src="js/controllers/PreviewCtrl.js"></script>
+    <script src="js/controllers/Mini2Ctrl.js"></script>
+    <script src="js/controllers/Mini3Ctrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/app.js"></script>
 
@@ -38,11 +40,23 @@
 
     <!-- NAVBAR COLLAPSE HANDLER -->
     <script type="text/javascript">
-        $(document).on('click','.navbar-collapse.in',function(e) {
-            if( $(e.target).is('a') ) {
+
+        /*
+        $(document).on('click','.navbar-collapse.in',function(event) {
+            if($(event.target).is('a')) {
                 $(this).collapse('hide');
             }
         });
+        */
+
+        $(document).ready(function() {
+            $(document).click(function(event) {
+                var navOpen = $('.navbar-collapse').hasClass('in');
+                if(navOpen) {
+                    $('button.navbar-toggle').click();
+                }
+            })
+        })
     </script>
 </head>
 

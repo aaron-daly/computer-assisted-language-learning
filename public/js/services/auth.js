@@ -30,14 +30,24 @@ angular.module('calliApp')
                         .error(function(error) {
                             console.log('error: ' + error.message);
                             $location.path('/login');
-                        })
+                        });
                 },
 
                 logout: function() {
                     console.log('Successful log out: ' + token.currentUser());
                     token.removeToken();
                     $location.path('/');
-                }
+                },
+                /*
+                remove: function() {
+                    return $http.post('/unregister', user)
+                        .success(function(data) {
+                            $window.localStorage.removeItem('calli-token');
+                            $location.path('/');
+                        })
+                        .error(function() {
+                        });
+                } */
 
             }
         }

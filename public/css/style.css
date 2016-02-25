@@ -24,6 +24,33 @@ html,body {
 .navbar-inverse {
     margin-bottom: 60px;
 }
+#div1 {
+    float: left;
+    width:200px;
+    height:70px;
+    margin:10px;
+    padding:10px;
+    border:1px
+    solid #aaaaaa;
+}
+
+.navbar-inverse {
+    margin-bottom: 60px;
+
+}
+.glyphicon.glyphicon-user {
+    font-size: 40px;
+    float: left;
+    color: #00b3ee;
+}
+.glyphicon.glyphicon-search {
+    font-size: 40px;
+    float: left;
+}
+.glyphicon.glyphicon-pencil {
+    font-size: 40px;
+    float: left;
+}
 
 #footer {
     position: absolute;
