@@ -1,6 +1,6 @@
 // public/js/controllers/LoginCtrl.js
-angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$location', 'auth', 'error',
-    function($scope, $location, auth, error) {
+angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$location', 'auth',
+    function($scope, $location, auth) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -12,7 +12,10 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$locat
             auth.login({
                 username: $scope.username,
                 password: $scope.password
+            }, function(error) {
+                console.log(error);
             });
+
         }
     }
 ]);

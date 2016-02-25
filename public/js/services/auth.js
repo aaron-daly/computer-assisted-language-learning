@@ -2,9 +2,11 @@
  * Created by Dalyy on 23/02/2016.
  */
 angular.module('calliApp')
-    .factory('auth', ['$http', '$location', 'token', '$window', 'error',
-        function($http, $location, token, $window, error) {
+    .factory('auth', ['$http', '$location', 'token', '$window',
+        function($http, $location, token) {
+
             return {
+
                 register: function(user) {
                     return $http.post('/register', user)
                         .success(function(data) {
@@ -17,25 +19,26 @@ angular.module('calliApp')
                             $location.path('/register');
                         });
                 },
+
                 login: function(user) {
                     return $http.post('/login', user)
                         .success(function(data) {
                             token.saveToken(data.token);
                             $location.path('profile');
-
                             console.log('successful login: ' + token.currentUser());
                         })
-                        .error(function() {
-                            error.setLoginError('Could not log in!');
+                        .error(function(error) {
+                            console.log('error: ' + error.message);
                             $location.path('/login');
                         })
                 },
+
                 logout: function() {
                     console.log('Successful log out: ' + token.currentUser());
-
-                    $window.localStorage.removeItem('calli-token');
+                    token.removeToken();
                     $location.path('/');
                 }
+
             }
         }
     ]);

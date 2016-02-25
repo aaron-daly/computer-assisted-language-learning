@@ -15,7 +15,7 @@ module.exports = function(app) {
 
         console.log('ready for authentication ' + req.body.username);
 
-        passport.authenticate('register', function(err, user, info) {
+        passport.authenticate('register', function(err, user) {
             console.log('authenticated ' + user);
             if(err) {
                 return next(err);
@@ -23,7 +23,9 @@ module.exports = function(app) {
             if(user) {
                 return res.json({ token: user.generateJWT() });
             } else {
-                return res.status(401).json(info);
+                return res.status(401).json({
+                    message: 'Username already exists.'
+                });
             }
         })(req, res, next);
     });
@@ -35,14 +37,17 @@ module.exports = function(app) {
             return res.status(400).json({ message: 'All fields must be filled out'});
         }
 
-        passport.authenticate('login', function(err, user, info) {
+        passport.authenticate('login', function(err, user) {
             if(err) {
                 return next(err);
             }
             if(user) {
                 return res.json({ token: user.generateJWT() });
             } else {
-                return res.status(401).json(info);
+                console.log();
+                return res.status(401).json({
+                    message: 'Username does not exist.'
+                });
             }
         })(req, res, next);
     });
