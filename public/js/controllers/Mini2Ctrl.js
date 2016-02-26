@@ -95,6 +95,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
 
         $scope.recordedQuestions = [];
         $scope.recordedAnswers = [];
+        $scope.recordedCorrectAnswers = [];
 
         //-------------------------
         //--------FUNCTIONS--------
@@ -133,6 +134,12 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         $scope.recordAnswer = function(a) {
             console.log('ANSWER RECORDED: ' + a);
             $scope.recordedAnswers.push(a);
+        };
+
+        //RECORD ANSWER CHOSEN
+        $scope.recordCorrectAnswer = function(a) {
+            console.log('ANSWER RECORDED: ' + a);
+            $scope.recordedCorrectAnswers.push(a);
         };
 
 
@@ -186,10 +193,16 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             for(i; i < len; i++) {
 
                 console.log("Q" + i + ": " + $scope.recordedQuestions[i]);
+                //STUDENTS ANSWER
                 console.log("A" + i + ": " + $scope.recordedAnswers[i]);
+                //CORRECT ANSWER
+                console.log("A" + i + ": " + $scope.recordedCorrectAnswers[i]);
 
                 $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
+                //STUDENTS ANSWER
                 $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
+                //CORRECT ANSWER
+                $scope.appendText('<h3 class="text-success">', $scope.recordedCorrectAnswers[i]);
                 $('#mini2-body').append('<hr>');
             }
 
