@@ -1,9 +1,23 @@
 // public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', '$http',
-    function($scope, $location, $http) {
+angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', 'scenario',
+    function($scope, $location, scenario) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
+        });
+
+        $scope.scenario = {};
+
+        var questions = [];
+        var initialQuestion = 1;
+
+        $scope.recordedQuestions = [];
+        $scope.recordedAnswers = [];
+
+        // get scenario of type 'c' called 'sweetshop'
+        scenario.get('c', 'sweetshop', function(data) {
+            $scope.scenario = data;
+            questions = data.conversation;
         });
 
         $scope.preview = function() {
@@ -16,82 +30,6 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             $location.path('/mini3');
         };
 
-        //TO BE DONE --- GET JSON FILES WORKING!!!!
-        var scenario = {
-        "scenario": "sweetshop",
-            "level": "1",
-            "questions":[
-                {
-                    "question": "How are you?",
-                    "position": "1",
-                    "answers": [
-                        {
-                            "answer": "I am good",
-                            "branch": "2"
-                        },
-                        {
-                            "answer": "I am not well",
-                            "branch": "3"
-                        },
-                        {
-                            "answer": "idk",
-                            "branch": "0"
-                        }
-                    ]//end "answers"
-                },
-
-                {
-                    "question": "That's good, would you like sweets?",
-                    "position": "2",
-                    "answers": [
-                        {
-                            "answer": "Yes",
-                            "branch": "4"
-                        },
-                        {
-                            "answer": "No",
-                            "branch": "0"
-                        }
-                    ] //end "answers"
-                },
-
-                {
-                    "question": "Oh no, would you like some sweets?",
-                    "position": "3",
-                    "answers": [
-                        {
-                            "answer": "yes",
-                            "branch": "4"
-                        },
-                        {
-                            "answer": "no",
-                            "branch": "0"
-                        }
-                    ] //end "answers"
-                },
-                {
-                    "question": "What sweets would you like?",
-                    "position": "4",
-                    "answers": [
-                        {
-                            "answer": "chocolate",
-                            "branch": "0"
-                        },
-                        {
-                            "answer": "bonbons",
-                            "branch": "0"
-                        }
-                    ] //end "answers"
-                }
-
-            ] //end "questions"
-        };
-
-        var questions = scenario.questions;
-        var initialQuestion = 1;
-
-        $scope.recordedQuestions = [];
-        $scope.recordedAnswers = [];
 
         //-------------------------
         //--------FUNCTIONS--------
@@ -221,12 +159,6 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
 
         var url = 'http://www.abair.tcd.ie/api/?input=dia%20dhuit&format=mp3';
-        $http.get(url)
-            .then(function(response){
-            console.log(response);
-        }, function(error){
-            console.log(error);
-        });
 
 
         //--------------------------------------------------

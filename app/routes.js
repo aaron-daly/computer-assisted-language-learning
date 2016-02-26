@@ -1,11 +1,58 @@
 var passport = require('passport');
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
-
+var ConversationalScenario = require('../app/models/ConversationalScenario');
+var Question = require('../app/models/Question');
+var Answer = require('../app/models/Answer');
 
 // app/routes.js
 module.exports = function(app) {
 
+
+    // =========================================================================
+    // SCENARIOS ===============================================================
+
+    // add c type scenario (conversational)
+    app.post('/scenario/c/add', function(req, res, next) {
+
+        var cS = new ConversationalScenario({
+            name: req.body.name,
+            level: req.body.level,
+            conversation: req.body.questions
+        });
+
+        cS.save(function(err) {
+            if(err)
+                throw err;
+            return next(cS);
+        });
+    });
+
+    // get one scenario of type 'c'
+    app.post('/scenario/c', function(req, res, next) {
+
+        ConversationalScenario.findOne({ name: req.body.name }, function(err, cS) {
+            if(err)
+                throw err;
+            res.json(cS);
+        })
+    });
+
+    // get all scenarios of type 'c'
+    app.get('/scenario/c', function(req, res, next) {
+
+        ConversationalScenario.find(function(err, cS) {
+            if(err)
+                throw err;
+            res.json(cS);
+        });
+    });
+
+
+
+
+    // END OF SCENARIOS ========================================================
+    // =========================================================================
 
     // REGISTER
     app.post('/register', function(req, res, next) {
@@ -108,7 +155,6 @@ module.exports = function(app) {
     //GET ROLE BY ID
     app.post('/role/id', function(req, res, next) {
 
-        console.log('ROLE ' + req.body);
         Role.findOne({ _id: req.body.roleId }, function(err, role) {
             if(err)
                 throw err;
