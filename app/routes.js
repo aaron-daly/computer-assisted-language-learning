@@ -84,7 +84,7 @@ module.exports = function(app) {
 
             } else {
                 return res.status(401).json({
-                    message: 'Username already exists.'
+                    message: 'A user with that username already exists!'
                 });
             }
         })(req, res, next);
@@ -122,9 +122,8 @@ module.exports = function(app) {
             if(user) {
                 return res.json({ token: user.generateJWT() });
             } else {
-                console.log();
                 return res.status(401).json({
-                    message: 'Username does not exist.'
+                    message: 'Your username or password is incorrect.'
                 });
             }
         })(req, res, next);

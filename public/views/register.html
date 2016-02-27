@@ -23,11 +23,12 @@
         <div class="form-group">
             <label>Role</label>
             <select class="form-control" name="role" ng-model="role" required="required">
-                <option value="student">Student</option>
+                <option value="student" selected="selected">Student</option>
             </select>
         </div>
 
         <button type="submit" class="btn btn-info">Register</button>
     </form>
     <br>
+    <p id="error-message" class="text-danger"></p>
 </div>

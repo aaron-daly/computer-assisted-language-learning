@@ -13,9 +13,15 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$locat
                 username: $scope.username,
                 password: $scope.password
             }, function(error) {
-                console.log(error);
+                if(error) {
+                    $scope.displayError(error.message);
+                }
             });
 
-        }
+        };
+
+        $scope.displayError = function(error) {
+            $('#error-message').empty().append(error);
+        };
     }
 ]);

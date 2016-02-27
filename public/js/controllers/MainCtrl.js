@@ -1,6 +1,6 @@
 // public/js/controllers/MainCtrl.js
-angular.module('MainCtrl', []).controller('MainController', ['$scope', '$location',
-    function($scope, $location) {
+angular.module('MainCtrl', []).controller('MainController', ['$scope', '$location', 'token',
+    function($scope, $location, token) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -9,6 +9,10 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$locatio
         $scope.registerRedirect = function() {
 
             $location.path('/register');
+        };
+
+        $scope.isLoggedIn = function() {
+            return token.isLoggedIn();
         }
     }
 ]);

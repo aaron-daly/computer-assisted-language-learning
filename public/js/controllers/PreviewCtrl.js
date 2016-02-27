@@ -1,6 +1,6 @@
 // public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', 'scenario',
-    function($scope, $location, scenario) {
+angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', 'scenario', 'game',
+    function($scope, $location, scenario, game) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -16,6 +16,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
         // get scenario of type 'c' called 'sweetshop'
         scenario.get('c', 'sweetshop', function(data) {
+            console.log(data);
             $scope.scenario = data;
             questions = data.conversation;
         });
@@ -29,7 +30,6 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         $scope.mini3 = function() {
             $location.path('/mini3');
         };
-
 
         //-------------------------
         //--------FUNCTIONS--------

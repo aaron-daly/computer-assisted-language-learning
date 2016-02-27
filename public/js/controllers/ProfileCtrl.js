@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', 'token',
-    function($scope, $http, token) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token',
+    function($scope, $http, $location, token) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -26,7 +26,9 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
             });
 
-
+        $scope.goToGame = function() {
+            $location.path('/game');
+        };
 
     }
 ]);

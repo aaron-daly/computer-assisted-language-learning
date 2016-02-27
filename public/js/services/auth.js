@@ -7,37 +7,34 @@ angular.module('calliApp')
 
             return {
 
-                register: function(user) {
+                register: function(user, callback) {
                     return $http.post('/register', user)
                         .success(function(data) {
                             $location.path('/profile');
                             token.saveToken(data.token);
-
-                            console.log('successful registration: ' + token.currentUser());
                         })
-                        .error(function() {
+                        .error(function(error) {
+                            callback(error);
                             $location.path('/register');
                         });
                 },
 
-                login: function(user) {
+                login: function(user, callback) {
                     return $http.post('/login', user)
                         .success(function(data) {
                             token.saveToken(data.token);
                             $location.path('profile');
-                            console.log('successful login: ' + token.currentUser());
                         })
                         .error(function(error) {
-                            console.log('error: ' + error.message);
+                            callback(error);
                             $location.path('/login');
                         });
                 },
 
                 logout: function() {
-                    console.log('Successful log out: ' + token.currentUser());
                     token.removeToken();
                     $location.path('/');
-                },
+                }
                 /*
                 remove: function() {
                     return $http.post('/unregister', user)

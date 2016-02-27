@@ -8,6 +8,7 @@ angular.module('calliApp', [
     'PreviewCtrl',
     'Mini2Ctrl',
     'Mini3Ctrl',
+    'GameCtrl',
     'ProfileCtrl'
 ]).config(['$locationProvider', '$routeProvider',
     function ($locationProvider, $routeProvider) {
@@ -38,6 +39,11 @@ angular.module('calliApp', [
                 templateUrl: 'views/mini3.html',
                 controller: 'Mini3Controller'
             })
+            .when('/game', {
+                templateUrl: 'views/game.html',
+                controller: 'GameController',
+                restricted: true
+            })
             // register page
             .when('/register', {
                 templateUrl: 'views/register.html',
@@ -46,9 +52,26 @@ angular.module('calliApp', [
             // user profile page
             .when('/profile', {
                 templateUrl: 'views/profile.html',
-                controller: 'ProfileController'
+                controller: 'ProfileController',
+                restricted: true
+            })
+            .otherwise({
+                redirectTo: '/'
             });
+
         $locationProvider.html5Mode(true);
 
+    }
+]).run(['$rootScope', '$location', 'token',
+    function($rootScope, $location, token) {
+
+        //on route change, authenticate user is logged in for restricted pages
+        $rootScope.$on('$routeChangeStart', function(event, nextRoute) {
+            if(nextRoute.$$route.restricted) {
+                if(!token.isLoggedIn()) {
+                    $location.path('/login');
+                }
+            }
+        });
     }
 ]);
