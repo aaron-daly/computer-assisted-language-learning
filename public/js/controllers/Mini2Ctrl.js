@@ -29,59 +29,71 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                     "position": "1",
                     "answers": [
                         {
-                            "answer": "I am good",
+                            "answer": "sweetshop",
                             "branch": "2"
                         },
                         {
-                            "answer": "I am not well",
-                            "branch": "3"
+                            "answer": "library",
+                            "branch": "2"
                         },
                         {
-                            "answer": "idk",
-                            "branch": "0"
+                            "answer": "ospideal",
+                            "branch": "2"
                         }
                     ]//end "answers"
                 },
 
                 {
-                    "question": "That's good, would you like sweets?",
+                    "question": "is the shop keeper male or female?",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Yes",
-                            "branch": "4"
+                            "answer": "male",
+                            "branch": "3"
                         },
                         {
-                            "answer": "No",
-                            "branch": "0"
+                            "answer": "female",
+                            "branch": "3"
+                        },
+                        {
+                            "answer": "i dont understand",
+                            "branch": "3"
                         }
                     ] //end "answers"
                 },
 
                 {
-                    "question": "Oh no, would you like some sweets?",
+                    "question": "how many chocolate bars?",
                     "position": "3",
                     "answers": [
                         {
-                            "answer": "yes",
+                            "answer": "4",
                             "branch": "4"
                         },
                         {
-                            "answer": "no",
-                            "branch": "0"
+                            "answer": "3",
+                            "branch": "4"
+                        },
+                        {
+                            "answer": "2",
+                            "branch": "4"
                         }
                     ] //end "answers"
                 },
                 {
-                    "question": "What sweets would you like?",
+                    "question": "how many cakes",
                     "position": "4",
                     "answers": [
                         {
-                            "answer": "chocolate",
+                            "answer": "1",
                             "branch": "0"
                         },
                         {
-                            "answer": "bonbons",
+                            "answer": "3",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "2",
                             "branch": "0"
                         }
                     ] //end "answers"
@@ -95,7 +107,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
 
         $scope.recordedQuestions = [];
         $scope.recordedAnswers = [];
-        $scope.recordedCorrectAnswers = [];
+        $scope.recordedCorrectAnswers = ["sweetshop", "male","3","3"];
 
         //-------------------------
         //--------FUNCTIONS--------
@@ -135,13 +147,6 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             console.log('ANSWER RECORDED: ' + a);
             $scope.recordedAnswers.push(a);
         };
-
-        //RECORD ANSWER CHOSEN
-        $scope.recordCorrectAnswer = function(a) {
-            console.log('ANSWER RECORDED: ' + a);
-            $scope.recordedCorrectAnswers.push(a);
-        };
-
 
         //LOAD NEXT QUESTION WITH ANSWERS
         $scope.loadQuestion = function(pos) {
@@ -195,14 +200,18 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                 console.log("Q" + i + ": " + $scope.recordedQuestions[i]);
                 //STUDENTS ANSWER
                 console.log("A" + i + ": " + $scope.recordedAnswers[i]);
-                //CORRECT ANSWER
-                console.log("A" + i + ": " + $scope.recordedCorrectAnswers[i]);
 
-                $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
+
+                $scope.appendText('<h2 class="text-info" >', $scope.recordedQuestions[i]);
                 //STUDENTS ANSWER
-                $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
-                //CORRECT ANSWER
-                $scope.appendText('<h3 class="text-success">', $scope.recordedCorrectAnswers[i]);
+                if ($scope.recordedAnswers[i] != $scope.recordedCorrectAnswers[i]) {
+                    $scope.appendText('<h3 class="text-success", style= "color:red" >', $scope.recordedAnswers[i]);
+                } else {
+                    $scope.appendText('<h3 class="text-success", style="color:green ">', $scope.recordedAnswers[i]);
+                }
+
+
+
                 $('#mini2-body').append('<hr>');
             }
 
@@ -217,6 +226,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         $scope.replayGame = function() {
             $scope.recordedQuestions = [];
             $scope.recordedAnswers = [];
+            $scope.recordedCorrectAnswers = [];
             initialQuestion = 1;
             $('#mini2-body').empty();
             $('#mini2-header').show();

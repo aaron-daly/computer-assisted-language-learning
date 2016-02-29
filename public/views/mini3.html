@@ -8,22 +8,14 @@
         <h1>Mini Game 3</h1>
         <hr>
         <p class="text-info">Match the word to the picture!</p>
-
     </div>
     <div class="col-sm-6 col-sm-offset-3 text-center" xmlns="">
-        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-        <br>
-
-        <img id="drag1" src="../images/sweetshop.jpg" draggable="true" ondragstart="drag(event)" width="100" height="20">
+        <button id="play-button" class="btn btn-info" ng-click="initGame();">Mini-Game 3</button>
         <hr>
-        <div class="col-sm-6 col-sm-offset-3 text-center" xmlns="">
-            <button id="play-button" class="btn btn-info" ng-click="initGame();">Mini-Game 3</button>
-            <hr>
-            <button id="play2-button" class="btn btn-info" ng-click="result();">result</button>
-        </div>
+        <button id="play2-button" class="btn btn-info" ng-click="result();">result</button>
     </div>
     <div id="mini3-body">
+        <img id="drag1" src="../images/chocolate.jpg" draggable="true" ondragstart="drag(event)" width="100" height="100">
     </div>
     <button id="replay-button" class="btn btn-info" ng-click="replayGame();">Replay Game</button>
 </div>

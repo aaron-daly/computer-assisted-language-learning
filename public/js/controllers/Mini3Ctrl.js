@@ -38,7 +38,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             "level": "1",
             "questions":[
                 {
-                    "question": "Which word matches the image?",
+                    "question": "Is maith liom..?",
                     "position": "1",
                     "answers": [
                         {
@@ -47,11 +47,11 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                         },
                         {
                             "answer": "I am not well",
-                            "branch": "3"
+                            "branch": "2"
                         },
                         {
                             "answer": "idk",
-                            "branch": "0"
+                            "branch": "2"
                         }
                     ]//end "answers"
                 },
@@ -62,11 +62,15 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                     "answers": [
                         {
                             "answer": "Yes",
-                            "branch": "4"
+                            "branch": "3"
                         },
                         {
                             "answer": "No",
-                            "branch": "0"
+                            "branch": "3"
+                        },
+                        {
+                            "answer": "No",
+                            "branch": "3"
                         }
                     ] //end "answers"
                 },
@@ -81,7 +85,11 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                         },
                         {
                             "answer": "no",
-                            "branch": "0"
+                            "branch": "4"
+                        },
+                        {
+                            "answer": "no",
+                            "branch": "4"
                         }
                     ] //end "answers"
                 },
@@ -91,6 +99,10 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                     "answers": [
                         {
                             "answer": "chocolate",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "bonbons",
                             "branch": "0"
                         },
                         {
@@ -108,6 +120,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
 
         $scope.recordedQuestions = [];
         $scope.recordedAnswers = [];
+        $scope.recordedCorrectAnswers = ["idk", "chocolate", "yes", "no"];
 
         //-------------------------
         //--------FUNCTIONS--------
@@ -173,6 +186,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             else { //Answer chosen has no preceding question(s), conversation finished
                 $scope.finishGame();
             }
+
         };
 
         //RETRIEVE THE NEXT QUESTION DEPENDING ON THE IDTAG OF THE ANSWER CHOSEN FOR THE CURRENT QUESTION
@@ -202,7 +216,12 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                 console.log("A" + i + ": " + $scope.recordedAnswers[i]);
 
                 $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
-                $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
+                if($scope.recordedAnswers[i] != $scope.recordedCorrectAnswers[i]) {
+                    $scope.appendText('<h3 class="text-success", style = "color:red">', $scope.recordedAnswers[i]);
+                }
+                else {
+                    $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
+                }
                 $('#mini3-body').append('<hr>');
             }
 

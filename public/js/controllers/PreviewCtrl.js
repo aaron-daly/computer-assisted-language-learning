@@ -16,67 +16,81 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         };
         //TO BE DONE --- GET JSON FILES WORKING!!!!
         var scenario = {
-        "scenario": "sweetshop",
+        "scenario": "conversation",
             "level": "1",
             "questions":[
                 {
-                    "question": "How are you?",
+                    "question": "Conas ata tu?",
                     "position": "1",
                     "answers": [
                         {
-                            "answer": "I am good",
+                            "answer": "Ta me go maith",
                             "branch": "2"
                         },
                         {
-                            "answer": "I am not well",
+                            "answer": "Nil me go maith",
                             "branch": "3"
                         },
                         {
-                            "answer": "idk",
-                            "branch": "0"
+                            "answer": "Nil is agam",
+                            "branch": "3"
                         }
                     ]//end "answers"
                 },
 
                 {
-                    "question": "That's good, would you like sweets?",
+                    "question": "sin go maith, are maith leat milsean?",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Yes",
+                            "answer": "Se",
                             "branch": "4"
                         },
                         {
-                            "answer": "No",
-                            "branch": "0"
+                            "answer": "Nil",
+                            "branch": "5"
                         }
                     ] //end "answers"
                 },
 
                 {
-                    "question": "Oh no, would you like some sweets?",
+                    "question": "Bron orm, ar mhaith leat milsean?",
                     "position": "3",
                     "answers": [
                         {
-                            "answer": "yes",
+                            "answer": "Se",
                             "branch": "4"
                         },
                         {
-                            "answer": "no",
-                            "branch": "0"
+                            "answer": "Nil",
+                            "branch": "5"
                         }
                     ] //end "answers"
                 },
                 {
-                    "question": "What sweets would you like?",
+                    "question": "Cen milsean a mhaith leat?",
                     "position": "4",
                     "answers": [
                         {
-                            "answer": "chocolate",
+                            "answer": "siocloid",
+                            "branch": "5"
+                        },
+                        {
+                            "answer": "caca milise",
+                            "branch": "5"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Ar maith leat aon rud eile?",
+                    "position": "5",
+                    "answers": [
+                        {
+                            "answer": "Go raibh mile",
                             "branch": "0"
                         },
                         {
-                            "answer": "bonbons",
+                            "answer": "Slan go fol",
                             "branch": "0"
                         }
                     ] //end "answers"
