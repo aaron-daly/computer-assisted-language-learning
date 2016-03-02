@@ -31,8 +31,8 @@ angular.module('calliApp')
             };
 
             // get all scenarios of a particular type. Callback of scenarios' data received.
-            scenario.getAll = function(type, callback) {
-                $http.get('/scenario/' + type)
+            scenario.getAll = function(callback) {
+                $http.get('/scenarios')
                     .success(function(data){
                         callback(data);
                     })

@@ -4,15 +4,16 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('GameCtrl', []).controller('GameController', ['$scope', 'game',
-    function($scope, game) {
+angular.module('GameCtrl', []).controller('GameController', ['$scope', '$routeParams', '$location', 'game',
+    function($scope, $routeParams, $location, game) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
 
-        var scenarioType = 'c';
-        $scope.scenario = 'sweetshop';
+        $('#return-btn').hide();
+
+        $scope.scenario = game.scenario;
 
         $scope.drawAnswer = function(answer) {
             var html = '<button class="btn btn-info answer-btn" value="' + answer.branch + '">' + answer.answer + '</button>';
@@ -68,9 +69,16 @@ angular.module('GameCtrl', []).controller('GameController', ['$scope', 'game',
                 $('#answer-container').append(questionHTML).append(answerHTML);
             });
 
+            $('#return-btn').show();
+
         };
 
-        game.initGame(scenarioType, $scope.scenario, function(data) {
+        $scope.profileReturn = function() {
+            $location.path('/profile');
+        };
+
+
+        game.initGame(function(data) {
             $scope.drawQuestion(data);
 
             $('.answer-btn').click(function(){
@@ -85,5 +93,6 @@ angular.module('GameCtrl', []).controller('GameController', ['$scope', 'game',
             });
 
         });
+
     }
 ]);

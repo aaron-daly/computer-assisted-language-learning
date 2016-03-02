@@ -1,10 +1,11 @@
 
 <div id="game-screen" class="text-center">
 
-    <h1>Playing Scenario <span class="text-info">'{{scenario}}'</span></h1>
+    <h1>Playing Scenario <span class="text-info">'{{scenario.name}}'</span></h1>
     <div id="question-container">
         <h2 id="current-question" class="text-danger"></h2>
     </div>
     <div id="answer-container">
     </div>
+    <button id="return-btn" class="btn btn-info" ng-click="profileReturn()">Return to profile</button>
 </div>

@@ -43,14 +43,14 @@ angular.module('calliApp')
                     return user._id;
                 }
             };
-            /* NOT WORKING, MUST COME BACK TO
+
             token.currentUserRole = function(){
                 if(token.isLoggedIn()){
                     var userToken = token.getToken();
-                    var payload = JSON.parse($window.atob(userToken.split('.')[1]));
-                    return payload.role;
+                    var user = JSON.parse($window.atob(userToken.split('.')[1]));
+                    return user.role;
                 }
-            }; */
+            };
 
             return token;
         }

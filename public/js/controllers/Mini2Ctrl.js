@@ -20,12 +20,13 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             $location.path('/mini3');
         };
         //TO BE DONE --- GET JSON FILES WORKING!!!!
-        var scenario = {
-            "scenario": "picture",
+        var scenario =
+        {
+            "name": "conversationSample",
             "level": "1",
             "questions":[
                 {
-                    "question": "Whats in da foto?",
+                    "question": "Hi, how are you?",
                     "position": "1",
                     "answers": [
                         {
@@ -37,58 +38,55 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                             "branch": "3"
                         },
                         {
-                            "answer": "idk",
+                            "answer": "I don't want to talk",
                             "branch": "0"
                         }
-                    ]//end "answers"
+                    ]
                 },
 
                 {
-                    "question": "That's good, would you like sweets?",
+                    "question": "Great! Me too, what are you up to?",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Yes",
+                            "answer": "Chilling out",
                             "branch": "4"
                         },
                         {
-                            "answer": "No",
+                            "answer": "Busy studying",
                             "branch": "0"
                         }
-                    ] //end "answers"
+                    ]
                 },
 
                 {
-                    "question": "Oh no, would you like some sweets?",
+                    "question": "Ohh, how come?",
                     "position": "3",
                     "answers": [
                         {
-                            "answer": "yes",
+                            "answer": "I am sick",
                             "branch": "4"
                         },
                         {
-                            "answer": "no",
+                            "answer": "I don't want to talk about it",
                             "branch": "0"
                         }
-                    ] //end "answers"
+                    ]
                 },
                 {
-                    "question": "What sweets would you like?",
+                    "question": "Sorry to hear that, I'll leave you be, bye!",
                     "position": "4",
                     "answers": [
                         {
-                            "answer": "chocolate",
-                            "branch": "0"
-                        },
-                        {
-                            "answer": "bonbons",
+                            "answer": "Alright, goodbye",
                             "branch": "0"
                         }
-                    ] //end "answers"
+                    ]
                 }
 
-            ] //end "questions"
-        };
+            ]
+        }
+            ;
 
         var questions = scenario.questions;
         var initialQuestion = 1;

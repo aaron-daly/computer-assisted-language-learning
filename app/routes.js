@@ -12,8 +12,8 @@ module.exports = function(app) {
     // =========================================================================
     // SCENARIOS ===============================================================
 
-    // add c type scenario (conversational)
-    app.post('/scenario/c/add', function(req, res, next) {
+    // POST scenario type C
+    app.post('/scenario/add/c', function(req, res, next) {
 
         var cS = new ConversationalScenario({
             name: req.body.name,
@@ -28,27 +28,33 @@ module.exports = function(app) {
         });
     });
 
-    // get one scenario of type 'c'
-    app.post('/scenario/c', function(req, res, next) {
 
-        ConversationalScenario.findOne({ name: req.body.name }, function(err, cS) {
-            if(err)
-                throw err;
-            res.json(cS);
-        })
-    });
+    // GET all scenarios, callback array
+    app.get('/scenarios', function(req, res, next) {
 
-    // get all scenarios of type 'c'
-    app.get('/scenario/c', function(req, res, next) {
+        var scenarios = [];
+        var i = 0;
+        var len = 0;
 
         ConversationalScenario.find(function(err, cS) {
-            if(err)
+            if (err)
                 throw err;
-            res.json(cS);
+
+            len = cS.length;
+            for(i; i < len; i++) {
+                scenarios.push(cS[i]);
+            }
+
+            /* ADD NEXT Scenario type here
+                //AND NEXT ONE HERE
+                    //MAKE final res callback here (res.json(Scenarios))
+             */
+
+            res.json(scenarios);    //remove once other scenario types added
         });
+
+
     });
-
-
 
 
     // END OF SCENARIOS ========================================================
@@ -76,6 +82,9 @@ module.exports = function(app) {
                         if(err)
                             throw err;
                         nUser.setRole(role);
+                        if(req.body.creator) {
+                            nUser.setCreator(req.body.creator);
+                        }
                         nUser.save(function(err) {
                         })
                     });
@@ -108,7 +117,8 @@ module.exports = function(app) {
     });
     */
 
-    //LOGIN
+
+    //POST to login user
     app.post('/login', function(req, res, next) {
 
         if(!req.body.username || !req.body.password) {
@@ -128,17 +138,15 @@ module.exports = function(app) {
             }
         })(req, res, next);
     });
-
     function isLoggedIn(req, res, next) {
         if(req.isAuthenticated())
             return next();
         res.redirect('/');
     }
 
-    //ADD ROLE
+    //POST a role
     app.post('/role', function(req, res, next) {
 
-        console.log(req.body.type);
         var role = new Role({
             type: req.body.type,
             permission: req.body.permission
@@ -151,7 +159,7 @@ module.exports = function(app) {
         });
     });
 
-    //GET ROLE BY ID
+    //POST for a role by id
     app.post('/role/id', function(req, res, next) {
 
         Role.findOne({ _id: req.body.roleId }, function(err, role) {
@@ -161,6 +169,7 @@ module.exports = function(app) {
         })
     });
 
+    //GET all users
     app.get('/users', function(req, res, next) {
         User.find(function(err, users) {
             if(err)
@@ -169,6 +178,7 @@ module.exports = function(app) {
         })
     });
 
+    //POST for a user by username
     app.post('/user', function(req, res, next) {
         User.findOne({ username: req.body.username }, function(err, user) {
             if(err)
@@ -177,6 +187,7 @@ module.exports = function(app) {
         })
     });
 
+    //GET all roles
     app.get('/roles', function(req, res, next) {
         Role.find(function(err, roles) {
             if(err)
@@ -185,7 +196,10 @@ module.exports = function(app) {
         })
     });
 
+    // =======================================================================
+    // =======================================================================
+    // FINAL ROUTE TO INDEX.HTML
     app.get('*', function(req, res) {
-        res.sendfile('./public/views/index.html'); // load our public/index.html file
+        res.sendfile('./public/views/index.html');
     });
 };

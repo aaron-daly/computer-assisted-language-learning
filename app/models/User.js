@@ -7,7 +7,8 @@ var config = require('../../config/config');
 var UserSchema = mongoose.Schema({
     username: String,
     password: String,
-    role: { type: mongoose.Schema.Types.ObjectId, ref:'Role' }
+    role: { type: mongoose.Schema.Types.ObjectId, ref:'Role' },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 // generate hash
@@ -35,6 +36,10 @@ UserSchema.methods.generateJWT = function() {
 
 UserSchema.methods.setRole = function(role) {
     this.role = role._id;
+};
+
+UserSchema.methods.setCreator = function(creator) {
+  this.creator = creator;
 };
 
 module.exports = mongoose.model('User', UserSchema);

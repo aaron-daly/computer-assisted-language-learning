@@ -10,12 +10,16 @@ angular.module('calliApp')
                 register: function(user, callback) {
                     return $http.post('/register', user)
                         .success(function(data) {
-                            $location.path('/profile');
-                            token.saveToken(data.token);
+                            if(!token.getToken()) {
+                                $location.path('/profile');
+                                token.saveToken(data.token);
+                            }
                         })
                         .error(function(error) {
+                            if(!token.getToken()) {
+                                $location.path('/register');
+                            }
                             callback(error);
-                            $location.path('/register');
                         });
                 },
 
