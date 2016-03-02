@@ -20,50 +20,46 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             "level": "1",
             "questions":[
                 {
-                    "question": "Conas ata tu?",
+                    "question": "Dia duit",
                     "position": "1",
                     "answers": [
                         {
-                            "answer": "Ta me go maith",
+                            "answer": "Dia is muire duit",
                             "branch": "2"
-                        },
-                        {
-                            "answer": "Nil me go maith",
-                            "branch": "3"
-                        },
-                        {
-                            "answer": "Nil is agam",
-                            "branch": "3"
                         }
                     ]//end "answers"
                 },
 
                 {
-                    "question": "sin go maith, are maith leat milsean?",
+                    "question": "An raibh tu ar scoil innu?",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Se",
-                            "branch": "4"
+                            "answer": "Bhi me ar scoil innu",
+                            "branch": "3"
                         },
                         {
-                            "answer": "Nil",
-                            "branch": "5"
+                            "answer": "Ni raibh me ar scoil innu",
+                            "branch": "3"
                         }
                     ] //end "answers"
                 },
 
                 {
-                    "question": "Bron orm, ar mhaith leat milsean?",
+                    "question": "An maith leat milsean?",
                     "position": "3",
                     "answers": [
                         {
-                            "answer": "Se",
+                            "answer": "Is maith liom milsean",
                             "branch": "4"
                         },
                         {
-                            "answer": "Nil",
+                            "answer": "Ni maith liom milsean",
                             "branch": "5"
+                        },
+                        {
+                            "answer": "Is fearr liom seaclaid",
+                            "branch": "6"
                         }
                     ] //end "answers"
                 },
@@ -72,21 +68,79 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
                     "position": "4",
                     "answers": [
                         {
-                            "answer": "siocloid",
-                            "branch": "5"
+                            "answer": "brioscai",
+                            "branch": "6"
                         },
                         {
                             "answer": "caca milise",
-                            "branch": "5"
+                            "branch": "6"
+                        },
+                        {
+                            "answer": "criospai",
+                            "branch": "6"
                         }
                     ] //end "answers"
                 },
                 {
-                    "question": "Ar maith leat aon rud eile?",
+                    "question": "Ar maith leat deoch?",
                     "position": "5",
                     "answers": [
                         {
-                            "answer": "Go raibh mile",
+                            "answer": "D'ol me coc",
+                            "branch": "6"
+                        },
+                        {
+                            "answer": "D'ol me bainne",
+                            "branch": "6"
+                        },
+                        {
+                            "answer": "Is fearr liom uachtar roeite",
+                            "branch": "6"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Seo dhuit, An bhfuil airgead agat?",
+                    "position": "6",
+                    "answers": [
+                        {
+                            "answer": "Ta airgead agam",
+                            "branch": "7"
+                        },
+                        {
+                            "answer": "Seo dhuit an t-airgead",
+                            "branch": "7"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Ar mhaith leat mala?",
+                    "position": "7",
+                    "answers": [
+                        {
+                            "answer": "Ba maith liom mala",
+                            "branch": "8"
+                        },
+                        {
+                            "answer": "Nior mhaith liom mala",
+                            "branch": "8"
+                        },
+                        {
+                            "answer": "Is feidir liom iad a ithe anois",
+                            "branch": "8"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Go raibh maith agat, Slan",
+                    "position": "8",
+                    "answers": [
+                        {
+                            "answer": "Slan",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "Go raibh maith agat",
                             "branch": "0"
                         },
                         {
@@ -95,6 +149,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
                         }
                     ] //end "answers"
                 }
+
 
             ] //end "questions"
         };

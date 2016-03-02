@@ -237,6 +237,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
 
         //INITIALISE VIEW
         $scope.init = function() {
+
             $('#mini2-container').hide();
             $('#mini2-body').hide();
             $('#replay-button').hide();

@@ -15,12 +15,31 @@ html,body {
 #container {
     min-height: 100%;
     position: relative;
+
 }
 
 #content {
     padding-bottom: 60px; /*MUST AT LEAST SAME AS FOOTER HEIGHT!*/
-}
 
+}
+#mini3-content {
+ 
+}
+#mini2-content {
+
+}
+#preview-content {
+    background-image: url(../images/candy.jpg);
+
+}
+#preview-body {
+     background-color:white;
+
+ }
+#preview-container {
+    background-color:white;
+
+}
 .navbar-inverse {
     margin-bottom: 60px;
 }
@@ -41,13 +60,16 @@ html,body {
 .glyphicon.glyphicon-user {
     font-size: 40px;
     float: left;
-    color: #00b3ee;
 }
 .glyphicon.glyphicon-search {
     font-size: 40px;
     float: left;
 }
 .glyphicon.glyphicon-pencil {
+    font-size: 40px;
+    float: left;
+}
+.glyphicon.glyphicon-volume-up {
     font-size: 40px;
     float: left;
 }

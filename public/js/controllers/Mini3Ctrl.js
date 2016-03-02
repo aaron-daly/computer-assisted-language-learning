@@ -38,7 +38,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             "level": "1",
             "questions":[
                 {
-                    "question": "Is maith liom..?",
+                    "question": "Is maith liom ",
                     "position": "1",
                     "answers": [
                         {
