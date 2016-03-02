@@ -167,7 +167,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
         //APPEND HTML FOR A QUESTION
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#preview-body').append('<h1>' + q + '</h1>');
+            $('#preview-body').append('<img src="../images/avatar.jpg" alt="sweetshop.jpg" style="width:300px;height:275px;">' + '<h1>' + q + '</h1>');
             $scope.recordQuestion(q);
         };
 

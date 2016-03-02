@@ -23,13 +23,20 @@ html,body {
 
 }
 #mini3-content {
-
+    background-image: url(../images/puzzle.jpg);
+}
+#mini3-container {
+    background-color:white;
 }
 #mini2-content {
+    background-image: url(../images/background5.jpg);
+}
+#mini2-container {
 
+    background-color:white;
 }
 #preview-content {
-    background-image: url(../images/background1.jpg);
+    background-image: url(../images/clouds.jpg);
 
 }
 #preview-body {
@@ -37,6 +44,7 @@ html,body {
 
  }
 #preview-container {
+
     background-color:white;
 
 }

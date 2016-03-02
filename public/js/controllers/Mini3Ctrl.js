@@ -282,16 +282,31 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                 console.log("A" + i + ": " + $scope.recordedAnswers[i]);
 
                 if(i==0) {
-                    $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i] + '<img src="../images/cookies.jpg" style="width:50px;height:50px;display:inline;"/>');
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/cookies.jpg" style="width:50px;height:50px;display:inline;"/>');
                 }
-                else {
-                    $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
+                if(i==1) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/chocolate.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==2) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/cake.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==3) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/icecream.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==4) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/crisps.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==5) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/candy.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==6) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/milk.jpg" style="width:50px;height:50px;display:inline;"/>');
                 }
                 if($scope.recordedAnswers[i] != $scope.recordedCorrectAnswers[i]) {
-                    $scope.appendText('<h3 class="text-success", style = "color:red">', $scope.recordedAnswers[i]);
+                    $scope.appendText('<h3 class="text-success", style = "color:red">', $scope.recordedAnswers[i] + '<span class="glyphicon glyphicon-remove"></span>');
                 }
                 else {
-                    $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
+                    $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]+ '<span class="glyphicon glyphicon-ok"></span>');
                 }
                 $('#mini3-body').append('<hr>');
             }

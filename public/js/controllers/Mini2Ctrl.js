@@ -116,7 +116,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         //APPEND HTML FOR A QUESTION
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#mini2-body').append('<img src="../images/sweetshop.jpg" alt="sweetshop.jpg" style="width:300px;height:200px;">' + '<h1>' + q + '</h1>');
+            $('#mini2-body').append('<img src="../images/sweetshop.jpg" alt="sweetshop.jpg" style="width:400px;height:275px;">' + '<h1>' + q + '</h1>');
             $scope.recordQuestion(q);
         };
 
@@ -205,9 +205,9 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                 $scope.appendText('<h2 class="text-info" >', $scope.recordedQuestions[i]);
                 //STUDENTS ANSWER
                 if ($scope.recordedAnswers[i] != $scope.recordedCorrectAnswers[i]) {
-                    $scope.appendText('<h3 class="text-success", style= "color:red" >', $scope.recordedAnswers[i]);
+                    $scope.appendText('<h3 class="text-success", style= "color:red" >', $scope.recordedAnswers[i] +'<span class="glyphicon glyphicon-remove"></span>');
                 } else {
-                    $scope.appendText('<h3 class="text-success", style="color:green ">', $scope.recordedAnswers[i]);
+                    $scope.appendText('<h3 class="text-success", style="color:green ">', $scope.recordedAnswers[i] + '<span class="glyphicon glyphicon-ok"></span>');
                 }
 
 
