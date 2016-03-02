@@ -261,6 +261,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
             $('#preview-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
+            $('#next-button').fadeIn('slow');
         };
 
 
@@ -272,6 +273,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             $('#preview-body').empty();
             $('#preview-header').show();
             $('#replay-button').hide();
+            $('#next-button').hide();
             $scope.init();
         };
 
@@ -281,6 +283,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             $('#preview-container').hide();
             $('#preview-body').hide();
             $('#replay-button').hide();
+            $('#next-button').hide();
             $('#preview-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");

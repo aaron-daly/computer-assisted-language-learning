@@ -315,6 +315,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
 
             $('#mini3-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
+            $('#results-button').fadeIn('slow');
         };
 
 
@@ -326,6 +327,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             $('#mini3-body').empty();
             $('#mini3-header').show();
             $('#replay-button').hide();
+            $('#results-button').hide();
             $scope.init();
         };
 
@@ -335,6 +337,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             $('#mini3-container').hide();
             $('#mini3-body').hide();
             $('#replay-button').hide();
+            $('#results-button').hide();
             $('#mini3-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");
