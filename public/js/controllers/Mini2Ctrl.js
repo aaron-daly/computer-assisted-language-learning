@@ -116,7 +116,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         //APPEND HTML FOR A QUESTION
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#mini2-body').append('<h1>' + q + '</h1>');
+            $('#mini2-body').append('<img src="../images/sweetshop.jpg" alt="sweetshop.jpg" style="width:300px;height:200px;">' + '<h1>' + q + '</h1>');
             $scope.recordQuestion(q);
         };
 
