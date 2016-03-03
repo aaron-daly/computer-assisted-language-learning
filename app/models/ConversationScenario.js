@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 
-var ConversationalScenarioSchema = new mongoose.Schema({
+var ConversationScenarioSchema = new mongoose.Schema({
 
     name: {type: String, unique: true, required: true},
     level: Number,
@@ -18,7 +18,7 @@ var ConversationalScenarioSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('ConversationalScenario', ConversationalScenarioSchema);
+module.exports = mongoose.model('ConversationScenario', ConversationScenarioSchema);
 
 /* EXAMPLE ----------------------------
 var sweetshop = {

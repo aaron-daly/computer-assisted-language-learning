@@ -4,8 +4,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('GameCtrl', []).controller('GameController', ['$scope', '$routeParams', '$location', 'game',
-    function($scope, $routeParams, $location, game) {
+angular.module('ConversationGameCtrl', []).controller('ConversationGameController', ['$scope', '$routeParams', '$location', 'conversationGame',
+    function($scope, $routeParams, $location, conversationGame) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -13,7 +13,7 @@ angular.module('GameCtrl', []).controller('GameController', ['$scope', '$routePa
 
         $('#return-btn').hide();
 
-        $scope.scenario = game.scenario;
+        $scope.scenario = conversationGame.scenario;
 
         $scope.drawAnswer = function(answer) {
             var html = '<button class="btn btn-info answer-btn" value="' + answer.branch + '">' + answer.answer + '</button>';
@@ -35,7 +35,7 @@ angular.module('GameCtrl', []).controller('GameController', ['$scope', '$routePa
         };
 
         $scope.tick = function(answer){
-            game.tick(answer, function(data) {
+            conversationGame.tick(answer, function(data) {
 
                 $scope.clearScreen();
 
@@ -78,7 +78,7 @@ angular.module('GameCtrl', []).controller('GameController', ['$scope', '$routePa
         };
 
 
-        game.initGame(function(data) {
+        conversationGame.initGame(function(data) {
             $scope.drawQuestion(data);
 
             $('.answer-btn').click(function(){

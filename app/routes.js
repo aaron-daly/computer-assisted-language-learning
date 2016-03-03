@@ -1,7 +1,7 @@
 var passport = require('passport');
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
-var ConversationalScenario = require('../app/models/ConversationalScenario');
+var ConversationScenario = require('models/ConversationScenario');
 var Question = require('../app/models/Question');
 var Answer = require('../app/models/Answer');
 
@@ -15,7 +15,7 @@ module.exports = function(app) {
     // POST scenario type C
     app.post('/scenario/add/c', function(req, res, next) {
 
-        var cS = new ConversationalScenario({
+        var cS = new ConversationScenario({
             name: req.body.name,
             level: req.body.level,
             conversation: req.body.questions
@@ -36,7 +36,7 @@ module.exports = function(app) {
         var i = 0;
         var len = 0;
 
-        ConversationalScenario.find(function(err, cS) {
+        ConversationScenario.find(function(err, cS) {
             if (err)
                 throw err;
 

@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'game', 'teacher',
-    function($scope, $http, $location, token, auth, game, teacher) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'conversationGame', 'teacher',
+    function($scope, $http, $location, token, auth, conversationGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -11,7 +11,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.user = {};
         $scope.role = {};
 
-        var scenarios = game.scenarioListNames();
+        var conversationGames = conversationGame.scenarioListNames();
 
         //get current user
         $http.post('/user', { username: token.currentUser() })
@@ -29,15 +29,20 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             });
 
         //append buttons for scenarios to play
-        $.each(scenarios, function(key, scenarioName) {
-            var btn = '<button class="btn btn-info scenario-btn">' + scenarioName +  '</button>';
+        $.each(conversationGames, function(key, scenarioName) {
+            console.log(scenarioName);
+            var btn = '<button class="btn btn-info scenario-btn" value="c">' + scenarioName +  '</button>';
             $('#scenario-container').append(btn);
         });
 
 
         //listen for scenario-btn click
         $('.scenario-btn').on('click', function() {
-            $location.path('/game/:' + $(this).text());
+            console.log($(this).val());
+            if($(this).val() === 'c') {
+                $location.path('/conversationGame/:' + $(this).text());
+            }
+
             $scope.$apply();
         });
 
@@ -77,15 +82,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             console.log(message);
         }
 
-        var input = 'dia duit, conas ata tu';
-
-        $http.post('http://www.abair.tcd.ie/api/?input=' + input + '&format=wav')
-            .success(function(data) {
-                console.log(data);
-            })
-            .error(function(error) {
-                console.log(error);
-            });
 
         // ======================= END TEACHER CONTAINER ======================
     }
