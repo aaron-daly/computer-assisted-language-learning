@@ -20,12 +20,13 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             $location.path('/mini3');
         };
         //TO BE DONE --- GET JSON FILES WORKING!!!!
-        var scenario = {
-            "scenario": "picture",
+        var scenario =
+        {
+            "name": "conversationSample",
             "level": "1",
             "questions":[
                 {
-                    "question": "Whats in da foto?",
+                    "question": "Hi, how are you?",
                     "position": "1",
                     "answers": [
                         {
@@ -37,13 +38,16 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                             "branch": "2"
                         },
                         {
+
                             "answer": "ospideal",
                             "branch": "2"
+
                         }
-                    ]//end "answers"
+                    ]
                 },
 
                 {
+
                     "question": "is the shop keeper male or female?",
                     "position": "2",
                     "answers": [
@@ -59,10 +63,11 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                             "answer": "i dont understand",
                             "branch": "3"
                         }
-                    ] //end "answers"
+                    ]
                 },
 
                 {
+
                     "question": "how many chocolate bars?",
                     "position": "3",
                     "answers": [
@@ -78,9 +83,10 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                             "answer": "2",
                             "branch": "4"
                         }
-                    ] //end "answers"
+                    ]
                 },
                 {
+
                     "question": "how many cakes",
                     "position": "4",
                     "answers": [
@@ -94,13 +100,15 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                         },
                         {
                             "answer": "2",
+
                             "branch": "0"
                         }
-                    ] //end "answers"
+                    ]
                 }
 
-            ] //end "questions"
-        };
+            ]
+        }
+            ;
 
         var questions = scenario.questions;
         var initialQuestion = 1;

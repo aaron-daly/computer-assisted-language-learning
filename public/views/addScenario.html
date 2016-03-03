@@ -1,0 +1,19 @@
+<div class="col-sm-6 col-sm-offset-3 text-center">
+    <h1>Add Scenario JSON below</h1>
+    <form name="register-form" ng-submit="submitScenario()" role="form">
+
+        <div class="form-group">
+            <label>JSON Text</label>
+            <textarea class="form-control" name="scenarioJSON" ng-model="scenarioJSON" rows="10" cols="30" required="required"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Scenario Type</label>
+            <select class="form-control" name="type" ng-model="type" required="required">
+                <option value="c" selected="selected">Conversational</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-info">Add Scenario</button>
+    </form>
+</div>

@@ -1,10 +1,26 @@
 // public/js/controllers/PreviewCtrl.js
-angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', '$http',
-    function($scope,$location) {
+angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$location', 'scenario', 'game',
+    function($scope, $location, scenario, game) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
+
+        $scope.scenario = {};
+
+        var questions = [];
+        var initialQuestion = 1;
+
+        $scope.recordedQuestions = [];
+        $scope.recordedAnswers = [];
+
+        // get scenario of type 'c' called 'sweetshop'
+        scenario.get('c', 'sweetshop', function(data) {
+            console.log(data);
+            $scope.scenario = data;
+            questions = data.conversation;
+        });
+
         $scope.preview = function() {
             $location.path('/preview');
         };
@@ -235,7 +251,7 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
 
         //INITIALISE MINI-GAME
         $scope.initGame = function() { //initiate preview game
-            $('button').hide();
+            $('#play-button').hide();
             $scope.loadQuestion(initialQuestion); //load initial question
         };
 
@@ -288,6 +304,9 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");
         };
+
+
+        var url = 'http://www.abair.tcd.ie/api/?input=dia%20dhuit&format=mp3';
 
 
         //--------------------------------------------------

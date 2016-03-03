@@ -5,8 +5,10 @@ var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
 
 var UserSchema = mongoose.Schema({
-    username     : String,
-    password     : String
+    username: String,
+    password: String,
+    role: { type: mongoose.Schema.Types.ObjectId, ref:'Role' },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 // generate hash
@@ -21,7 +23,6 @@ UserSchema.methods.validPassword = function(password) {
 
 UserSchema.methods.generateJWT = function() {
 
-    // set expiration to 60 days
     var today = new Date();
     var exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -31,6 +32,14 @@ UserSchema.methods.generateJWT = function() {
         username: this.username,
         exp: parseInt(exp.getTime() / 1000)
     }, config.secret);
+};
+
+UserSchema.methods.setRole = function(role) {
+    this.role = role._id;
+};
+
+UserSchema.methods.setCreator = function(creator) {
+  this.creator = creator;
 };
 
 module.exports = mongoose.model('User', UserSchema);

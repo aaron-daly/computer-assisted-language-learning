@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <base href="/">
 
-    <title>CALL For Irish</title>
+    <title>Calli</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- link rel="shortcut icon" href="../img/favicon.ico"/ -->
+    <link rel="shortcut icon" href="../images/favicon.ico">
 
     <!-- CSS -->
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
@@ -30,22 +30,37 @@
     <script src="js/controllers/Mini2Ctrl.js"></script>
     <script src="js/controllers/Mini3Ctrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
+    <script src="js/controllers/GameCtrl.js"></script>
+    <script src="js/controllers/AddScenario.js"></script>
     <script src="js/app.js"></script>
 
     <!-- ANGULAR SERVICES-->
     <script src="js/services/auth.js"></script>
     <script src="js/services/token.js"></script>
-    <script src="js/services/error.js"></script>
+    <script src="js/services/scenario.js"></script>
+    <script src="js/services/game.js"></script>
 
     <!-- ANGULAR ROUTES-->
 
     <!-- NAVBAR COLLAPSE HANDLER -->
     <script type="text/javascript">
-        $(document).on('click','.navbar-collapse.in',function(e) {
-            if( $(e.target).is('a') ) {
+
+        /*
+        $(document).on('click','.navbar-collapse.in',function(event) {
+            if($(event.target).is('a')) {
                 $(this).collapse('hide');
             }
         });
+        */
+
+        $(document).ready(function() {
+            $(document).click(function(event) {
+                var navOpen = $('.navbar-collapse').hasClass('in');
+                if(navOpen) {
+                    $('button.navbar-toggle').click();
+                }
+            })
+        })
     </script>
 </head>
 
@@ -69,7 +84,7 @@
             <div class="collapse navbar-collapse" id="nav-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="/preview">Preview</a></li>
+                    <li ng-if="isLoggedIn()"><a href="/profile">Profile</a></li>
                     <li ng-if="!isLoggedIn()"><a href="/login">Login</a></li>
                     <li ng-if="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
 

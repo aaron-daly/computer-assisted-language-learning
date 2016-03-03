@@ -1,3 +1,51 @@
 <div class="text-center">
-    <h1><span class="text-success">{{ user }}</span> profile page</h1>
+    <h1>User: <span class="text-success">{{ user.username }}</span></h1>
+    <hr>
+    <h2>Role: <span class="text-success">{{ role.type }}</span></h2>
+    <hr>
 </div>
+
+
+<section id="student-container" ng-show="role.type == 'student'">
+    <div class="text-center">
+        <h2>Available Games:</h2>
+        <div id="scenario-container"></div>
+    </div>
+</section>
+
+
+<section id="teacher-container" ng-show=" role.type == 'teacher' ">
+
+    <div class="col-sm-4 col-sm-offset-1">
+        <h2>Register Pupils Below</h2>
+
+        <form id="register-pupil-form" ng-submit="registerPupil()" role="form">
+            <div class="form-group">
+                <label>Pupil Name</label>
+                <input type="text"
+                       class="form-control"
+                       name="pupilName"
+                       ng-model="pupilName"
+                       required="required">
+            </div>
+            <button type="submit" class="btn btn-info">Register Pupil</button>
+        </form>
+        <hr>
+        <p class="text-info">Note: Your pupil's login username(s) will be '{{ user.username }}' plus the specified name, for example: '{{ user.username }}sean'.</p>
+    </div>
+
+    <div class="col-sm-4 col-sm-offset-2 text-center">
+        <h2>Current Pupils</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+            </thead>
+            <tr ng-repeat="pupil in pupils">
+                <td class="text-left">{{pupil.name}}</td>
+            </tr>
+        </table>
+        <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+    </div>
+
+</section>
