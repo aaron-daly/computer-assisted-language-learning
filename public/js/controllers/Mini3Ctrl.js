@@ -20,81 +20,135 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
         $scope.results = function () {
             $location.path('/results');
         };
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-        function drag(event) {
-            event.dataTransfer = 'text';
-            event.dataTransfer.setData('text',event.target.id);
-        }
-        function drop(event) {
-            event.preventDefault();
-            var data =event.dataTransfer.getData('text');
-            event.target.appendChild(document.getElementById(data));
-        }
         //TO BE DONE --- GET JSON FILES WORKING!!!!
         var scenario = {
             "scenario": "picture",
             "level": "1",
             "questions":[
                 {
-                    "question": "Which word matches the image?",
+                    "question": "Is maith liom ",
                     "position": "1",
                     "answers": [
                         {
-                            "answer": "I am good",
+                            "answer": "seaclaid",
                             "branch": "2"
                         },
                         {
-                            "answer": "I am not well",
-                            "branch": "3"
+                            "answer": "brioscai",
+                            "branch": "2"
                         },
                         {
-                            "answer": "idk",
-                            "branch": "0"
+                            "answer": "caca milis",
+                            "branch": "2"
                         }
                     ]//end "answers"
                 },
 
                 {
-                    "question": "That's good, would you like sweets?",
+                    "question": "Is fearr liom ",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Yes",
-                            "branch": "4"
+                            "answer": "seaclaid",
+                            "branch": "3"
                         },
                         {
-                            "answer": "No",
-                            "branch": "0"
+                            "answer": "criospai",
+                            "branch": "3"
+                        },
+                        {
+                            "answer": "milsean",
+                            "branch": "3"
                         }
                     ] //end "answers"
                 },
 
                 {
-                    "question": "Oh no, would you like some sweets?",
+                    "question": "D'ith me ",
                     "position": "3",
                     "answers": [
                         {
-                            "answer": "yes",
+                            "answer": "bainne",
                             "branch": "4"
                         },
                         {
-                            "answer": "no",
-                            "branch": "0"
+                            "answer": "caca milis",
+                            "branch": "4"
+                        },
+                        {
+                            "answer": "uisce",
+                            "branch": "4"
                         }
                     ] //end "answers"
                 },
                 {
-                    "question": "What sweets would you like?",
+                    "question": "Thug siad  ",
                     "position": "4",
                     "answers": [
                         {
-                            "answer": "chocolate",
-                            "branch": "0"
+                            "answer": "uachtar reoite",
+                            "branch": "5"
                         },
                         {
                             "answer": "bonbons",
+                            "branch": "5"
+                        },
+                        {
+                            "answer": "criospai",
+                            "branch": "5"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Ni raibh me ag ithe ",
+                    "position": "5",
+                    "answers": [
+                        {
+                            "answer": "uachtar reoite",
+                            "branch": "6"
+                        },
+                        {
+                            "answer": "bonbons",
+                            "branch": "6"
+                        },
+                        {
+                            "answer": "criospai",
+                            "branch": "6"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Pioc me alan",
+                    "position": "6",
+                    "answers": [
+                        {
+                            "answer": "uachtar reoite",
+                            "branch": "7"
+                        },
+                        {
+                            "answer": "milsean",
+                            "branch": "7"
+                        },
+                        {
+                            "answer": "criospai",
+                            "branch": "7"
+                        }
+                    ] //end "answers"
+                },
+                {
+                    "question": "Bhi pol ag ol ",
+                    "position": "7",
+                    "answers": [
+                        {
+                            "answer": "uachtar reoite",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "bainne",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "criospai",
                             "branch": "0"
                         }
                     ] //end "answers"
@@ -108,15 +162,40 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
 
         $scope.recordedQuestions = [];
         $scope.recordedAnswers = [];
+        $scope.recordedCorrectAnswers = ["brioscai", "seaclaid", "caca milis", "uachtar reoite", "criospai","milsean","bainne"];
 
         //-------------------------
         //--------FUNCTIONS--------
 
 
         //APPEND HTML FOR A QUESTION
+        var x = 1;
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#mini3-body').append('<h1>' + q + '</h1>');
+
+            if(x==1) {
+                //if (number q then pic image accordingly)
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/cookies.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            if(x==2){
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/chocolate.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            if(x==3){
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/cake.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            if(x==4){
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/icecream.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            if(x==5){
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/crisps.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            if(x==6){
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/candy.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            if(x==7){
+                $('#mini3-body').append('<h1>' + q + '<img src="../images/milk.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h1>');
+            }
+            x++;
             $scope.recordQuestion(q);
         };
 
@@ -173,6 +252,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             else { //Answer chosen has no preceding question(s), conversation finished
                 $scope.finishGame();
             }
+
         };
 
         //RETRIEVE THE NEXT QUESTION DEPENDING ON THE IDTAG OF THE ANSWER CHOSEN FOR THE CURRENT QUESTION
@@ -189,7 +269,11 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
         };
 
         //FINISH GAME, DISPLAY RESULTS
+
         $scope.finishGame = function() {
+            $(document).ready(function () {
+                $(this).scrollTop(0);
+            });
             console.log('GAME FINISHED');
             var i = 0;
             var len = $scope.recordedQuestions.length;
@@ -201,8 +285,33 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
                 console.log("Q" + i + ": " + $scope.recordedQuestions[i]);
                 console.log("A" + i + ": " + $scope.recordedAnswers[i]);
 
-                $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
-                $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
+                if(i==0) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/cookies.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==1) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/chocolate.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==2) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/cake.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==3) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/icecream.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==4) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/crisps.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==5) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/candy.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if(i==6) {
+                    $scope.appendText('<h2 class="text-info">', '<img src="../images/milk.jpg" style="width:50px;height:50px;display:inline;"/>');
+                }
+                if($scope.recordedAnswers[i] != $scope.recordedCorrectAnswers[i]) {
+                    $scope.appendText('<h3 class="text-success", style = "color:red">', $scope.recordedAnswers[i] + '<span class="glyphicon glyphicon-remove"></span>');
+                }
+                else {
+                    $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]+ '<span class="glyphicon glyphicon-ok"></span>');
+                }
                 $('#mini3-body').append('<hr>');
             }
 
@@ -210,6 +319,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
 
             $('#mini3-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
+            $('#results-button').fadeIn('slow');
         };
 
 
@@ -221,6 +331,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             $('#mini3-body').empty();
             $('#mini3-header').show();
             $('#replay-button').hide();
+            $('#results-button').hide();
             $scope.init();
         };
 
@@ -230,6 +341,7 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
             $('#mini3-container').hide();
             $('#mini3-body').hide();
             $('#replay-button').hide();
+            $('#results-button').hide();
             $('#mini3-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");

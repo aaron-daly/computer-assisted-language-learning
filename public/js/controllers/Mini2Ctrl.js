@@ -30,55 +30,77 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
                     "position": "1",
                     "answers": [
                         {
-                            "answer": "I am good",
+                            "answer": "sweetshop",
                             "branch": "2"
                         },
                         {
-                            "answer": "I am not well",
-                            "branch": "3"
+                            "answer": "library",
+                            "branch": "2"
                         },
                         {
-                            "answer": "I don't want to talk",
-                            "branch": "0"
+
+                            "answer": "ospideal",
+                            "branch": "2"
+
                         }
                     ]
                 },
 
                 {
-                    "question": "Great! Me too, what are you up to?",
+
+                    "question": "is the shop keeper male or female?",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Chilling out",
-                            "branch": "4"
+                            "answer": "male",
+                            "branch": "3"
                         },
                         {
-                            "answer": "Busy studying",
-                            "branch": "0"
+                            "answer": "female",
+                            "branch": "3"
+                        },
+                        {
+                            "answer": "i dont understand",
+                            "branch": "3"
                         }
                     ]
                 },
 
                 {
-                    "question": "Ohh, how come?",
+
+                    "question": "how many chocolate bars?",
                     "position": "3",
                     "answers": [
                         {
-                            "answer": "I am sick",
+                            "answer": "4",
                             "branch": "4"
                         },
                         {
-                            "answer": "I don't want to talk about it",
-                            "branch": "0"
+                            "answer": "3",
+                            "branch": "4"
+                        },
+                        {
+                            "answer": "2",
+                            "branch": "4"
                         }
                     ]
                 },
                 {
-                    "question": "Sorry to hear that, I'll leave you be, bye!",
+
+                    "question": "how many cakes",
                     "position": "4",
                     "answers": [
                         {
-                            "answer": "Alright, goodbye",
+                            "answer": "1",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "3",
+                            "branch": "0"
+                        },
+                        {
+                            "answer": "2",
+
                             "branch": "0"
                         }
                     ]
@@ -93,6 +115,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
 
         $scope.recordedQuestions = [];
         $scope.recordedAnswers = [];
+        $scope.recordedCorrectAnswers = ["sweetshop", "male","3","3"];
 
         //-------------------------
         //--------FUNCTIONS--------
@@ -101,7 +124,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         //APPEND HTML FOR A QUESTION
         $scope.appendQuestion = function(q) {
             console.log('appending QS: ' + q);
-            $('#mini2-body').append('<h1>' + q + '</h1>');
+            $('#mini2-body').append('<img src="../images/sweetshop.jpg" alt="sweetshop.jpg" style="width:400px;height:275px;">' + '<h1>' + q + '</h1>');
             $scope.recordQuestion(q);
         };
 
@@ -132,7 +155,6 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             console.log('ANSWER RECORDED: ' + a);
             $scope.recordedAnswers.push(a);
         };
-
 
         //LOAD NEXT QUESTION WITH ANSWERS
         $scope.loadQuestion = function(pos) {
@@ -174,6 +196,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         };
 
         //FINISH GAME, DISPLAY RESULTS
+
         $scope.finishGame = function() {
             console.log('GAME FINISHED');
             var i = 0;
@@ -184,10 +207,20 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             for(i; i < len; i++) {
 
                 console.log("Q" + i + ": " + $scope.recordedQuestions[i]);
+                //STUDENTS ANSWER
                 console.log("A" + i + ": " + $scope.recordedAnswers[i]);
 
-                $scope.appendText('<h2 class="text-info">', $scope.recordedQuestions[i]);
-                $scope.appendText('<h3 class="text-success">', $scope.recordedAnswers[i]);
+
+                $scope.appendText('<h2 class="text-info" >', $scope.recordedQuestions[i]);
+                //STUDENTS ANSWER
+                if ($scope.recordedAnswers[i] != $scope.recordedCorrectAnswers[i]) {
+                    $scope.appendText('<h3 class="text-success", style= "color:red" >', $scope.recordedAnswers[i] +'<span class="glyphicon glyphicon-remove"></span>');
+                } else {
+                    $scope.appendText('<h3 class="text-success", style="color:green ">', $scope.recordedAnswers[i] + '<span class="glyphicon glyphicon-ok"></span>');
+                }
+
+
+
                 $('#mini2-body').append('<hr>');
             }
 
@@ -195,6 +228,10 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
 
             $('#mini2-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
+            $('#next-button').fadeIn('slow');
+            $(document).ready(function () {
+                $(this).scrollTop(0);
+            });
         };
 
 
@@ -202,19 +239,23 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         $scope.replayGame = function() {
             $scope.recordedQuestions = [];
             $scope.recordedAnswers = [];
+            $scope.recordedCorrectAnswers = [];
             initialQuestion = 1;
             $('#mini2-body').empty();
             $('#mini2-header').show();
             $('#replay-button').hide();
+            $('#next-button').hide();
             $scope.init();
         };
 
 
         //INITIALISE VIEW
         $scope.init = function() {
+
             $('#mini2-container').hide();
             $('#mini2-body').hide();
             $('#replay-button').hide();
+            $('#next-button').hide();
             $('#mini2-container').fadeIn("slow");
             $('#play-button').fadeIn("slow");
             $('#play2-button').fadeIn("slow");
