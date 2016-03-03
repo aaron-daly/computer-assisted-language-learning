@@ -86,7 +86,9 @@ angular.module('calliApp', [
                         var defer = $q.defer();
 
                         $timeout(function () {
+
                             conversationGame.preload();
+                            console.log(conversationGame.scenarioList);
                             defer.resolve();
                         });
 
@@ -116,8 +118,8 @@ angular.module('calliApp', [
         $locationProvider.html5Mode(true);
 
     }
-]).run(['$rootScope', '$location', 'token',
-    function($rootScope, $location, token) {
+]).run(['$rootScope', '$location', 'token', 'conversationGame',
+    function($rootScope, $location, token, conversationGame) {
 
         //on route change...
         $rootScope.$on('$routeChangeStart', function(event, nextRoute) {

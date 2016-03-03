@@ -15,6 +15,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.role = {};
 
         var conversationGames = conversationGame.scenarioListNames();
+        console.log(conversationGames);
 
         //get current user
         $http.post('/user', { username: token.currentUser() })
@@ -31,6 +32,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
             });
 
+        $scope.role="student";
         //append buttons for scenarios to play
         $.each(conversationGames, function(key, scenarioName) {
             console.log(scenarioName);

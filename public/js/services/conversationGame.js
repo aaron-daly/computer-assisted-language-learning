@@ -6,7 +6,92 @@ angular.module('calliApp')
 
             var conversationGame = {
                 scenario: {},
-                scenarioList: [],
+                scenarioList: [ {
+                    "name": "conversationSample",
+                    "level": "1",
+                    "conversation":[
+                        {
+                            "question": "Hi, how are you?",
+                            "position": "1",
+                            "answers": [
+                                {
+                                    "answer": "sweetshop",
+                                    "branch": "2"
+                                },
+                                {
+                                    "answer": "library",
+                                    "branch": "2"
+                                },
+                                {
+
+                                    "answer": "ospideal",
+                                    "branch": "2"
+
+                                }
+                            ]
+                        },
+
+                        {
+
+                            "question": "is the shop keeper male or female?",
+                            "position": "2",
+                            "answers": [
+                                {
+                                    "answer": "male",
+                                    "branch": "3"
+                                },
+                                {
+                                    "answer": "female",
+                                    "branch": "3"
+                                },
+                                {
+                                    "answer": "i dont understand",
+                                    "branch": "3"
+                                }
+                            ]
+                        },
+
+                        {
+
+                            "question": "how many chocolate bars?",
+                            "position": "3",
+                            "answers": [
+                                {
+                                    "answer": "4",
+                                    "branch": "4"
+                                },
+                                {
+                                    "answer": "3",
+                                    "branch": "4"
+                                },
+                                {
+                                    "answer": "2",
+                                    "branch": "4"
+                                }
+                            ]
+                        },
+                        {
+
+                            "question": "how many cakes",
+                            "position": "4",
+                            "answers": [
+                                {
+                                    "answer": "1",
+                                    "branch": "0"
+                                },
+                                {
+                                    "answer": "3",
+                                    "branch": "0"
+                                },
+                                {
+                                    "answer": "2",
+
+                                    "branch": "0"
+                                }
+                            ]
+                        }
+
+                ]} ],
                 position: 1,
                 recordedQuestions: [],
                 recordedAnswers: [],
@@ -88,6 +173,8 @@ angular.module('calliApp')
 
             //preloads games into scenarioList
             conversationGame.preload = function() {
+
+                console.log(conversationGame.scenarioList);
                 scenario.getConversationScenarios(function(data) {
                     if(conversationGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
