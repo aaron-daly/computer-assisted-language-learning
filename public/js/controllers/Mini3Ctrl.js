@@ -269,7 +269,11 @@ angular.module('Mini3Ctrl', []).controller('Mini3Controller', ['$scope','$locati
         };
 
         //FINISH GAME, DISPLAY RESULTS
+
         $scope.finishGame = function() {
+            $(document).ready(function () {
+                $(this).scrollTop(0);
+            });
             console.log('GAME FINISHED');
             var i = 0;
             var len = $scope.recordedQuestions.length;

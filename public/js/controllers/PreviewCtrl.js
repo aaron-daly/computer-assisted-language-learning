@@ -31,11 +31,11 @@ angular.module('PreviewCtrl', []).controller('PreviewController', ['$scope','$lo
                 },
 
                 {
-                    "question": "An raibh tu ar scoil innu?",
+                    "question": "An raibh tú ar scoil innu?",
                     "position": "2",
                     "answers": [
                         {
-                            "answer": "Bhi me ar scoil innu",
+                            "answer": "Bhi mé ar scoil innu",
                             "branch": "3"
                         },
                         {

@@ -188,6 +188,7 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
         };
 
         //FINISH GAME, DISPLAY RESULTS
+
         $scope.finishGame = function() {
             console.log('GAME FINISHED');
             var i = 0;
@@ -220,6 +221,9 @@ angular.module('Mini2Ctrl', []).controller('Mini2Controller', ['$scope','$locati
             $('#mini2-body').fadeIn('slow');
             $('#replay-button').fadeIn('slow');
             $('#next-button').fadeIn('slow');
+            $(document).ready(function () {
+                $(this).scrollTop(0);
+            });
         };
 
 
