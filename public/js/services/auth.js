@@ -38,17 +38,26 @@ angular.module('calliApp')
                 logout: function() {
                     token.removeToken();
                     $location.path('/');
-                }
-                /*
-                remove: function() {
-                    return $http.post('/unregister', user)
-                        .success(function(data) {
-                            $window.localStorage.removeItem('calli-token');
-                            $location.path('/');
+                },
+
+                authorize: function(role) {
+                    if(role === 'teacher') {
+                        token.currentUserRole(function(data) {
+                            console.log(role, data);
                         })
-                        .error(function() {
-                        });
-                } */
+                    }
+                }
+
+                /*
+                 remove: function() {
+                 return $http.post('/unregister', user)
+                 .success(function(data) {
+                 $window.localStorage.removeItem('calli-token');
+                 $location.path('/');
+                 })
+                 .error(function() {
+                 });
+                 } */
 
             }
         }

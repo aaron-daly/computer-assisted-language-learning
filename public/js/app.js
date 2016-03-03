@@ -45,6 +45,11 @@ angular.module('calliApp', [
                 controller: 'GameController',
                 restricted: true,
                 resolve: {
+                    pupilPromise: ['$q','$timeout', 'auth', function($q, $timeout, auth) {
+                        if(auth.authorize('teacher')) {
+                            console.log('hello');
+                        }
+                    }],
                     scenarioPromise: ['game', '$q', '$timeout', '$route', function(game, $q, $timeout, $route) {
                         var defer = $q.defer();
 

@@ -196,6 +196,16 @@ module.exports = function(app) {
         })
     });
 
+
+    //POST for all pupils of a teacher by teacherId
+    app.post('/pupils', function(req, res, next) {
+        User.find({ creator: req.body.teacherId }, function(err, pupils) {
+            if(err)
+                throw err;
+            res.json(pupils);
+        })
+    });
+
     // =======================================================================
     // =======================================================================
     // FINAL ROUTE TO INDEX.HTML

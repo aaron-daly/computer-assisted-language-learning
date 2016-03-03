@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'game',
-    function($scope, $http, $location, token, auth, game) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'game', 'teacher',
+    function($scope, $http, $location, token, auth, game, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -76,6 +76,16 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         function displayMessage(message) {
             console.log(message);
         }
+
+        var input = 'dia duit, conas ata tu';
+
+        $http.post('http://www.abair.tcd.ie/api/?input=' + input + '&format=wav')
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(error) {
+                console.log(error);
+            });
 
         // ======================= END TEACHER CONTAINER ======================
     }
