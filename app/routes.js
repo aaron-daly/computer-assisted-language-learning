@@ -1,7 +1,7 @@
 var passport = require('passport');
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
-var ConversationScenario = require('models/ConversationScenario');
+var ConversationScenario = require('../app/models/ConversationScenario');
 var Question = require('../app/models/Question');
 var Answer = require('../app/models/Answer');
 
@@ -30,7 +30,7 @@ module.exports = function(app) {
 
 
     // GET all scenarios, callback array
-    app.get('/scenarios', function(req, res, next) {
+    app.get('/conversationScenarios', function(req, res, next) {
 
         var scenarios = [];
         var i = 0;
@@ -44,11 +44,6 @@ module.exports = function(app) {
             for(i; i < len; i++) {
                 scenarios.push(cS[i]);
             }
-
-            /* ADD NEXT Scenario type here
-                //AND NEXT ONE HERE
-                    //MAKE final res callback here (res.json(Scenarios))
-             */
 
             res.json(scenarios);    //remove once other scenario types added
         });

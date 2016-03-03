@@ -88,7 +88,7 @@ angular.module('calliApp', [
                         $timeout(function () {
                             conversationGame.preload();
                             defer.resolve();
-                        },1000);
+                        });
 
                         return defer.promise;
                     }]
