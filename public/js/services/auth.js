@@ -39,16 +39,6 @@ angular.module('calliApp')
                     token.removeToken();
                     $location.path('/');
                 }
-                /*
-                remove: function() {
-                    return $http.post('/unregister', user)
-                        .success(function(data) {
-                            $window.localStorage.removeItem('calli-token');
-                            $location.path('/');
-                        })
-                        .error(function() {
-                        });
-                } */
 
             }
         }

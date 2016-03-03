@@ -7,6 +7,9 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
+        $scope.preview = function() {
+            $location.path('/preview');
+        };
 
         $scope.user = {};
         $scope.role = {};
