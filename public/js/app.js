@@ -5,10 +5,9 @@ angular.module('calliApp', [
     'NavigationCtrl',
     'LoginCtrl',
     'RegisterCtrl',
-    'PreviewCtrl',
     'Mini2Ctrl',
     'Mini3Ctrl',
-    'GameCtrl',
+    'ConversationGameCtrl',
     'ProfileCtrl',
     'AddScenarioCtrl'
 ]).config(['$locationProvider', '$routeProvider',
@@ -25,11 +24,6 @@ angular.module('calliApp', [
                 templateUrl: 'views/login.html',
                 controller: 'LoginController'
             })
-            // preview page
-            .when('/preview', {
-                templateUrl: 'views/preview.html',
-                controller: 'PreviewController'
-            })
             // mini2 page
             .when('/mini2', {
                 templateUrl: 'views/mini2.html',
@@ -40,24 +34,24 @@ angular.module('calliApp', [
                 templateUrl: 'views/mini3.html',
                 controller: 'Mini3Controller'
             })
-            .when('/game/:name', {
-                templateUrl: 'views/game.html',
-                controller: 'GameController',
+            .when('/conversationGame/:name', {
+                templateUrl: 'views/conversationGame.html',
+                controller: 'ConversationGameController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['game', '$q', '$timeout', '$route', function(game, $q, $timeout, $route) {
+                    scenarioPromise: ['conversationGame', '$q', '$timeout', '$route', function(conversationGame, $q, $timeout, $route) {
                         var defer = $q.defer();
 
                         //if game scenariolist is empty, preload (for game page refresh)
-                        if(game.scenarioList.length < 1) {
-                            game.preload();
+                        if(conversationGame.scenarioList.length < 1) {
+                            conversationGame.preload();
                         }
 
                         var str = $route.current.params.name;
                         var name = str.substr(1, str.length);
 
                         $timeout(function() {
-                            game.loadScenario(name, function(data) {
+                            conversationGame.loadScenario(name, function(data) {
                                 if(data) {
                                     defer.resolve('Scenario loaded');
                                 } else {
@@ -82,14 +76,19 @@ angular.module('calliApp', [
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['game', '$q', '$timeout', function (game, $q, $timeout) {
+                    pupilPromise: ['$q','$timeout', 'auth', function($q, $timeout, auth) {
+                        if(auth.authorize('teacher')) {
+                            console.log('hello');
+                        }
+                    }],
+                    scenarioPromise: ['conversationGame', '$q', '$timeout', function (conversationGame, $q, $timeout) {
 
                         var defer = $q.defer();
 
                         $timeout(function () {
-                            game.preload();
+                            conversationGame.preload();
                             defer.resolve();
-                        },1000);
+                        });
 
                         return defer.promise;
                     }]
@@ -117,8 +116,8 @@ angular.module('calliApp', [
         $locationProvider.html5Mode(true);
 
     }
-]).run(['$rootScope', '$location', 'token', 'game',
-    function($rootScope, $location, token, game) {
+]).run(['$rootScope', '$location', 'token',
+    function($rootScope, $location, token) {
 
         //on route change...
         $rootScope.$on('$routeChangeStart', function(event, nextRoute) {
@@ -130,10 +129,12 @@ angular.module('calliApp', [
                 }
             }
 
+
             //if next route is profile page, preload list of games
             if(nextRoute.$$route.originalPath == '/profile') {
-                game.preload();
+                conversationGame.preload();
             }
+
 
         });
     }

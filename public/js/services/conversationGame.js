@@ -1,10 +1,10 @@
 
 angular.module('calliApp')
 
-    .factory('game', ['$http', 'scenario',
+    .factory('conversationGame', ['$http', 'scenario',
         function($http, scenario){
 
-            var game = {
+            var conversationGame = {
                 scenario: {},
                 scenarioList: [],
                 position: 1,
@@ -14,7 +14,7 @@ angular.module('calliApp')
             };
 
             //initiate game, callback first question
-            game.initGame = function(callback) {
+            conversationGame.initGame = function(callback) {
 
                 /*
                 if(this.isPlaying) {
@@ -29,7 +29,7 @@ angular.module('calliApp')
             };
 
             //receives answer, calls back next question
-            game.tick = function(answer, callback) {
+            conversationGame.tick = function(answer, callback) {
 
                 this.recordedAnswers.push(answer.answer);
 
@@ -47,7 +47,7 @@ angular.module('calliApp')
             };
 
             //results of questions and answers
-            game.getResults = function() {
+            conversationGame.getResults = function() {
                 return {
                     questions: this.recordedQuestions,
                     answers: this.recordedAnswers
@@ -55,7 +55,7 @@ angular.module('calliApp')
             };
 
             //release game data
-            game.release = function() {
+            conversationGame.release = function() {
                 this.scenario = {};
                 this.position = 1;
                 this.recordedQuestions = [];
@@ -63,23 +63,23 @@ angular.module('calliApp')
             };
 
             //load question of game's current position
-            game.nextQuestion = function() {
+            conversationGame.nextQuestion = function() {
                 var question = this.scenario.conversation[this.position - 1];
                 this.recordedQuestions.push(question.question);
                 return question;
             };
 
             //loaf scenario for the game
-            game.loadScenario = function(scenarioName, callback) {
+            conversationGame.loadScenario = function(scenarioName, callback) {
 
                 var i = 0;
-                var len = game.scenarioList.length;
+                var len = conversationGame.scenarioList.length;
                 var data = {};
 
                 for(i; i < len; i++) {
-                    if(game.scenarioList[i].name === scenarioName) {
-                        data = game.scenarioList[i];
-                        angular.copy(data, game.scenario);
+                    if(conversationGame.scenarioList[i].name === scenarioName) {
+                        data = conversationGame.scenarioList[i];
+                        angular.copy(data, conversationGame.scenario);
                         callback(data);
                     }
                 }
@@ -87,29 +87,29 @@ angular.module('calliApp')
             };
 
             //preloads games into scenarioList
-            game.preload = function() {
-                scenario.getAll(function(data) {
-                    if(game.scenarioList.length == 0){
+            conversationGame.preload = function() {
+                scenario.getConversationScenarios(function(data) {
+                    if(conversationGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
-                            game.scenarioList.push(scenario);
+                            conversationGame.scenarioList.push(scenario);
                         })
                     }
                 });
             };
 
             //return array of names of scenarios in scenarioList
-            game.scenarioListNames = function() {
+            conversationGame.scenarioListNames = function() {
                 var arr = [];
                 var i = 0;
-                var len = game.scenarioList.length;
+                var len = conversationGame.scenarioList.length;
 
                 for(i; i < len; i++) {
-                    arr.push(game.scenarioList[i].name);
+                    arr.push(conversationGame.scenarioList[i].name);
                 }
 
                 return arr;
             };
 
-            return game;
+            return conversationGame;
         }
     ]);

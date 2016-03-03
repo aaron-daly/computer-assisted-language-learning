@@ -38,7 +38,16 @@ angular.module('calliApp')
                 logout: function() {
                     token.removeToken();
                     $location.path('/');
+                },
+
+                authorize: function(role) {
+                    if(role === 'teacher') {
+                        token.currentUserRole(function(data) {
+                            console.log(role, data);
+                        })
+                    }
                 }
+
 
             }
         }

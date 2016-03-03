@@ -1,7 +1,7 @@
 var passport = require('passport');
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
-var ConversationalScenario = require('../app/models/ConversationalScenario');
+var ConversationScenario = require('../app/models/ConversationScenario');
 var Question = require('../app/models/Question');
 var Answer = require('../app/models/Answer');
 
@@ -15,7 +15,7 @@ module.exports = function(app) {
     // POST scenario type C
     app.post('/scenario/add/c', function(req, res, next) {
 
-        var cS = new ConversationalScenario({
+        var cS = new ConversationScenario({
             name: req.body.name,
             level: req.body.level,
             conversation: req.body.questions
@@ -30,13 +30,13 @@ module.exports = function(app) {
 
 
     // GET all scenarios, callback array
-    app.get('/scenarios', function(req, res, next) {
+    app.get('/conversationScenarios', function(req, res, next) {
 
         var scenarios = [];
         var i = 0;
         var len = 0;
 
-        ConversationalScenario.find(function(err, cS) {
+        ConversationScenario.find(function(err, cS) {
             if (err)
                 throw err;
 
@@ -44,11 +44,6 @@ module.exports = function(app) {
             for(i; i < len; i++) {
                 scenarios.push(cS[i]);
             }
-
-            /* ADD NEXT Scenario type here
-                //AND NEXT ONE HERE
-                    //MAKE final res callback here (res.json(Scenarios))
-             */
 
             res.json(scenarios);    //remove once other scenario types added
         });
@@ -193,6 +188,16 @@ module.exports = function(app) {
             if(err)
                 throw err;
             res.json(roles);
+        })
+    });
+
+
+    //POST for all pupils of a teacher by teacherId
+    app.post('/pupils', function(req, res, next) {
+        User.find({ creator: req.body.teacherId }, function(err, pupils) {
+            if(err)
+                throw err;
+            res.json(pupils);
         })
     });
 

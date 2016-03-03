@@ -44,11 +44,17 @@ angular.module('calliApp')
                 }
             };
 
-            token.currentUserRole = function(){
+            token.currentUserRole = function(callback){
                 if(token.isLoggedIn()){
                     var userToken = token.getToken();
                     var user = JSON.parse($window.atob(userToken.split('.')[1]));
-                    return user.role;
+                    $http.post('/role/id', { roleId: user.role })
+                        .success(function(data) {
+                            callback(data.type);
+                        })
+                        .error(function(error) {
+                            console.log(error);
+                        });
                 }
             };
 
