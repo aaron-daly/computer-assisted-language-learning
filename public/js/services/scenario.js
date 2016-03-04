@@ -19,18 +19,7 @@ angular.module('calliApp')
                     });
             };
 
-            // get one scenario providing the type and name. Callback of scenario data received.
-            scenario.get = function(type, name, callback) {
-                $http.post('/scenario/' + type, { name: name })
-                    .success(function(data){
-                        callback(data);
-                    })
-                    .error(function(err) {
-                        console.log(err);
-                    });
-            };
-
-            // get all scenarios of a particular type. Callback of scenarios' data received.
+            // get all conversation scenarios, callback list
             scenario.getConversationScenarios = function(callback) {
                 $http.get('/conversationScenarios')
                     .success(function(data){
@@ -38,6 +27,28 @@ angular.module('calliApp')
                     })
                     .error(function(error) {
                        console.log(error);
+                    });
+            };
+
+            // get picture scenarios, callback list
+            scenario.getPictureScenarios = function(callback) {
+                $http.get('/pictureScenarios')
+                    .success(function(data){
+                        callback(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
+                    });
+            };
+
+            // get all word scenarios, callback list
+            scenario.getWordScenarios = function(callback) {
+                $http.get('/wordScenarios')
+                    .success(function(data){
+                        callback(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
                     });
             };
 

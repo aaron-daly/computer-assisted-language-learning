@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'conversationGame', 'teacher',
-    function($scope, $http, $location, token, auth, conversationGame, teacher) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', '$route', 'token', 'auth', 'conversationGame', 'teacher',
+    function($scope, $http, $location, $route, token, auth, conversationGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -13,7 +13,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         var conversationGames = conversationGame.scenarioListNames();
 
-        //get current user
+            //get current user
         $http.post('/user', { username: token.currentUser() })
             .then(function(data) {
 
@@ -30,7 +30,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         //append buttons for scenarios to play
         $.each(conversationGames, function(key, scenarioName) {
-            console.log(scenarioName);
             var btn = '<button class="btn btn-info scenario-btn" value="c">' + scenarioName +  '</button>';
             $('#scenario-container').append(btn);
         });
@@ -38,7 +37,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         //listen for scenario-btn click
         $('.scenario-btn').on('click', function() {
-            console.log($(this).val());
             if($(this).val() === 'c') {
                 $location.path('/conversationGame/:' + $(this).text());
             }
@@ -49,13 +47,11 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         //========================= TEACHER CONTAINER =========================
 
-        $scope.pupils = [];
-
+        $scope.pupils = teacher.pupils;
+        $scope.selectedPupil = {};
+        
         $scope.registerPupil = function() {
-
             var username = $scope.user.username + $scope.pupilName;
-            console.log('register pupil ' + username);
-
             auth.register({
                 username: username,
                 password: $scope.user.username,
@@ -70,9 +66,40 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
                 }
             });
 
-            $scope.pupils.push({
-                'name': $scope.pupilName
+            $route.reload();
+        };
+
+        $scope.batchRegister = function() {
+            var names = $scope.batchPupilNames.replace(' ', '').split('\n');
+            $.each(names, function(key, name) {
+                var username = $scope.user.username + name;
+                auth.register({
+                    username: username,
+                    password: $scope.user.username,
+                    role: 'student',
+                    creator: $scope.user._id
+                }, function(error) {
+                    if(error) {
+                        displayError(error);
+                    }
+                    else {
+                        displayMessage('Pupil successfully added.');
+                    }
+                });
             });
+            $route.reload();
+        };
+
+        $scope.togglePupil = function(username) {
+            var i = 0;
+            var length = $scope.pupils.length;
+
+            for(i; i<length; i++) {
+                if($scope.pupils[i].username === username) {
+                    $scope.selectedPupil = $scope.pupils[i];
+                    return;
+                }
+            }
         };
 
         function displayError(error) {

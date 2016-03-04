@@ -16,8 +16,10 @@
 
 <section id="teacher-container" ng-show=" role.type == 'teacher' ">
 
+    <!-- PUPIL REGISTER SECTION -->
     <div class="col-sm-4 col-sm-offset-1">
         <h2>Register Pupils Below</h2>
+        <p class="text-info">Note: Your pupil's login username(s) will be '{{ user.username }}' plus the specified name, for example: '{{ user.username }}sean'.</p>
 
         <form id="register-pupil-form" ng-submit="registerPupil()" role="form">
             <div class="form-group">
@@ -31,21 +33,89 @@
             <button type="submit" class="btn btn-info">Register Pupil</button>
         </form>
         <hr>
-        <p class="text-info">Note: Your pupil's login username(s) will be '{{ user.username }}' plus the specified name, for example: '{{ user.username }}sean'.</p>
+        <h2>Batch Registration</h2>
+        <p class="text-danger">Paste your pupil's names below. Each name must be on a new line and be one word only.</p>
+        <form id="batch-register-form" ng-submit="batchRegister()" role="form">
+            <div class="form-group">
+                <label>Pupil Names</label>
+                            <textarea class="form-control"
+                                      name="batchPupilNames"
+                                      ng-model="batchPupilNames"
+                                      rows="5"
+                                      cols="10"
+                                      required="required"></textarea>
+            </div>
+            <button type="submit" class="btn btn-info">Register Pupil Batch</button>
+        </form>
     </div>
 
+    <!-- PUPIL LIST SECTION -->
     <div class="col-sm-4 col-sm-offset-2 text-center">
         <h2>Current Pupils</h2>
-
         <table class="table table-striped">
             <thead>
-                <th>Name</th>
+                <th class="text-left">Username</th>
+                <th class="text-center">Progress</th>
             </thead>
             <tr ng-repeat="pupil in pupils">
-                <td class="text-left">{{pupil.name}}</td>
+                <td class="text-left">{{ pupil.username.replace(user.username, '') }}</td>
+                <td class="text-center"><span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil.username)" data-toggle="modal" data-target="#pupilModal"></span></td>
             </tr>
         </table>
         <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
     </div>
 
+    <!-- PUPIL PROGRESS MODAL -->
+    <div id="pupilModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Progress of {{ selectedPupil.username.replace(user.username, '') }}</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Username: {{selectedPupil.username}}</p>
+                    <hr>
+                    <table class="table table-striped">
+                        <thead>
+                        <th class="text-left">Scenario</th>
+                        <th class="text-center">Progress</th>
+                        <th class="text-center">Completed</th>
+                        </thead>
+                        <tr>
+                            <td class="text-left">Sweetshop</td>
+                            <td class="text-center">2/3</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-remove"></span></td>
+
+                        </tr>
+                    </table>
+                    <dir-pagination-controls pagination-id="pupilProgressPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BATCH REGISTER MODAL -->
+    <div id="batchRegistrationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Batch Registration</h3>
+                </div>
+                <div class="modal-body">
+                    <p class="text-info">Paste your pupil's names into the box below. Each name must be on a new line and be one word.</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

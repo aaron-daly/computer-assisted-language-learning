@@ -9,9 +9,11 @@ var ConversationScenarioSchema = new mongoose.Schema({
     level: Number,
     conversation: [{
         question: String,
+        translation: String,
         position: Number,
         answers: [{
             answer: String,
+            translation: String,
             branch: Number
         }]
     }]
