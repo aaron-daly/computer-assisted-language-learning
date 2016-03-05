@@ -9,7 +9,8 @@ angular.module('calliApp', [
     'Mini3Ctrl',
     'ConversationGameCtrl',
     'ProfileCtrl',
-    'AddScenarioCtrl'
+    'AddScenarioCtrl',
+    'PictureGameCtrl'
 ]).config(['$locationProvider', '$routeProvider',
     function ($locationProvider, $routeProvider) {
 
@@ -33,6 +34,37 @@ angular.module('calliApp', [
             .when('/mini3', {
                 templateUrl: 'views/mini3.html',
                 controller: 'Mini3Controller'
+            })
+            .when('/pictureGame/:name', {
+                templateUrl: 'views/pictureGame.html',
+                controller: 'PictureGameController',
+                restricted: true,
+                resolve: {
+                    scenarioPromise: ['pictureGame', '$q', '$timeout', '$route', function(pictureGame, $q, $timeout, $route) {
+                        var defer = $q.defer();
+
+                        //if game scenariolist is empty, preload (for game page refresh)
+                        if(pictureGame.scenarioList.length < 1) {
+                            pictureGame.preload();
+                        }
+
+                        var str = $route.current.params.name;
+                        var name = str.substr(1, str.length);
+
+                        $timeout(function() {
+                            pictureGame.loadScenario(name, function(data) {
+                                if(data) {
+                                    defer.resolve('Scenario loaded');
+                                } else {
+                                    $location.path('/profile');
+                                    defer.resolve('Error loading scenario');
+                                }
+                            });
+                        });
+
+                        return defer.promise;
+                    }]
+                }
             })
             .when('/conversationGame/:name', {
                 templateUrl: 'views/conversationGame.html',
