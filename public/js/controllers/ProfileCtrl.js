@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'conversationGame', 'teacher',
-    function($scope, $http, $location, token, auth, conversationGame, teacher) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'conversationGame','pictureGame','scenario', 'teacher',
+    function($scope, $http, $location, token, auth, conversationGame, pictureGame,scenario, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -17,8 +17,13 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         var conversationGames = conversationGame.scenarioListNames();
         console.log(conversationGames);
 
+        var pictureGames = pictureGame.scenarioListNames();
+        console.log(pictureGames);
+
+
+
         //get current user
-        $http.post('/user', { username: token.currentUser() })
+         $http.post('/user', { username: token.currentUser() })
             .then(function(data) {
 
                 $scope.user = data.data;
@@ -44,12 +49,32 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         //listen for scenario-btn click
         $('.scenario-btn').on('click', function() {
             console.log($(this).val());
-            if($(this).val() === 'c') {
+            if ($(this).val() === 'c') {
                 $location.path('/conversationGame/:' + $(this).text());
             }
-
             $scope.$apply();
         });
+
+        $scope.role="student";
+            //append buttons for scenarios to play
+            $.each(pictureGames, function(key, scenarioName) {
+                console.log(scenarioName);
+                var btn = '<button class="btn btn-info scenario-btn" value="p">' + scenarioName +  '</button>';
+                $('#scenario-container').append(btn);
+            });
+
+
+            //listen for scenario-btn click
+            $('.scenario-btn').on('click', function() {
+                console.log($(this).val());
+                if ($(this).val() === 'p') {
+                    $location.path('/pictureGame/:' + $(this).text());
+                }
+            $scope.$apply();
+        });
+
+
+
 
 
         //========================= TEACHER CONTAINER =========================
@@ -90,4 +115,4 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         // ======================= END TEACHER CONTAINER ======================
     }
-]);
+])

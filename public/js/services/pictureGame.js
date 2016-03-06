@@ -174,10 +174,10 @@ angular.module('calliApp')
             };
 
             //preloads games into scenarioList
-            picureGame.preload = function() {
+            pictureGame.preload = function() {
 
                 console.log(pictureGame.scenarioList);
-                scenario.getConversationScenarios(function(data) {   //converstaion Senarios ???
+                scenario.getPictureScenarios(function(data) {
                     if(pictureGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
                             pictureGame.scenarioList.push(scenario);

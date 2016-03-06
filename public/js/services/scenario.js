@@ -40,6 +40,15 @@ angular.module('calliApp')
                        console.log(error);
                     });
             };
+            scenario.getPictureScenarios = function(callback) {
+                $http.get('/pictureScenarios')
+                    .success(function(data){
+                        callback(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
+                    });
+            };
 
             return scenario;
         }
