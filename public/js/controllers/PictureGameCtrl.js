@@ -43,10 +43,12 @@ angular.module('PictureGameCtrl', []).controller('PictureGameController', ['$sco
 
                         var answer = $(this).text();
                         var branch = $(this).val();
+                        var correct = $(this).val();
 
                         $scope.tick({
                             answer: answer,
-                            branch: branch
+                            branch: branch,
+                            correct: correct
                         });
                     });
                 } else {
@@ -57,18 +59,27 @@ angular.module('PictureGameCtrl', []).controller('PictureGameController', ['$sco
         };
 
         $scope.finish = function(results) {
+            var i = 0;
+            var questionHTML = 0;
+            var answerHTML = 0;
+                $.each(results.questions, function(key, val) {
 
-            $.each(results.questions, function(key, val) {
+                    questionHTML = '<h2>' + val + '</h2>';
 
-                var questionHTML = '<h2>' + val + '</h2>';
-                var answerHTML = '<h4>' + results.answers[key] + '</h4>';
+                    if (results.correct[val] == true) {
+                        answerHTML = '<h4 class="text-success", style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
+                    }
+                    else {
+                        answerHTML = '<h4 class="text-success", style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' + '</h4>';
+                    }
+                });
 
-                $('#answer-container').append(questionHTML).append(answerHTML);
-            });
-
-            $('#return-btn').show();
+            $('#answer-container').append(questionHTML).append(answerHTML);
 
         };
+
+
+
 
         $scope.profileReturn = function() {
             $location.path('/profile');

@@ -13,21 +13,24 @@ angular.module('calliApp')
                     "level": "1",
                     "conversation":[
                         {
-                            "question": "Hi, how are you?",
+                            "question": "Ceard is ainm do",
                             "position": "1",
                             "answers": [
                                 {
-                                    "answer": "sweetshop",
-                                    "branch": "2"
+                                    "answer": "Pól is ainm do",
+                                    "branch": "2",
+                                    "correct": true
                                 },
                                 {
-                                    "answer": "library",
-                                    "branch": "2"
+                                    "answer": "Rici is ainm do",
+                                    "branch": "2",
+                                    "correct": false
                                 },
                                 {
 
-                                    "answer": "ospideal",
-                                    "branch": "2"
+                                    "answer": "Padraig is ainm do",
+                                    "branch": "2",
+                                    "correct": false
 
                                 }
                             ]
@@ -35,60 +38,129 @@ angular.module('calliApp')
 
                         {
 
-                            "question": "is the shop keeper male or female?",
+                            "question": "Cen dath an bhfuil a geansai?",
                             "position": "2",
                             "answers": [
                                 {
-                                    "answer": "male",
-                                    "branch": "3"
+                                    "answer": "gorm",
+                                    "branch": "3",
+                                    "correct": true
                                 },
                                 {
-                                    "answer": "female",
-                                    "branch": "3"
+                                    "answer": "ban",
+                                    "branch": "3",
+                                    "correct": false
                                 },
                                 {
-                                    "answer": "i dont understand",
-                                    "branch": "3"
+                                    "answer": "dearg",
+                                    "branch": "3",
+                                    "correct": false
                                 }
                             ]
                         },
 
                         {
 
-                            "question": "how many chocolate bars?",
+                            "question": "Ceard ata ar an mballa",
                             "position": "3",
                             "answers": [
                                 {
-                                    "answer": "4",
-                                    "branch": "4"
+                                    "answer": "Ta clog ar an mballa",
+                                    "branch": "4",
+                                    "correct": true
                                 },
                                 {
-                                    "answer": "3",
-                                    "branch": "4"
+                                    "answer": "Ta pictúir ar an mballa",
+                                    "branch": "4",
+                                    "correct": false
                                 },
                                 {
-                                    "answer": "2",
-                                    "branch": "4"
+                                    "answer": "Ta clar dubh ar an mballa",
+                                    "branch": "4",
+                                    "correct": false
                                 }
                             ]
                         },
                         {
 
-                            "question": "how many cakes",
+                            "question": "An bhfaca tu fear sa pictúir?",
                             "position": "4",
                             "answers": [
                                 {
-                                    "answer": "1",
-                                    "branch": "0"
+                                    "answer": "Chonaic me fear sa pictúir",
+                                    "branch": "5",
+                                    "correct": true
                                 },
                                 {
-                                    "answer": "3",
-                                    "branch": "0"
-                                },
-                                {
-                                    "answer": "2",
+                                    "answer": "Chonaic me bean sa pictúir",
+                                    "branch": "5",
+                                    "correct": false
+                                }
+                            ]
+                        },
+                        {
 
-                                    "branch": "0"
+                            "question": "Ce mhead uachtar reoite ata sa pictúir",
+                            "position": "5",
+                            "answers": [
+                                {
+                                    "answer": "Ta ceithre uachtar reoite sa pictúir",
+                                    "branch": "6",
+                                    "correct": false
+                                },
+                                {
+                                    "answer": "Ta tri uachtar reoite sa pictúir",
+                                    "branch": "6",
+                                    "correct": true
+                                },
+                                {
+                                    "answer": "Ta cuig uachtar reoite sa pictúir",
+                                    "branch": "6",
+                                    "correct": false
+                                }
+                            ]
+                        },
+                        {
+
+                            "question": "Ceard ata ar an mbord",
+                            "position": "6",
+                            "answers": [
+                                {
+                                    "answer": "Ta cupan ar an mbord",
+                                    "branch": "7",
+                                    "correct": true
+                                },
+                                {
+                                    "answer": "Ta milsean ar an mbord",
+                                    "branch": "7",
+                                    correct: false
+                                },
+                                {
+                                    "answer": "Ta malla ar an mbord",
+                                    "branch": "7",
+                                    "correct": false
+                                }
+                            ]
+                        },
+                        {
+
+                            "question": "Ce mhead caca milis ata sa pictúir",
+                            "position": "7",
+                            "answers": [
+                                {
+                                    "answer": "Ta seacht caca milis sa pictúir",
+                                    "branch": "0",
+                                    "correct": false
+                                },
+                                {
+                                    "answer": "Ta do caca milis sa pictúir",
+                                    "branch": "0",
+                                    "correct": true
+                                },
+                                {
+                                    "answer": "Ta se caca milis sa pictúir",
+                                    "branch": "0",
+                                    "correct": false
                                 }
                             ]
                         }
@@ -97,6 +169,7 @@ angular.module('calliApp')
                 position: 1,
                 recordedQuestions: [],
                 recordedAnswers: [],
+                recordedCorrectAnswers: [],
                 isPlaying: false
             };
 
@@ -119,6 +192,7 @@ angular.module('calliApp')
             pictureGame.tick = function(answer, callback) {
 
                 this.recordedAnswers.push(answer.answer);
+                this.recordedCorrectAnswers.push(answer.correct);
 
                 //if we reach delimiter position 0, callback results and release game
                 if(answer.branch == 0) {
@@ -133,11 +207,13 @@ angular.module('calliApp')
 
             };
 
+
             //results of questions and answers
-            pictureGame.getResults = function() {  //pictureGame needs to be blue
+            pictureGame.getResults = function() {
                 return {
                     questions: this.recordedQuestions,
-                    answers: this.recordedAnswers
+                    answers: this.recordedAnswers,
+                    correct: this.recordedCorrectAnswers
                 }
             };
 
@@ -147,6 +223,7 @@ angular.module('calliApp')
                 this.position = 1;
                 this.recordedQuestions = [];
                 this.recordedAnswers = [];
+                this.recordedCorrectAnswers = [];
             };
 
             //load question of game's current position
