@@ -58,6 +58,14 @@ angular.module('calliApp')
                 }
             };
 
+            token.currentUserCreator = function() {
+                if(token.isLoggedIn()) {
+                    var userToken = token.getToken();
+                    var user = JSON.parse($window.atob(userToken.split('.')[1]));
+                    return user.creator;
+                }
+            };
+
             return token;
         }
     ]);

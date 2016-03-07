@@ -1,6 +1,7 @@
 // public/js/app.js
 angular.module('calliApp', [
     'ngRoute',
+    'angularUtils.directives.dirPagination',
     'MainCtrl',
     'NavigationCtrl',
     'LoginCtrl',
@@ -9,6 +10,7 @@ angular.module('calliApp', [
     'Mini3Ctrl',
     'ConversationGameCtrl',
     'ProfileCtrl',
+    'TeacherCtrl',
     'AddScenarioCtrl'
 ]).config(['$locationProvider', '$routeProvider',
     function ($locationProvider, $routeProvider) {
@@ -51,17 +53,6 @@ angular.module('calliApp', [
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
-                    pupilPromise: ['$q','$timeout', 'auth', 'teacher',
-                        function($q, $timeout, auth, teacher) {
-                            var defer = $q.defer();
-                            auth.authorize('teacher', function(authorized) {
-                                $timeout(function() {
-                                    teacher.getPupils();
-                                    defer.resolve();
-                                },1000);
-                            });
-                            return defer.promise;
-                        }],
                     scenarioPromise: ['conversationGame', '$q', '$timeout',
                         function (conversationGame, $q, $timeout) {
                             var defer = $q.defer();
@@ -70,7 +61,21 @@ angular.module('calliApp', [
                                 //pictureGame.preload();
                                 //wordGame.preload();
                                 defer.resolve();
+                            },1000);
+                            return defer.promise;
+                        }],
+                    groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
+                        function($q, $timeout, auth, token, teacher) {
+                            var defer = $q.defer();
+
+                            //if student
+                            auth.authorize('student', function(authorized) {
+                                $timeout(function() {
+                                    teacher.getGroup(token.currentUserCreator());
+                                    defer.resolve();
+                                })
                             });
+
                             return defer.promise;
                         }]
 
@@ -82,6 +87,50 @@ angular.module('calliApp', [
                     userPromise: ['$q', '$timeout', 'user', function($q, $timeout, user) {
 
                     }] */
+                }
+            })
+
+            .when('/teacher', {
+                templateUrl: 'views/teacher.html',
+                controller: 'TeacherController',
+                restricted: true,
+                resolve: {
+                    scenarioPromise: ['conversationGame', '$q', '$timeout',
+                        function (conversationGame, $q, $timeout) {
+                            var defer = $q.defer();
+                            $timeout(function () {
+                                conversationGame.preload();
+                                //pictureGame.preload();
+                                //wordGame.preload();
+                                defer.resolve();
+                            });
+                            return defer.promise;
+                        }],
+                    pupilPromise: ['$q','$timeout', 'auth', 'teacher',
+                        function($q, $timeout, auth, teacher) {
+                            var defer = $q.defer();
+                            auth.authorize('teacher', function(authorized) {
+                                $timeout(function() {
+                                    teacher.getPupils();
+                                    defer.resolve();
+                                },1000);
+                            });
+                            return defer.promise;
+                        }],
+                    groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
+                        function($q, $timeout, auth, token, teacher) {
+                            var defer = $q.defer();
+
+                            //if teacher
+                            auth.authorize('teacher', function(authorized) {
+                                $timeout(function() {
+                                    teacher.getGroup(token.currentUserId());
+                                    defer.resolve();
+                                });
+                            });
+                            return defer.promise;
+                        }]
+
                 }
             })
 

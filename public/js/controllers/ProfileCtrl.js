@@ -11,7 +11,10 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.user = {};
         $scope.role = {};
 
-        var conversationGames = conversationGame.scenarioListNames();
+        $scope.scenarios = teacher.group.scenarios;
+        console.log($scope.scenarios);
+
+        var conversationScenarios = conversationGame.scenarioList;
 
             //get current user
         $http.post('/user', { username: token.currentUser() })
@@ -29,9 +32,11 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             });
 
         //append buttons for scenarios to play
-        $.each(conversationGames, function(key, scenarioName) {
-            var btn = '<button class="btn btn-info scenario-btn" value="c">' + scenarioName +  '</button>';
-            $('#scenario-container').append(btn);
+        $.each($scope.scenarios, function(key, scenario) {
+            if(scenario.enabled) {
+                var btn = '<button class="btn btn-info scenario-btn" value="c">' + scenario.scenarioName + '</button>';
+                $('#scenario-container').append(btn);
+            }
         });
 
 
@@ -40,76 +45,8 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             if($(this).val() === 'c') {
                 $location.path('/conversationGame/:' + $(this).text());
             }
-
             $scope.$apply();
         });
 
-
-        //========================= TEACHER CONTAINER =========================
-
-        $scope.pupils = teacher.pupils;
-        $scope.selectedPupil = {};
-        
-        $scope.registerPupil = function() {
-            var username = $scope.user.username + $scope.pupilName;
-            auth.register({
-                username: username,
-                password: $scope.user.username,
-                role: 'student',
-                creator: $scope.user._id
-            }, function(error) {
-                if(error) {
-                    displayError(error);
-                }
-                else {
-                    displayMessage('Pupil successfully added.');
-                }
-            });
-
-            $route.reload();
-        };
-
-        $scope.batchRegister = function() {
-            var names = $scope.batchPupilNames.replace(' ', '').split('\n');
-            $.each(names, function(key, name) {
-                var username = $scope.user.username + name;
-                auth.register({
-                    username: username,
-                    password: $scope.user.username,
-                    role: 'student',
-                    creator: $scope.user._id
-                }, function(error) {
-                    if(error) {
-                        displayError(error);
-                    }
-                    else {
-                        displayMessage('Pupil successfully added.');
-                    }
-                });
-            });
-            $route.reload();
-        };
-
-        $scope.togglePupil = function(username) {
-            var i = 0;
-            var length = $scope.pupils.length;
-
-            for(i; i<length; i++) {
-                if($scope.pupils[i].username === username) {
-                    $scope.selectedPupil = $scope.pupils[i];
-                    return;
-                }
-            }
-        };
-
-        function displayError(error) {
-            console.log(error);
-        }
-        function displayMessage(message) {
-            console.log(message);
-        }
-
-
-        // ======================= END TEACHER CONTAINER ======================
     }
 ]);

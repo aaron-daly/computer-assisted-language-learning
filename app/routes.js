@@ -2,6 +2,7 @@ var passport = require('passport');
 
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
+var Group = require('../app/models/Group');
 
 var ConversationScenario = require('../app/models/ConversationScenario');
 var PictureScenario = require('../app/models/PictureScenario');
@@ -286,6 +287,128 @@ module.exports = function(app) {
 
     // END OF USERS ==========================================================
     // =======================================================================
+
+
+    // TEACHER CLASSES =======================================================
+    // =======================================================================
+
+    //POST a group
+    app.post('/group', function(req, res, next) {
+
+        var group = new Group({
+            teacherId: req.body.teacherId,
+        });
+
+        group.save(function(err) {
+            if(err)
+                throw err;
+            return next(group);
+        });
+    });
+
+
+    app.post('/group/byTeacherId', function(req, res, next) {
+
+        Group.findOne({ teacherId: req.body.teacherId }, function(err, group) {
+            if(err)
+                throw err;
+            else res.json(group);
+        })
+    });
+
+
+    app.get('/groups', function(req, res, next) {
+        Group.find(function(err, groups) {
+            if(err)
+                throw err;
+            res.json(groups);
+        })
+    });
+
+    //PUT to a class
+    app.put('/group/scenario', function(req, res, next) {
+
+        /*
+        Group.findOne({ teacherId: req.body.teacherId }, function(err, group) {
+                if(err)
+                    throw(err);
+                else {
+                    Group.update({'scenarios.scenarioId': req.body.scenarioId},
+                        {'$set': {
+                            'scenarios.$.enabled': req.body.enabled
+                        }}, function(err, count) {
+                            if(err)
+                                throw(err);
+                            if(!count) {
+                            }
+                        }
+                    )
+                }
+            }
+        )*/
+
+        Group.findOneAndUpdate({
+            teacherId: req.body.teacherId,
+            'scenarios.scenarioId': req.body.scenarioId
+        },{
+            '$set': {
+                'scenarios.$.enabled': req.body.enabled
+            }
+        }, function(err, group) {
+            if(err)
+                throw err;
+            if(!group) {
+                Group.findOneAndUpdate({ teacherId: req.body.teacherId },
+                    {
+                        $push: { "scenarios": {
+                            scenarioId: req.body.scenarioId,
+                            scenarioName: req.body.scenarioName,
+                            enabled: true
+                        }}
+                    },
+                    {
+                        safe: true,
+                        upsert: true,
+                        new: true
+                    }, function(err, group2) {
+                        if(err)
+                            throw(err);
+                        else res.json(group2);
+                    })
+            } else {
+                res.json(group);
+            }
+        })
+    });
+
+    //PUT to a class
+    app.put('/group/scenarioEnable', function(req, res, next) {
+
+        Group.findOneAndUpdate({ teacherId: req.body.teacherId },
+            {
+                $push: { "scenarios": {
+                    scenarioId: req.body.scenarioId,
+                    scenarioName: req.body.scenarioName,
+                    enabled: req.body.enabled
+                }}
+            },
+            {
+                safe: true,
+                upsert: true,
+                new: true
+            }, function(err, group) {
+                if(err)
+                    throw(err);
+                else res.json(group);
+            })
+    });
+
+
+
+
+    // END OF TEACHER CLASSES ================================================
+    // =======================================================================
+
 
 
     // =======================================================================

@@ -8,11 +8,25 @@ angular.module('calliApp')
             return {
 
                 register: function(user, callback) {
+
                     return $http.post('/register', user)
                         .success(function(data) {
                             if(!token.getToken()) {
-                                $location.path('/profile');
                                 token.saveToken(data.token);
+                                token.currentUserRole(function(role) {
+                                    if(role === 'student' || role === 'pupil') {
+                                        $location.path('/profile');
+                                    } else {
+                                        $http.post('/group', { teacherId: token.currentUserId() })
+                                            .success(function(data){
+                                                console.log(data);
+                                            })
+                                            .error(function(error){
+                                                console.log(error);
+                                            });
+                                        $location.path('/teacher');
+                                    }
+                                });
                             }
                         })
                         .error(function(error) {
@@ -27,7 +41,14 @@ angular.module('calliApp')
                     return $http.post('/login', user)
                         .success(function(data) {
                             token.saveToken(data.token);
-                            $location.path('profile');
+                            token.currentUserRole(function(role) {
+                                if(role === 'student' || role === 'pupil') {
+                                    $location.path('profile');
+                                } else {
+                                    $location.path('teacher');
+                                }
+                            });
+
                         })
                         .error(function(error) {
                             callback(error);

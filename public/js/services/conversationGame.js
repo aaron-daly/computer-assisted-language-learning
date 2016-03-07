@@ -92,7 +92,7 @@ angular.module('calliApp')
                     if(conversationGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
                             conversationGame.scenarioList.push(scenario);
-                        })
+                        });
                     }
                 });
             };
