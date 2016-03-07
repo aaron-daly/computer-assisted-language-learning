@@ -11,41 +11,27 @@ angular.module('calliApp')
                     "level": "1",
                     "conversation":[
                         {
-                            "question": "Hi, how are you?",
+                            "question": "Dia dhuit",
                             "position": "1",
                             "answers": [
                                 {
-                                    "answer": "sweetshop",
+                                    "answer": "Dia is muire dhuit",
                                     "branch": "2"
-                                },
-                                {
-                                    "answer": "library",
-                                    "branch": "2"
-                                },
-                                {
-
-                                    "answer": "ospideal",
-                                    "branch": "2"
-
                                 }
                             ]
                         },
 
                         {
 
-                            "question": "is the shop keeper male or female?",
+                            "question": "An raibh tú ar scoil innú?",
                             "position": "2",
                             "answers": [
                                 {
-                                    "answer": "male",
+                                    "answer": "Bhi me ar scoil innú",
                                     "branch": "3"
                                 },
                                 {
-                                    "answer": "female",
-                                    "branch": "3"
-                                },
-                                {
-                                    "answer": "i dont understand",
+                                    "answer": "Ni raibh me ar scoil innú",
                                     "branch": "3"
                                 }
                             ]
@@ -53,39 +39,95 @@ angular.module('calliApp')
 
                         {
 
-                            "question": "how many chocolate bars?",
+                            "question": "An maith leat milsean?",
                             "position": "3",
                             "answers": [
                                 {
-                                    "answer": "4",
+                                    "answer": "Is maith liom milsean",
                                     "branch": "4"
                                 },
                                 {
-                                    "answer": "3",
-                                    "branch": "4"
+                                    "answer": "Ni maith liom milsean",
+                                    "branch": "5"
                                 },
                                 {
-                                    "answer": "2",
-                                    "branch": "4"
+                                    "answer": "Is fearr liom seacloid",
+                                    "branch": "6"
                                 }
                             ]
                         },
                         {
 
-                            "question": "how many cakes",
+                            "question": "Cen milsean ar mhaith leat?",
                             "position": "4",
                             "answers": [
                                 {
-                                    "answer": "1",
-                                    "branch": "0"
+                                    "answer": "sealaid",
+                                    "branch": "6"
                                 },
                                 {
-                                    "answer": "3",
-                                    "branch": "0"
+                                    "answer": "uachtar reoite",
+                                    "branch": "6"
                                 },
                                 {
-                                    "answer": "2",
+                                    "answer": "criospai",
+                                    "branch": "6"
+                                }
+                            ]
+                        },
+                        {
 
+                            "question": "Ar ól tú cóc?",
+                            "position": "5",
+                            "answers": [
+                                {
+                                    "answer": "Nior ól me cóc",
+                                    "branch": "6"
+                                },
+                                {
+                                    "answer": "D'ól me cóc",
+                                    "branch": "6"
+                                },
+                                {
+                                    "answer": "Is fearr liom bainne",
+                                    "branch": "6"
+                                }
+                            ]
+                        },
+                        {
+
+                            "question": "Seo duit, Ar mhaith leat mala?",
+                            "position": "6",
+                            "answers": [
+                                {
+                                    "answer": "Nil, Ta mala agam",
+                                    "branch": "7"
+                                },
+                                {
+                                    "answer": "Ta, nil mala agam",
+                                    "branch": "7"
+                                },
+                                {
+                                    "answer": "Is feider liom iad a ithe anois",
+                                    "branch": "7"
+                                }
+                            ]
+                        },
+                        {
+
+                            "question": "Go raibh maith agat, slan",
+                            "position": "7",
+                            "answers": [
+                                {
+                                    "answer": "Slan",
+                                    "branch": "0"
+                                },
+                                {
+                                    "answer": "Go raibh maith agat",
+                                    "branch": "0"
+                                },
+                                {
+                                    "answer": "Slan go fól",
                                     "branch": "0"
                                 }
                             ]

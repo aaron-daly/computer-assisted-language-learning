@@ -22,30 +22,30 @@ html,body {
     padding-bottom: 60px; /*MUST AT LEAST SAME AS FOOTER HEIGHT!*/
 
 }
-#mini3-content {
+#wordGame-content {
     background-image: url(../images/puzzle.jpg);
 }
-#mini3-container {
+#wordGame-container {
     background-color:white;
 }
-#mini2-content {
+#pictureGame-content {
     background-image: url(../images/background5.jpg);
 }
-#mini2-container {
+#pictureGame-container {
 
     background-color:white;
 }
-#preview-content {
+#conversationGame-content {
     background-image: url(../images/clouds.jpg);
-
+    background-color:#00b3ee;
 }
-#preview-body {
-     background-color:white;
+#conversationGame-body {
+     background-color: white;
 
  }
-#preview-container {
+#conversationGame-container {
 
-    background-color:white;
+    background-color: white;
 
 }
 .navbar-inverse {
