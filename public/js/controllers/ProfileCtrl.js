@@ -1,8 +1,9 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth', 'conversationGame','pictureGame','scenario', 'teacher',
-    function($scope, $http, $location, token, auth, conversationGame, pictureGame,scenario, teacher) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth',
+    'conversationGame','pictureGame','wordGame', 'scenario', 'teacher',
+    function($scope, $http, $location, token, auth, conversationGame, pictureGame, wordGame, scenario, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -19,6 +20,9 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         var pictureGames = pictureGame.scenarioListNames();
         console.log(pictureGames);
+
+        var wordGames = wordGame.scenarioListNames();
+        console.log(wordGames);
 
 
 
@@ -73,7 +77,23 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             $scope.$apply();
         });
 
+        $scope.role="student";
+        //append buttons for scenarios to play
+        $.each(wordGames, function(key, scenarioName) {
+            console.log(scenarioName);
+            var btn = '<button class="btn btn-info scenario-btn" value="w">' + scenarioName +  '</button>';
+            $('#scenario-container').append(btn);
+        });
 
+
+        //listen for scenario-btn click
+        $('.scenario-btn').on('click', function() {
+            console.log($(this).val());
+            if ($(this).val() === 'w') {
+                $location.path('/wordGame/:' + $(this).text());
+            }
+            $scope.$apply();
+        });
 
 
 

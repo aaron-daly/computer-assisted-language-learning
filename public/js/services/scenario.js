@@ -49,6 +49,15 @@ angular.module('calliApp')
                         console.log(error);
                     });
             };
+            scenario.getWordScenarios = function(callback) {
+                $http.get('/wordScenarios')
+                    .success(function(data){
+                        callback(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
+                    });
+            };
 
             return scenario;
         }
