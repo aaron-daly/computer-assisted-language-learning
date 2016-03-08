@@ -35,7 +35,7 @@ angular.module('calliApp', [
                                     }
                                     defer.resolve();
                                 });
-                            },500);
+                            });
                             return defer.promise;
                         }]
                 }
@@ -174,7 +174,7 @@ angular.module('calliApp', [
                                 pictureGame.preload();
                                 wordGame.preload();
                                 defer.resolve();
-                            },1500);
+                            },1000);
                             return defer.promise;
                         }],
                     groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
