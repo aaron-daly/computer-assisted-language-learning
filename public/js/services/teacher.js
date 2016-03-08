@@ -57,9 +57,6 @@ angular.module('calliApp')
                     scenarioName: scenario.name,
                     enabled: true
                 })
-                    .success(function(data) {
-                        console.log(data);
-                    })
                     .error(function(error) {
                         console.log(error);
                     })
@@ -72,9 +69,6 @@ angular.module('calliApp')
                         scenarioId: scenario._id,
                         scenarioName: scenario.name,
                         enabled: false
-                    })
-                    .success(function(data) {
-                        console.log(data);
                     })
                     .error(function(error) {
                         console.log(error);
@@ -89,9 +83,6 @@ angular.module('calliApp')
                     pupilId: pupil._id
                     }
                 )
-                    .success(function(data) {
-                        console.log(data);
-                    })
                     .error(function(error) {
                         console.log(data);
                     });

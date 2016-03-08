@@ -344,6 +344,7 @@ module.exports = function(app) {
                         $push: { "scenarios": {
                             scenarioId: req.body.scenarioId,
                             scenarioName: req.body.scenarioName,
+                            //scenarioType: req.body.scenarioType,
                             enabled: true
                         }}
                     },

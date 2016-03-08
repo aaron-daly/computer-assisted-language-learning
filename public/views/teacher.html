@@ -16,7 +16,7 @@
                                   id="batch-pupil-names-input"
                                   name="batchPupilNames"
                                   ng-model="batchPupilNames"
-                                  rows="5"
+                                  rows="9"
                                   cols="10"
                                   required="required"></textarea>
         </div>
@@ -37,7 +37,7 @@
         <th class="text-left">Username</th>
         <th class="text-center">Progress</th>
         </thead>
-        <tr dir-paginate="pupil in pupils | itemsPerPage:8 " pagination-id="pupilPagination">
+        <tr dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
             <td class="text-left">{{ pupil.username.replace(username, '') }}</td>
             <td class="text-center"><span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span></td>
         </tr>
@@ -53,12 +53,14 @@
     <hr>
     <table class="table table-striped">
         <thead>
-        <th class="text-left">Game Name</th>
+        <th class="text-left">Name</th>
+        <th class="text-center">Type</th>
         <th class="text-center">Level</th>
         <th class="text-center">Enabled</th>
         </thead>
         <tr dir-paginate="pupilGame in allScenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
             <td class="text-left">{{ pupilGame.name }}</td>
+            <td class="text-center">{{ pupilGame.level}}</td>
             <td class="text-center">{{ pupilGame.level}}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-check" ng-show="!isEnabled(pupilGame)" ng-click="enableScenario(pupilGame)"></span>
