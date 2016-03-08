@@ -6,7 +6,7 @@ angular.module('calliApp')
     .factory('wordGame', ['$http', 'scenario',
         function($http, scenario){
 
-            var wordGameExample =                     {
+            var wordGame =           {
                 "name": "wordSample",
                 "level": 1,
                 "conversation":[
