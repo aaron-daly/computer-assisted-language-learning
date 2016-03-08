@@ -52,6 +52,7 @@ angular.module('calliApp')
                     });
             };
 
+
             return scenario;
         }
     ]);

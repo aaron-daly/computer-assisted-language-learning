@@ -60,7 +60,7 @@
         </thead>
         <tr dir-paginate="pupilGame in allScenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
             <td class="text-left">{{ pupilGame.name }}</td>
-            <td class="text-center">{{ pupilGame.level}}</td>
+            <td class="text-center">{{ getScenarioType(pupilGame.name) }}</td>
             <td class="text-center">{{ pupilGame.level}}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-check" ng-show="!isEnabled(pupilGame)" ng-click="enableScenario(pupilGame)"></span>

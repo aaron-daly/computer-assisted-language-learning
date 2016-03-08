@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'teacher', 'conversationGame',
-    function($scope, $http, $location, $route, token, teacher, conversationGame) {
+angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'conversationGame',
+    function($scope, $http, $location, $route, token, scenario, teacher, conversationGame) {
 
         $scope.username = token.currentUser();
 
@@ -32,6 +32,10 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.isEnabled = function(scenario) {
             return $scope.enabledList.indexOf(scenario.name) > -1;
+        };
+
+        $scope.getScenarioType = function(scenarioName) {
+            return teacher.getScenarioType(scenarioName);
         };
 
         $scope.enableScenario = function(scenario) {

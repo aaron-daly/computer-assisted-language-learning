@@ -1,7 +1,7 @@
 angular.module('calliApp')
 
-    .factory('teacher', ['$http', 'token', 'auth',
-        function($http, token, auth) {
+    .factory('teacher', ['$http', 'token', 'auth', 'scenario', 'conversationGame',
+        function($http, token, auth, scenario, conversationGame) {
 
             var teacher = {
                 pupils: [],
@@ -49,17 +49,34 @@ angular.module('calliApp')
                     });
             };
 
+            teacher.getScenarioType = function(scenarioName) {
+                var type = {};
+
+                if(conversationGame.containsScenario(scenarioName)) {
+                    type = 'c';
+                } else if(pictureGame.containsScenario(scenarioName)) {
+                    type = 'p';
+                } else {
+                    type = 'w';
+                }
+
+                return type;
+            };
+
             teacher.enableScenario = function(scenario) {
+
+                var scenarioType = this.getScenarioType(scenario.name);
 
                 $http.put('/group/scenario', {
                     teacherId: token.currentUserId(),
                     scenarioId: scenario._id,
                     scenarioName: scenario.name,
+                    scenarioType: scenarioType,
                     enabled: true
                 })
                     .error(function(error) {
                         console.log(error);
-                    })
+                    }) 
             };
 
             teacher.disableScenario = function(scenario) {

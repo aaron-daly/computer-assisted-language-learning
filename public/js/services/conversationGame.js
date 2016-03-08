@@ -110,6 +110,19 @@ angular.module('calliApp')
                 return arr;
             };
 
+            conversationGame.containsScenario = function(scenarioName) {
+                if(conversationGame.scenarioList) {
+                    var i = 0;
+                    var len = conversationGame.scenarioList.length;
+                    for(i; i<len; i++) {
+                        if(conversationGame.scenarioList[i].name === scenarioName) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
+
             return conversationGame;
         }
     ]);

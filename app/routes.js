@@ -339,12 +339,13 @@ module.exports = function(app) {
             if(err)
                 throw err;
             if(!group) {
+                console.log(req.body);
                 Group.findOneAndUpdate({ teacherId: req.body.teacherId },
                     {
                         $push: { "scenarios": {
                             scenarioId: req.body.scenarioId,
                             scenarioName: req.body.scenarioName,
-                            //scenarioType: req.body.scenarioType,
+                            scenarioType: req.body.scenarioType,
                             enabled: true
                         }}
                     },

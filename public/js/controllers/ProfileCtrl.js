@@ -11,7 +11,13 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.user = {};
         $scope.role = {};
 
-        $scope.scenarios = teacher.group.scenarios;
+        $scope.scenarios = [];
+        $.each(teacher.group.scenarios, function(key, val) {
+                if (val.enabled) {
+                    $scope.scenarios.push(val);
+                }
+            }
+        );
 
             //get current user
         $http.post('/user', { username: token.currentUser() })
@@ -28,22 +34,18 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
             });
 
-        //append buttons for scenarios to play
-        $.each($scope.scenarios, function(key, scenario) {
-            if(scenario.enabled) {
-                var btn = '<button class="btn btn-info scenario-btn" value="c">' + scenario.scenarioName + '</button>';
-                $('#scenario-container').append(btn);
+        $scope.playScenario = function(scenario) {
+            if(scenario.scenarioType === 'c') {
+                $location.path('/conversationGame/:' + scenario.scenarioName);
             }
-        });
+        };
 
-
-        //listen for scenario-btn click
-        $('.scenario-btn').on('click', function() {
-            if($(this).val() === 'c') {
-                $location.path('/conversationGame/:' + $(this).text());
+        $scope.checkScenarioCompletion = function(scenario) {
+            if(!scenario.completionList) {
+                return false;
+            } else {
+                return scenario.completionList.indexOf($scope.user._id) > -1;
             }
-            $scope.$apply();
-        });
-
+        }
     }
 ]);
