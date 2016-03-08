@@ -61,7 +61,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             if(!scenario.completionList) {
                 return false;
             } else {
-                return scenario.completionList.indexOf(pupil._id > 0);
+                return scenario.completionList.indexOf(pupil._id) > -1;
             }
         }
     }

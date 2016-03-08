@@ -55,6 +55,8 @@ angular.module('calliApp')
                         .error(function(error) {
                             console.log(error);
                         });
+                } else {
+                    callback('unassigned');
                 }
             };
 

@@ -7,7 +7,7 @@ var GroupSchema = new mongoose.Schema({
     scenarios: [{
         scenarioId: { type: mongoose.Schema.Types.ObjectId },
         scenarioName: String,
-        completionList: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
+        completionList: [{ type: mongoose.Schema.Types.ObjectId, ref:'User' }],
         enabled: Boolean
     }]
 

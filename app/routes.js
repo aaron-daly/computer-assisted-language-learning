@@ -328,25 +328,6 @@ module.exports = function(app) {
     //PUT to a class
     app.put('/group/scenario', function(req, res, next) {
 
-        /*
-        Group.findOne({ teacherId: req.body.teacherId }, function(err, group) {
-                if(err)
-                    throw(err);
-                else {
-                    Group.update({'scenarios.scenarioId': req.body.scenarioId},
-                        {'$set': {
-                            'scenarios.$.enabled': req.body.enabled
-                        }}, function(err, count) {
-                            if(err)
-                                throw(err);
-                            if(!count) {
-                            }
-                        }
-                    )
-                }
-            }
-        )*/
-
         Group.findOneAndUpdate({
             teacherId: req.body.teacherId,
             'scenarios.scenarioId': req.body.scenarioId
@@ -380,6 +361,29 @@ module.exports = function(app) {
             }
         })
     });
+
+
+    app.put('/group/scenario/completion', function(req, res, next) {
+
+        Group.findOneAndUpdate({
+            teacherId: req.body.teacherId,
+            'scenarios.scenarioId': req.body.scenarioId
+        },{
+            '$push': {
+                'scenarios.$.completionList': req.body.pupilId
+            }
+        },{
+            safe: true,
+            upsert: true,
+            new: true
+        },
+            function(err, group) {
+            if(err)
+                throw err;
+            res.json(group);
+        })
+    });
+
 
     //PUT to a class
     app.put('/group/scenarioEnable', function(req, res, next) {

@@ -4,6 +4,8 @@
 angular.module('NavigationCtrl', []).controller('NavigationController', ['$scope', 'auth', 'token',
     function($scope, auth, token) {
 
+        $scope.authorized = "";
+
         $scope.isLoggedIn = function() {
             return token.isLoggedIn();
         };

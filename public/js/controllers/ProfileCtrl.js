@@ -12,9 +12,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.role = {};
 
         $scope.scenarios = teacher.group.scenarios;
-        console.log($scope.scenarios);
-
-        var conversationScenarios = conversationGame.scenarioList;
 
             //get current user
         $http.post('/user', { username: token.currentUser() })

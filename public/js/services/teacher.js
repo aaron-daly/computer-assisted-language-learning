@@ -81,6 +81,22 @@ angular.module('calliApp')
                     })
             };
 
+            teacher.logScenarioCompletion = function(scenario, pupil) {
+
+                $http.put('/group/scenario/completion', {
+                    teacherId: token.currentUserCreator(),
+                    scenarioId: scenario._id,
+                    pupilId: pupil._id
+                    }
+                )
+                    .success(function(data) {
+                        console.log(data);
+                    })
+                    .error(function(error) {
+                        console.log(data);
+                    });
+            };
+
             return teacher;
         }
     ]);

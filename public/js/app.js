@@ -19,7 +19,24 @@ angular.module('calliApp', [
             // home page
             .when('/', {
                 templateUrl: 'views/home.html',
-                controller: 'MainController'
+                controller: 'MainController',
+                resolve: {
+                    loginPromise: ['token', '$q', '$timeout', '$location',
+                        function (token, $q, $timeout, $location) {
+                            var defer = $q.defer();
+                            $timeout(function () {
+                                token.currentUserRole(function(role) {
+                                    if(role === 'student' || role === 'pupil') {
+                                        $location.path('/profile');
+                                    } else if(role === 'teacher') {
+                                        $location.path('/teacher');
+                                    }
+                                    defer.resolve();
+                                });
+                            },500);
+                            return defer.promise;
+                        }]
+                }
             })
 
             // login page
