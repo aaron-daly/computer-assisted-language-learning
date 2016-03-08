@@ -8,7 +8,9 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.submitScenario = function() {
 
+            console.log($scope.scenarioJSON);
             var scenarioJSON = JSON.parse($scope.scenarioJSON);
+
 
             if(scenarioJSON) {
                 $http.post('/scenario/add/' + $scope.type, scenarioJSON, function(response) {

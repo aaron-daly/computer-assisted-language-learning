@@ -4,8 +4,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ConversationGameCtrl', []).controller('ConversationGameController', ['$scope', '$routeParams', '$location', 'conversationGame',
-    function($scope, $routeParams, $location, conversationGame) {
+angular.module('ConversationGameCtrl', []).controller('ConversationGameController', ['$scope', '$routeParams', '$location', 'conversationGame', 'teacher',
+    function($scope, $routeParams, $location, conversationGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -60,6 +60,8 @@ angular.module('ConversationGameCtrl', []).controller('ConversationGameControlle
         };
 
         $scope.finish = function(results) {
+
+            teacher.logScenarioCompletion($scope.scenario);
 
             $.each(results.questions, function(key, val) {
 

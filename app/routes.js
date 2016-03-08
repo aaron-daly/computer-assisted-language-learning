@@ -22,7 +22,7 @@ module.exports = function(app) {
         var cS = new ConversationScenario({
             name: req.body.name,
             level: req.body.level,
-            conversation: req.body.questions
+            conversation: req.body.conversation
         });
 
         cS.save(function(err) {
@@ -38,7 +38,7 @@ module.exports = function(app) {
         var pS = new PictureScenario({
             name: req.body.name,
             level: req.body.level,
-            conversation: req.body.questions
+            conversation: req.body.conversation
         });
 
         pS.save(function(err) {
@@ -54,7 +54,7 @@ module.exports = function(app) {
         var wS = new WordScenario({
             name: req.body.name,
             level: req.body.level,
-            conversation: req.body.questions
+            conversation: req.body.conversation
         });
 
         wS.save(function(err) {

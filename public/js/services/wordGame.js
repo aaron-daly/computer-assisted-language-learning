@@ -6,165 +6,165 @@ angular.module('calliApp')
     .factory('wordGame', ['$http', 'scenario',
         function($http, scenario){
 
+            var wordGameExample =                     {
+                "name": "wordSample",
+                "level": 1,
+                "conversation":[
+                    {
+                        "question": "Is maith liom ",
+                        "position": 1,
+                        "answers": [
+                            {
+                                "answer": "seaclaid",
+                                "branch": 2,
+                                "correct": false
+                            },
+                            {
+                                "answer": "brioscai",
+                                "branch": 2,
+                                "correct": true
+                            },
+                            {
+                                "answer": "caca milis",
+                                "branch": 2,
+                                "correct": false
+                            }
+                        ]
+                    },
+
+                    {
+                        "question": "Is fearr liom ",
+                        "position": 2,
+                        "answers": [
+                            {
+                                "answer": "seaclaid",
+                                "branch": 3,
+                                "correct": true
+                            },
+                            {
+                                "answer": "criospai",
+                                "branch": 3,
+                                "correct": false
+                            },
+                            {
+                                "answer": "milsean",
+                                "branch": 3,
+                                "correct": false
+                            }
+                        ]
+                    },
+
+                    {
+                        "question": "D'ith me ",
+                        "position": 3,
+                        "answers": [
+                            {
+                                "answer": "bainne",
+                                "branch": 4,
+                                "correct": false
+                            },
+                            {
+                                "answer": "caca milis",
+                                "branch": 4,
+                                "correct": true
+                            },
+                            {
+                                "answer": "uisce",
+                                "branch": 4,
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+                        "question": "Thug siad  ",
+                        "position": 4,
+                        "answers": [
+                            {
+                                "answer": "uachtar reoite",
+                                "branch": 5,
+                                "correct": true
+                            },
+                            {
+                                "answer": "bonbons",
+                                "branch": 5,
+                                "correct": false
+                            },
+                            {
+                                "answer": "criospai",
+                                "branch": 5,
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+                        "question": "Ni raibh me ag ithe ",
+                        "position": 5,
+                        "answers": [
+                            {
+                                "answer": "uachtar reoite",
+                                "branch": 6,
+                                "correct": false
+                            },
+                            {
+                                "answer": "bonbons",
+                                "branch": 6,
+                                "correct": false
+                            },
+                            {
+                                "answer": "criospai",
+                                "branch": 6,
+                                "correct": true
+                            }
+                        ]
+                    },
+                    {
+                        "question": "Pioc me alan",
+                        "position": 6,
+                        "answers": [
+                            {
+                                "answer": "uachtar reoite",
+                                "branch": 7,
+                                "correct": false
+                            },
+                            {
+                                "answer": "milsean",
+                                "branch": 7,
+                                "correct": true
+                            },
+                            {
+                                "answer": "criospai",
+                                "branch": 7,
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+                        "question": "Bhi pol ag ol ",
+                        "position": 7,
+                        "answers": [
+                            {
+                                "answer": "uachtar reoite",
+                                "branch": 0,
+                                "correct": false
+                            },
+                            {
+                                "answer": "bainne",
+                                "branch": 0,
+                                "correct": true
+                            },
+                            {
+                                "answer": "criospai",
+                                "branch": 0,
+                                "correct": false
+                            }
+                        ]
+                    }
+                ]
+            };
+
             var wordGame = {
                 scenario: {},
-                scenarioList: [ {
-                    "name": "wordSample",
-                    "level": "1",
-                    "conversation":[
-                            {
-                                "question": "Is maith liom ",
-                                "position": "1",
-                                "answers": [
-                                    {
-                                        "answer": "seaclaid",
-                                        "branch": "2",
-                                        "correct": false
-                                    },
-                                    {
-                                        "answer": "brioscai",
-                                        "branch": "2",
-                                        "correct": true
-                                    },
-                                    {
-                                        "answer": "caca milis",
-                                        "branch": "2",
-                                        "correct": false
-                                    }
-                                ]//end "answers"
-                            },
-
-                        {
-                            "question": "Is fearr liom ",
-                            "position": "2",
-                            "answers": [
-                                {
-                                    "answer": "seaclaid",
-                                    "branch": "3",
-                                    "correct": true
-                                },
-                                {
-                                    "answer": "criospai",
-                                    "branch": "3",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "milsean",
-                                    "branch": "3",
-                                    "correct": false
-                                }
-                            ] //end "answers"
-                        },
-
-                        {
-                            "question": "D'ith me ",
-                            "position": "3",
-                            "answers": [
-                                {
-                                    "answer": "bainne",
-                                    "branch": "4",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "caca milis",
-                                    "branch": "4",
-                                    "correct": true
-                                },
-                                {
-                                    "answer": "uisce",
-                                    "branch": "4",
-                                    "correct": false
-                                }
-                            ] //end "answers"
-                        },
-                        {
-                            "question": "Thug siad  ",
-                            "position": "4",
-                            "answers": [
-                                {
-                                    "answer": "uachtar reoite",
-                                    "branch": "5",
-                                    "correct": true
-                                },
-                                {
-                                    "answer": "bonbons",
-                                    "branch": "5",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "criospai",
-                                    "branch": "5",
-                                    "correct": false
-                                }
-                            ] //end "answers"
-                        },
-                        {
-                            "question": "Ni raibh me ag ithe ",
-                            "position": "5",
-                            "answers": [
-                                {
-                                    "answer": "uachtar reoite",
-                                    "branch": "6",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "bonbons",
-                                    "branch": "6",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "criospai",
-                                    "branch": "6",
-                                    "correct": true
-                                }
-                            ] //end "answers"
-                        },
-                        {
-                            "question": "Pioc me alan",
-                            "position": "6",
-                            "answers": [
-                                {
-                                    "answer": "uachtar reoite",
-                                    "branch": "7",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "milsean",
-                                    "branch": "7",
-                                    "correct": true
-                                },
-                                {
-                                    "answer": "criospai",
-                                    "branch": "7",
-                                    "correct": false
-                                }
-                            ] //end "answers"
-                        },
-                        {
-                            "question": "Bhi pol ag ol ",
-                            "position": "7",
-                            "answers": [
-                                {
-                                    "answer": "uachtar reoite",
-                                    "branch": "0",
-                                    "correct": false
-                                },
-                                {
-                                    "answer": "bainne",
-                                    "branch": "0",
-                                    "correct": true
-                                },
-                                {
-                                    "answer": "criospai",
-                                    "branch": "0",
-                                    "correct": false
-                                }
-                            ] //end "answers"
-                        }
-
-                    //end "questions"
-
-                    ]} ],
+                scenarioList: [],
                 position: 1,
                 recordedQuestions: [],
                 recordedAnswers: [],
@@ -200,14 +200,14 @@ angular.module('calliApp')
                         }
                     });
 
+                this.position++;
                 //if we reach delimiter position 0, callback results and release game
-                if(answer.branch == 0) {
+                if(this.position >= this.scenario.conversation.length) {
                     callback(this.getResults());
                     this.release();
                 } else {
-
                     //update position and callback next question
-                    this.position = answer.branch;
+                    this.position++;
                     callback(this.nextQuestion());
                 }
 
@@ -258,7 +258,6 @@ angular.module('calliApp')
             //preloads games into scenarioList
             wordGame.preload = function() {
 
-                console.log(wordGame.scenarioList);
                 scenario.getWordScenarios(function(data) {
                     if(wordGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {

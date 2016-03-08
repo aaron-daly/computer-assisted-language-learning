@@ -1,8 +1,8 @@
 /**
  * Created by Raphaelle on 07/03/2016.
  */
-angular.module('WordGameCtrl', []).controller('WordGameController', ['$scope', '$routeParams', '$location', 'wordGame',
-    function($scope, $routeParams, $location, wordGame) {
+angular.module('WordGameCtrl', []).controller('WordGameController', ['$scope', '$routeParams', '$location', 'wordGame', 'teacher',
+    function($scope, $routeParams, $location, wordGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -63,11 +63,13 @@ angular.module('WordGameCtrl', []).controller('WordGameController', ['$scope', '
         };
 
         $scope.finish = function(results) {
+
+            teacher.logScenarioCompletion($scope.scenario);
+
             var questionHTML = 0;
             var answerHTML = 0;
 
             $.each(results.questions, function(key, val) {
-                console.log(key);
                 questionHTML = '<h2>' + val +'<img src="../images/'+$scope.scenario.name+'/Image'+key+'.jpg" style="width:50px;height:50px;display:inline;"/>'+ '</h2>';
                 //if the correct value in corresponding position of array is true then ....
                 if (results.correct[key]) {

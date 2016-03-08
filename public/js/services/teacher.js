@@ -66,7 +66,6 @@ angular.module('calliApp')
             teacher.enableScenario = function(scenario) {
 
                 var scenarioType = this.getScenarioType(scenario.name);
-                console.log(scenario, scenarioType);
 
                 $http.put('/group/scenario', {
                     teacherId: token.currentUserId(),
@@ -93,17 +92,26 @@ angular.module('calliApp')
                     })
             };
 
-            teacher.logScenarioCompletion = function(scenario, pupil) {
+            teacher.logScenarioCompletion = function(scenario) {
 
-                $http.put('/group/scenario/completion', {
-                    teacherId: token.currentUserCreator(),
-                    scenarioId: scenario._id,
-                    pupilId: token.currentUserId()
-                    }
-                )
-                    .error(function(error) {
-                        console.log(data);
+                if(teacher.group.scenarios) {
+                    $.each(teacher.group.scenarios, function (key, val) {
+                        if (val.scenarioName === scenario.name) {
+
+                            if (val.completionList.indexOf(token.currentUserId()) < 0) {
+                                $http.put('/group/scenario/completion', {
+                                        teacherId: token.currentUserCreator(),
+                                        scenarioId: scenario._id,
+                                        pupilId: token.currentUserId()
+                                    })
+                                    .error(function (error) {
+                                        console.log(data);
+                                    });
+                            }
+                        }
                     });
+                }
+
             };
 
             return teacher;

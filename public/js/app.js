@@ -145,8 +145,10 @@ angular.module('calliApp', [
                                     $location.path('/profile');
                                     defer.resolve('Error loading scenario');
                                 }
-                            });
-                        })
+                            },1000);
+                        });
+
+                        return defer.promise;
                     }]
                 }
             })
@@ -164,15 +166,15 @@ angular.module('calliApp', [
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['conversationGame', '$q', '$timeout',
-                        function (conversationGame, $q, $timeout) {
+                    scenarioPromise: ['conversationGame', 'pictureGame', 'wordGame', '$q', '$timeout',
+                        function (conversationGame, pictureGame, wordGame, $q, $timeout) {
                             var defer = $q.defer();
                             $timeout(function () {
                                 conversationGame.preload();
-                                //pictureGame.preload();
-                                //wordGame.preload();
+                                pictureGame.preload();
+                                wordGame.preload();
                                 defer.resolve();
-                            },1000);
+                            },1500);
                             return defer.promise;
                         }],
                     groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
@@ -191,15 +193,6 @@ angular.module('calliApp', [
 
                             return defer.promise;
                         }]
-
-                    /*
-                    pupilsPromise: ['$q', '$timeout', 'pupils', function($q, $timeout, pupils) {
-
-                    }],
-
-                    userPromise: ['$q', '$timeout', 'user', function($q, $timeout, user) {
-
-                    }] */
                 }
             })
 
@@ -208,13 +201,13 @@ angular.module('calliApp', [
                 controller: 'TeacherController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['conversationGame', '$q', '$timeout',
-                        function (conversationGame, $q, $timeout) {
+                    scenarioPromise: ['conversationGame', 'pictureGame', 'wordGame', '$q', '$timeout',
+                        function (conversationGame, pictureGame, wordGame, $q, $timeout) {
                             var defer = $q.defer();
                             $timeout(function () {
                                 conversationGame.preload();
-                                //pictureGame.preload();
-                                //wordGame.preload();
+                                pictureGame.preload();
+                                wordGame.preload();
                                 defer.resolve();
                             });
                             return defer.promise;
@@ -276,7 +269,7 @@ angular.module('calliApp', [
 
 
             //if next route is profile page, preload list of games
-            if(nextRoute.$$route.originalPath == '/profile') {
+            if(nextRoute.$$route.originalPath == '/profile' || nextRoute.$$route.originalPath == '/teacher') {
 
                 conversationGame.preload();
                 pictureGame.preload();

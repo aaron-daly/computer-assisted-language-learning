@@ -10,8 +10,10 @@ var WordScenarioSchema = new mongoose.Schema({
     conversation: [{
         question: String,
         translation: String,
+        position: Number,
         answers: [{
             answer: String,
+            position: Number,
             translation: String,
             correct: Boolean
         }]

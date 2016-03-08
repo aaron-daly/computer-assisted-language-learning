@@ -13,6 +13,7 @@ var PictureScenarioSchema = new mongoose.Schema({
         position: Number,
         answers: [{
             answer: String,
+            position: Number,
             translation: String,
             correct: Boolean
         }]
