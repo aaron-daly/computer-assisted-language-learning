@@ -1,7 +1,7 @@
 angular.module('calliApp')
 
-    .factory('teacher', ['$http', 'token', 'auth', 'scenario', 'conversationGame',
-        function($http, token, auth, scenario, conversationGame) {
+    .factory('teacher', ['$http', 'token', 'auth', 'scenario', 'conversationGame', 'pictureGame', 'wordGame',
+        function($http, token, auth, scenario, conversationGame, pictureGame, wordGame) {
 
             var teacher = {
                 pupils: [],
@@ -66,6 +66,7 @@ angular.module('calliApp')
             teacher.enableScenario = function(scenario) {
 
                 var scenarioType = this.getScenarioType(scenario.name);
+                console.log(scenario, scenarioType);
 
                 $http.put('/group/scenario', {
                     teacherId: token.currentUserId(),
@@ -76,7 +77,7 @@ angular.module('calliApp')
                 })
                     .error(function(error) {
                         console.log(error);
-                    }) 
+                    })
             };
 
             teacher.disableScenario = function(scenario) {
@@ -97,7 +98,7 @@ angular.module('calliApp')
                 $http.put('/group/scenario/completion', {
                     teacherId: token.currentUserCreator(),
                     scenarioId: scenario._id,
-                    pupilId: pupil._id
+                    pupilId: token.currentUserId()
                     }
                 )
                     .error(function(error) {

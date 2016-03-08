@@ -126,7 +126,7 @@ angular.module('calliApp', [
                 controller: 'ConversationGameController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['conversationGame', '$q', '$timeout', '$route', function(conversationGame, $q, $timeout, $route) {
+                    scenarioPromise: ['conversationGame', '$q', '$timeout', '$route', function (conversationGame, $q, $timeout, $route) {
                         var defer = $q.defer();
 
                         //if game scenariolist is empty, preload (for game page refresh)
@@ -149,6 +149,7 @@ angular.module('calliApp', [
                         })
                     }]
                 }
+            })
 
 
             // register page
@@ -246,111 +247,6 @@ angular.module('calliApp', [
                 }
             })
 
-            // conversationGame page, param: conversationScenario name
-            .when('/conversationGame/:name', {
-                templateUrl: 'views/conversationGame.html',
-                controller: 'ConversationGameController',
-                restricted: true,
-                resolve: {
-                    scenarioPromise: ['conversationGame', '$q', '$timeout', '$route',
-                        function(conversationGame, $q, $timeout, $route) {
-                            var defer = $q.defer();
-
-                            //if game scenariolist is empty, preload (for game page refresh)
-                            if(conversationGame.scenarioList.length < 1) {
-                                conversationGame.preload();
-                            }
-
-                            var str = $route.current.params.name;
-                            var name = str.substr(1, str.length);
-
-                            $timeout(function() {
-                                conversationGame.loadScenario(name, function(data) {
-                                    if(data) {
-                                        defer.resolve('Scenario loaded');
-                                    } else {
-                                        $location.path('/profile');
-                                        defer.resolve('Error loading scenario');
-                                    }
-                                });
-                            });
-
-                            return defer.promise;
-                        }]
-                }
-            })
-
-            /*
-            // picture Game page, param: pictureScenario name
-            .when('/pictureGame/:name', {
-                templateUrl: 'views/pictureGame.html',
-                controller: 'PictureGameController',
-                restricted: true,
-                resolve: {
-                    scenarioPromise: ['pictureGame', '$q', '$timeout', '$route',
-                        function(pictureGame, $q, $timeout, $route) {
-                            var defer = $q.defer();
-
-                            //if game scenariolist is empty, preload (for game page refresh)
-                            if(pictureGame.scenarioList.length < 1) {
-                                pictureGame.preload();
-                            }
-
-                            var str = $route.current.params.name;
-                            var name = str.substr(1, str.length);
-
-                            $timeout(function() {
-                                pictureGame.loadScenario(name, function(data) {
-                                    if(data) {
-                                        defer.resolve('Scenario loaded');
-                                    } else {
-                                        $location.path('/profile');
-                                        defer.resolve('Error loading scenario');
-                                    }
-                                });
-                            });
-
-                            return defer.promise;
-                        }]
-                }
-            })
-
-
-            // wordGame page, param: wordScenario name
-            .when('/wordGame/:name', {
-                templateUrl: 'views/wordGame.html',
-                controller: 'WordGameController',
-                restricted: true,
-                resolve: {
-                    scenarioPromise: ['wordGame', '$q', '$timeout', '$route',
-                        function(wordGame, $q, $timeout, $route) {
-                            var defer = $q.defer();
-
-                            //if game scenariolist is empty, preload (for game page refresh)
-                            if(wordGame.scenarioList.length < 1) {
-                                wordGame.preload();
-                            }
-
-                            var str = $route.current.params.name;
-                            var name = str.substr(1, str.length);
-
-                            $timeout(function() {
-                                wordGame.loadScenario(name, function(data) {
-                                    if(data) {
-                                        defer.resolve('Scenario loaded');
-                                    } else {
-                                        $location.path('/profile');
-                                        defer.resolve('Error loading scenario');
-                                    }
-                                });
-                            });
-
-                            return defer.promise;
-                        }]
-                }
-            })
-            */
-
             .when('/addScenario', {
                 templateUrl: 'views/addScenario.html',
                 controller: 'AddScenarioController'
@@ -364,8 +260,8 @@ angular.module('calliApp', [
 
     }
 
-]).run(['$rootScope', '$location', 'token', 'conversationGame', 'auth', 'teacher',
-    function($rootScope, $location, token, conversationGame, auth, teacher) {
+]).run(['$rootScope', '$location', 'token', 'conversationGame', 'pictureGame', 'wordGame', 'auth', 'teacher',
+    function($rootScope, $location, token, conversationGame, pictureGame, wordGame, auth, teacher) {
 
 
         //on route change...
@@ -383,8 +279,8 @@ angular.module('calliApp', [
             if(nextRoute.$$route.originalPath == '/profile') {
 
                 conversationGame.preload();
-                //pictureGame.preload();
-                //wordGame.preload();
+                pictureGame.preload();
+                wordGame.preload();
 
                 auth.authorize('teacher', function(authorized) {
                     if(authorized) {

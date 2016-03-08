@@ -10,6 +10,7 @@ var PictureScenarioSchema = new mongoose.Schema({
     conversation: [{
         question: String,
         translation: String,
+        position: Number,
         answers: [{
             answer: String,
             translation: String,

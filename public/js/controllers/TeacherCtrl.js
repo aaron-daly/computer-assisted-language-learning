@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'conversationGame',
-    function($scope, $http, $location, $route, token, scenario, teacher, conversationGame) {
+angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'conversationGame', 'pictureGame', 'wordGame',
+    function($scope, $http, $location, $route, token, scenario, teacher, conversationGame, pictureGame, wordGame) {
 
         $scope.username = token.currentUser();
 
@@ -14,13 +14,13 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
         $scope.allScenarios = [];
         $.each(conversationGame.scenarioList, function(key, val) {
             $scope.allScenarios.push(val);
-        }); /* UNCOMMENT WHEN PICTURE AND WORD GAMES DONE
+        });
         $.each(pictureGame.scenarioList, function(key, val) {
             $scope.allScenarios.push(val);
         });
         $.each(wordGame.scenarioList, function(key, val) {
             $scope.allScenarios.push(val);
-        }); */
+        });
 
 
         $scope.enabledList = [];

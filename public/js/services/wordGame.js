@@ -281,6 +281,19 @@ angular.module('calliApp')
                 return arr;
             };
 
+            wordGame.containsScenario = function(scenarioName) {
+                if(wordGame.scenarioList) {
+                    var i = 0;
+                    var len = wordGame.scenarioList.length;
+                    for(i; i<len; i++) {
+                        if(wordGame.scenarioList[i].name === scenarioName) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
+
             return wordGame;
         }
     ]);

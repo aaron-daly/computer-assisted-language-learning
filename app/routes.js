@@ -328,6 +328,8 @@ module.exports = function(app) {
     //PUT to a class
     app.put('/group/scenario', function(req, res, next) {
 
+        console.log(req.body);
+
         Group.findOneAndUpdate({
             teacherId: req.body.teacherId,
             'scenarios.scenarioId': req.body.scenarioId
@@ -339,7 +341,6 @@ module.exports = function(app) {
             if(err)
                 throw err;
             if(!group) {
-                console.log(req.body);
                 Group.findOneAndUpdate({ teacherId: req.body.teacherId },
                     {
                         $push: { "scenarios": {

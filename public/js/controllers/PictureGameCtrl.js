@@ -1,8 +1,8 @@
 /**
  * Created by Raphaelle on 04/03/2016.
  */
-angular.module('PictureGameCtrl', []).controller('PictureGameController', ['$scope', '$routeParams', '$location', 'pictureGame',
-    function($scope, $routeParams, $location, pictureGame) {
+angular.module('PictureGameCtrl', []).controller('PictureGameController', ['$scope', '$routeParams', '$location', 'pictureGame', 'teacher',
+    function($scope, $routeParams, $location, pictureGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -57,6 +57,9 @@ angular.module('PictureGameCtrl', []).controller('PictureGameController', ['$sco
         };
 
         $scope.finish = function(results) {
+
+            teacher.logScenarioCompletion($scope.scenario);
+
             var questionHTML = 0;
             var answerHTML = 0;
 

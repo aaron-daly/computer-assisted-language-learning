@@ -215,7 +215,6 @@ angular.module('calliApp')
 
             };
 
-
             //results of questions and answers
             pictureGame.getResults = function() {
                 return {
@@ -282,6 +281,19 @@ angular.module('calliApp')
                 }
 
                 return arr;
+            };
+
+            pictureGame.containsScenario = function(scenarioName) {
+                if(pictureGame.scenarioList) {
+                    var i = 0;
+                    var len = pictureGame.scenarioList.length;
+                    for(i; i<len; i++) {
+                        if(pictureGame.scenarioList[i].name === scenarioName) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             };
 
             return pictureGame;

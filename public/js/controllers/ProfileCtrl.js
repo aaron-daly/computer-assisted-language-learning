@@ -45,6 +45,10 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.playScenario = function(scenario) {
             if(scenario.scenarioType === 'c') {
                 $location.path('/conversationGame/:' + scenario.scenarioName);
+            } else if(scenario.scenarioType === 'p') {
+                $location.path('/pictureGame/:' + scenario.scenarioName);
+            } else {
+                $location.path('/wordGame/:' + scenario.scenarioName);
             }
 
         };

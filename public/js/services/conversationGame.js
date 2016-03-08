@@ -6,134 +6,7 @@ angular.module('calliApp')
 
             var conversationGame = {
                 scenario: {},
-                scenarioList: [ {
-                    "name": "conversationSample",
-                    "level": "1",
-                    "conversation":[
-                        {
-                            "question": "Dia dhuit",
-                            "position": "1",
-                            "answers": [
-                                {
-                                    "answer": "Dia is muire dhuit",
-                                    "branch": "2"
-                                }
-                            ]
-                        },
-
-                        {
-
-                            "question": "An raibh tú ar scoil innú?",
-                            "position": "2",
-                            "answers": [
-                                {
-                                    "answer": "Bhi me ar scoil innú",
-                                    "branch": "3"
-                                },
-                                {
-                                    "answer": "Ni raibh me ar scoil innú",
-                                    "branch": "3"
-                                }
-                            ]
-                        },
-
-                        {
-
-                            "question": "An maith leat milsean?",
-                            "position": "3",
-                            "answers": [
-                                {
-                                    "answer": "Is maith liom milsean",
-                                    "branch": "4"
-                                },
-                                {
-                                    "answer": "Ni maith liom milsean",
-                                    "branch": "5"
-                                },
-                                {
-                                    "answer": "Is fearr liom seacloid",
-                                    "branch": "6"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "Cen milsean ar mhaith leat?",
-                            "position": "4",
-                            "answers": [
-                                {
-                                    "answer": "sealaid",
-                                    "branch": "6"
-                                },
-                                {
-                                    "answer": "uachtar reoite",
-                                    "branch": "6"
-                                },
-                                {
-                                    "answer": "criospai",
-                                    "branch": "6"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "Ar ól tú cóc?",
-                            "position": "5",
-                            "answers": [
-                                {
-                                    "answer": "Nior ól me cóc",
-                                    "branch": "6"
-                                },
-                                {
-                                    "answer": "D'ól me cóc",
-                                    "branch": "6"
-                                },
-                                {
-                                    "answer": "Is fearr liom bainne",
-                                    "branch": "6"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "Seo duit, Ar mhaith leat mala?",
-                            "position": "6",
-                            "answers": [
-                                {
-                                    "answer": "Nil, Ta mala agam",
-                                    "branch": "7"
-                                },
-                                {
-                                    "answer": "Ta, nil mala agam",
-                                    "branch": "7"
-                                },
-                                {
-                                    "answer": "Is feider liom iad a ithe anois",
-                                    "branch": "7"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "Go raibh maith agat, slan",
-                            "position": "7",
-                            "answers": [
-                                {
-                                    "answer": "Slan",
-                                    "branch": "0"
-                                },
-                                {
-                                    "answer": "Go raibh maith agat",
-                                    "branch": "0"
-                                },
-                                {
-                                    "answer": "Slan go fól",
-                                    "branch": "0"
-                                }
-                            ]
-                        }
-
-                ]} ],
+                scenarioList: [],
                 position: 1,
                 recordedQuestions: [],
                 recordedAnswers: [],
@@ -216,7 +89,6 @@ angular.module('calliApp')
             //preloads games into scenarioList
             conversationGame.preload = function() {
 
-                console.log(conversationGame.scenarioList);
                 scenario.getConversationScenarios(function(data) {
                     if(conversationGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
