@@ -190,9 +190,17 @@ angular.module('calliApp')
 
             //receives answer, calls back next question
             pictureGame.tick = function(answer, callback) {
-
                 this.recordedAnswers.push(answer.answer);
-                this.recordedCorrectAnswers.push(answer.correct);
+
+                //answer,branch,correct of current answer.
+                var currentAnswers = pictureGame.scenario.conversation[pictureGame.position-1].answers;
+
+                $.each(currentAnswers, function(key, val) {
+                    if(val.answer == answer.answer) {
+                        pictureGame.recordedCorrectAnswers.push(val.correct);
+                    }
+                });
+
 
                 //if we reach delimiter position 0, callback results and release game
                 if(answer.branch == 0) {

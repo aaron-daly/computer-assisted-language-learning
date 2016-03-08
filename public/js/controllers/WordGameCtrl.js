@@ -57,12 +57,18 @@ angular.module('WordGameCtrl', []).controller('WordGameController', ['$scope', '
         };
 
         $scope.finish = function(results) {
+            var questionHTML = 0;
+            var answerHTML = 0;
 
             $.each(results.questions, function(key, val) {
-
-                var questionHTML = '<h2>' + val + '</h2>';
-                var answerHTML = '<h4>' + results.answers[key] + '</h4>';
-
+                questionHTML = '<h2>' + val + '</h2>';
+                //if the correct value in corresponding position of array is true then ....
+                if (results.correct[key]) {
+                    answerHTML = '<h4 class="text-success", style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
+                }
+                else {
+                    answerHTML = '<h4 class="text-success", style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' + '</h4>';
+                }
                 $('#answer-container').append(questionHTML).append(answerHTML);
             });
 

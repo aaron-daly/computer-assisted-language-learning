@@ -18,15 +18,18 @@ angular.module('calliApp')
                                 "answers": [
                                     {
                                         "answer": "seaclaid",
-                                        "branch": "2"
+                                        "branch": "2",
+                                        "correct": true
                                     },
                                     {
                                         "answer": "brioscai",
-                                        "branch": "2"
+                                        "branch": "2",
+                                        "correct": false
                                     },
                                     {
                                         "answer": "caca milis",
-                                        "branch": "2"
+                                        "branch": "2",
+                                        "correct": false
                                     }
                                 ]//end "answers"
                             },
@@ -37,15 +40,18 @@ angular.module('calliApp')
                             "answers": [
                                 {
                                     "answer": "seaclaid",
-                                    "branch": "3"
+                                    "branch": "3",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "criospai",
-                                    "branch": "3"
+                                    "branch": "3",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "milsean",
-                                    "branch": "3"
+                                    "branch": "3",
+                                    "correct": true
                                 }
                             ] //end "answers"
                         },
@@ -56,15 +62,18 @@ angular.module('calliApp')
                             "answers": [
                                 {
                                     "answer": "bainne",
-                                    "branch": "4"
+                                    "branch": "4",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "caca milis",
-                                    "branch": "4"
+                                    "branch": "4",
+                                    "correct": true
                                 },
                                 {
                                     "answer": "uisce",
-                                    "branch": "4"
+                                    "branch": "4",
+                                    "correct": false
                                 }
                             ] //end "answers"
                         },
@@ -74,15 +83,18 @@ angular.module('calliApp')
                             "answers": [
                                 {
                                     "answer": "uachtar reoite",
-                                    "branch": "5"
+                                    "branch": "5",
+                                    "correct": true
                                 },
                                 {
                                     "answer": "bonbons",
-                                    "branch": "5"
+                                    "branch": "5",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "criospai",
-                                    "branch": "5"
+                                    "branch": "5",
+                                    "correct": false
                                 }
                             ] //end "answers"
                         },
@@ -92,15 +104,18 @@ angular.module('calliApp')
                             "answers": [
                                 {
                                     "answer": "uachtar reoite",
-                                    "branch": "6"
+                                    "branch": "6",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "bonbons",
-                                    "branch": "6"
+                                    "branch": "6",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "criospai",
-                                    "branch": "6"
+                                    "branch": "6",
+                                    "correct": true
                                 }
                             ] //end "answers"
                         },
@@ -110,15 +125,18 @@ angular.module('calliApp')
                             "answers": [
                                 {
                                     "answer": "uachtar reoite",
-                                    "branch": "7"
+                                    "branch": "7",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "milsean",
-                                    "branch": "7"
+                                    "branch": "7",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "criospai",
-                                    "branch": "7"
+                                    "branch": "7",
+                                    "correct": true
                                 }
                             ] //end "answers"
                         },
@@ -128,15 +146,18 @@ angular.module('calliApp')
                             "answers": [
                                 {
                                     "answer": "uachtar reoite",
-                                    "branch": "0"
+                                    "branch": "0",
+                                    "correct": false
                                 },
                                 {
                                     "answer": "bainne",
-                                    "branch": "0"
+                                    "branch": "0",
+                                    "correct": true
                                 },
                                 {
                                     "answer": "criospai",
-                                    "branch": "0"
+                                    "branch": "0",
+                                    "correct": false
                                 }
                             ] //end "answers"
                         }
@@ -147,6 +168,7 @@ angular.module('calliApp')
                 position: 1,
                 recordedQuestions: [],
                 recordedAnswers: [],
+                recordedCorrectAnswers: [],
                 isPlaying: false
             };
 
@@ -167,8 +189,16 @@ angular.module('calliApp')
 
             //receives answer, calls back next question
             wordGame.tick = function(answer, callback) {
+                    this.recordedAnswers.push(answer.answer);
 
-                this.recordedAnswers.push(answer.answer);
+                    //answer,branch,correct of current answer.
+                    var currentAnswers = wordGame.scenario.conversation[wordGame.position-1].answers;
+
+                    $.each(currentAnswers, function(key, val) {
+                        if(val.answer == answer.answer) {
+                            wordGame.recordedCorrectAnswers.push(val.correct);
+                        }
+                    });
 
                 //if we reach delimiter position 0, callback results and release game
                 if(answer.branch == 0) {
@@ -187,7 +217,8 @@ angular.module('calliApp')
             wordGame.getResults = function() {
                 return {
                     questions: this.recordedQuestions,
-                    answers: this.recordedAnswers
+                    answers: this.recordedAnswers,
+                    correct: this.recordedCorrectAnswers
                 }
             };
 
@@ -197,6 +228,7 @@ angular.module('calliApp')
                 this.position = 1;
                 this.recordedQuestions = [];
                 this.recordedAnswers = [];
+                this.recordedCorrectAnswers = [];
             };
 
             //load question of game's current position
