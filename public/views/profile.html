@@ -5,48 +5,29 @@
     <hr>
 </div>
 
+<div class="text-center col-sm-8 col-sm-offset-2">
+    <h2>Available Games:</h2>
+    <table class="table table-striped">
+        <thead>
+        <th class="text-left">Name</th>
+        <th class="text-center">Type</th>
+        <th class="text-center">Level</th>
+        <th class="text-center">Play</th>
+        <th class="text-center">Completed</th>
+        </thead>
+        <tr dir-paginate="pupilGame in scenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
+            <td class="text-left">{{ pupilGame.scenarioName }}</td>
+            <td class="text-center">{{ pupilGame.scenarioType }}</td>
+            <td class="text-center">{{ pupilGame.scenarioLevel }}</td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-play-circle" ng-click="playScenario(pupilGame)"></span>
+            </td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-ok" ng-show="checkScenarioCompletion(pupilGame)"></span>
+                <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(pupilGame)"></span>
+            </td>
+        </tr>
+    </table>
+    <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+</div>
 
-<section id="student-container" ng-show="role.type == 'student'">
-    <div class="text-center">
-        <h2>Available Games:</h2>
-        <div id="scenario-container"></div>
-        <button id="play-button" class="btn btn-info" ng-click="preview();">Play Now!</button>
-    </div>
-</section>
-
-
-<section id="teacher-container" ng-show=" role.type == 'teacher' ">
-
-    <div class="col-sm-4 col-sm-offset-1">
-        <h2>Register Pupils Below</h2>
-
-        <form id="register-pupil-form" ng-submit="registerPupil()" role="form">
-            <div class="form-group">
-                <label>Pupil Name</label>
-                <input type="text"
-                       class="form-control"
-                       name="pupilName"
-                       ng-model="pupilName"
-                       required="required">
-            </div>
-            <button type="submit" class="btn btn-info">Register Pupil</button>
-        </form>
-        <hr>
-        <p class="text-info">Note: Your pupil's login username(s) will be '{{ user.username }}' plus the specified name, for example: '{{ user.username }}sean'.</p>
-    </div>
-
-    <div class="col-sm-4 col-sm-offset-2 text-center">
-        <h2>Current Pupils</h2>
-
-        <table class="table table-striped">
-            <thead>
-                <th>Name</th>
-            </thead>
-            <tr ng-repeat="pupil in pupils">
-                <td class="text-left">{{pupil.name}}</td>
-            </tr>
-        </table>
-        <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
-    </div>
-
-</section>

@@ -1,9 +1,13 @@
 var passport = require('passport');
+
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
+var Group = require('../app/models/Group');
+
 var ConversationScenario = require('../app/models/ConversationScenario');
-var Question = require('../app/models/Question');
-var Answer = require('../app/models/Answer');
+var PictureScenario = require('../app/models/PictureScenario');
+var WordScenario = require('../app/models/WordScenario');
+
 
 // app/routes.js
 module.exports = function(app) {
@@ -28,8 +32,40 @@ module.exports = function(app) {
         });
     });
 
+    // POST scenario type P
+    app.post('/scenario/add/p', function(req, res, next) {
 
-    // GET all scenarios, callback array
+        var pS = new PictureScenario({
+            name: req.body.name,
+            level: req.body.level,
+            conversation: req.body.questions
+        });
+
+        pS.save(function(err) {
+            if(err)
+                throw err;
+            return next(pS);
+        });
+    });
+
+    // POST scenario type w
+    app.post('/scenario/add/w', function(req, res, next) {
+
+        var wS = new WordScenario({
+            name: req.body.name,
+            level: req.body.level,
+            conversation: req.body.questions
+        });
+
+        wS.save(function(err) {
+            if(err)
+                throw err;
+            return next(wS);
+        });
+    });
+
+
+    // GET all conversation scenarios, callback array
     app.get('/conversationScenarios', function(req, res, next) {
 
         var scenarios = [];
@@ -48,12 +84,58 @@ module.exports = function(app) {
             res.json(scenarios);    //remove once other scenario types added
         });
 
+    });
+
+    // GET all picture scenarios, callback array
+    app.get('/pictureScenarios', function(req, res, next) {
+
+        var scenarios = [];
+        var i = 0;
+        var len = 0;
+
+        PictureScenario.find(function(err, cS) {
+            if (err)
+                throw err;
+
+            len = cS.length;
+            for(i; i < len; i++) {
+                scenarios.push(cS[i]);
+            }
+
+            res.json(scenarios);    //remove once other scenario types added
+        });
+
+    });
+
+    // GET all word scenarios, callback array
+    app.get('/wordScenarios', function(req, res, next) {
+
+        var scenarios = [];
+        var i = 0;
+        var len = 0;
+
+        WordScenario.find(function(err, cS) {
+            if (err)
+                throw err;
+
+            len = cS.length;
+            for(i; i < len; i++) {
+                scenarios.push(cS[i]);
+            }
+
+            res.json(scenarios);    //remove once other scenario types added
+        });
 
     });
 
 
+
     // END OF SCENARIOS ========================================================
     // =========================================================================
+
+
+    // =========================================================================
+    // USERS ===================================================================
 
     // REGISTER
     app.post('/register', function(req, res, next) {
@@ -73,18 +155,19 @@ module.exports = function(app) {
                     if(err)
                         throw err;
 
-                    User.findOne({ username: user.username }, function(err, nUser) {
+                    user.setRole(role);
+                    if(req.body.creator) {
+                        user.setCreator(req.body.creator);
+                    }
+
+                    user.save(function(err) {
                         if(err)
                             throw err;
-                        nUser.setRole(role);
-                        if(req.body.creator) {
-                            nUser.setCreator(req.body.creator);
-                        }
-                        nUser.save(function(err) {
-                        })
                     });
+
+                    return res.json({ token: user.generateJWT() });
+
                 });
-                return res.json({ token: user.generateJWT() });
 
             } else {
                 return res.status(401).json({
@@ -201,9 +284,141 @@ module.exports = function(app) {
         })
     });
 
+
+    // END OF USERS ==========================================================
     // =======================================================================
+
+
+    // TEACHER CLASSES =======================================================
     // =======================================================================
-    // FINAL ROUTE TO INDEX.HTML
+
+    //POST a group
+    app.post('/group', function(req, res, next) {
+
+        var group = new Group({
+            teacherId: req.body.teacherId,
+        });
+
+        group.save(function(err) {
+            if(err)
+                throw err;
+            return next(group);
+        });
+    });
+
+
+    app.post('/group/byTeacherId', function(req, res, next) {
+
+        Group.findOne({ teacherId: req.body.teacherId }, function(err, group) {
+            if(err)
+                throw err;
+            else res.json(group);
+        })
+    });
+
+
+    app.get('/groups', function(req, res, next) {
+        Group.find(function(err, groups) {
+            if(err)
+                throw err;
+            res.json(groups);
+        })
+    });
+
+    //PUT to a class
+    app.put('/group/scenario', function(req, res, next) {
+
+        Group.findOneAndUpdate({
+            teacherId: req.body.teacherId,
+            'scenarios.scenarioId': req.body.scenarioId
+        },{
+            '$set': {
+                'scenarios.$.enabled': req.body.enabled
+            }
+        }, function(err, group) {
+            if(err)
+                throw err;
+            if(!group) {
+                console.log(req.body);
+                Group.findOneAndUpdate({ teacherId: req.body.teacherId },
+                    {
+                        $push: { "scenarios": {
+                            scenarioId: req.body.scenarioId,
+                            scenarioName: req.body.scenarioName,
+                            scenarioType: req.body.scenarioType,
+                            enabled: true
+                        }}
+                    },
+                    {
+                        safe: true,
+                        upsert: true,
+                        new: true
+                    }, function(err, group2) {
+                        if(err)
+                            throw(err);
+                        else res.json(group2);
+                    })
+            } else {
+                res.json(group);
+            }
+        })
+    });
+
+
+    app.put('/group/scenario/completion', function(req, res, next) {
+
+        Group.findOneAndUpdate({
+            teacherId: req.body.teacherId,
+            'scenarios.scenarioId': req.body.scenarioId
+        },{
+            '$push': {
+                'scenarios.$.completionList': req.body.pupilId
+            }
+        },{
+            safe: true,
+            upsert: true,
+            new: true
+        },
+            function(err, group) {
+            if(err)
+                throw err;
+            res.json(group);
+        })
+    });
+
+
+    //PUT to a class
+    app.put('/group/scenarioEnable', function(req, res, next) {
+
+        Group.findOneAndUpdate({ teacherId: req.body.teacherId },
+            {
+                $push: { "scenarios": {
+                    scenarioId: req.body.scenarioId,
+                    scenarioName: req.body.scenarioName,
+                    enabled: req.body.enabled
+                }}
+            },
+            {
+                safe: true,
+                upsert: true,
+                new: true
+            }, function(err, group) {
+                if(err)
+                    throw(err);
+                else res.json(group);
+            })
+    });
+
+
+
+
+    // END OF TEACHER CLASSES ================================================
+    // =======================================================================
+
+
+
+    // =======================================================================
+    // FINAL ROUTE TO INDEX.HTML =============================================
     app.get('*', function(req, res) {
         res.sendfile('./public/views/index.html');
     });

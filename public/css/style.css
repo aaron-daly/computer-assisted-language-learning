@@ -88,10 +88,24 @@ html,body {
     width: 100%;
     bottom: 0;
 }
+
+@media screen and (min-width: 768px) {
+    .modal-dialog {
+        width: 600px;
+    }
+}
+
+.modal-dialog {
+    width: 80%;
+}
 /*--------*/
 
 
 /*== STYLE ==*/
+
+.glyphicon-blue {
+    color: #5bc0de;
+}
 
 /*--------*/
 

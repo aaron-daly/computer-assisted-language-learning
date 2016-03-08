@@ -1,4 +1,4 @@
 // config/db.js
 module.exports = {
-    url : 'mongodb://localhost/calliAppDatabase'
+    url : 'mongodb://127.0.0.1/calliAppDatabase'
 };

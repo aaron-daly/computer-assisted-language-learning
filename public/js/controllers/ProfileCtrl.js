@@ -1,9 +1,10 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', 'token', 'auth',
-    'conversationGame','pictureGame','wordGame', 'scenario', 'teacher',
-    function($scope, $http, $location, token, auth, conversationGame, pictureGame, wordGame, scenario, teacher) {
+
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', '$route', 'token', 'auth', 'conversationGame', 'teacher',
+    function($scope, $http, $location, $route, token, auth, conversationGame, teacher) {
+
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -15,19 +16,18 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.user = {};
         $scope.role = {};
 
-        var conversationGames = conversationGame.scenarioListNames();
-        console.log(conversationGames);
 
-        var pictureGames = pictureGame.scenarioListNames();
-        console.log(pictureGames);
+        $scope.scenarios = [];
+        $.each(teacher.group.scenarios, function(key, val) {
+                if (val.enabled) {
+                    $scope.scenarios.push(val);
+                }
+            }
+        );
 
-        var wordGames = wordGame.scenarioListNames();
-        console.log(wordGames);
+            //get current user
+        $http.post('/user', { username: token.currentUser() })
 
-
-
-        //get current user
-         $http.post('/user', { username: token.currentUser() })
             .then(function(data) {
 
                 $scope.user = data.data;
@@ -41,98 +41,20 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
             });
 
-        $scope.role="student";
-        //append buttons for scenarios to play
-        $.each(conversationGames, function(key, scenarioName) {
-            console.log(scenarioName);
-            var btn = '<button class="btn btn-info scenario-btn" value="c">' + scenarioName +  '</button>';
-            $('#scenario-container').append(btn);
-        });
 
-
-        //listen for scenario-btn click
-        $('.scenario-btn').on('click', function() {
-            console.log($(this).val());
-            if ($(this).val() === 'c') {
-                $location.path('/conversationGame/:' + $(this).text());
+        $scope.playScenario = function(scenario) {
+            if(scenario.scenarioType === 'c') {
+                $location.path('/conversationGame/:' + scenario.scenarioName);
             }
-            $scope.$apply();
-        });
 
-        $scope.role="student";
-            //append buttons for scenarios to play
-            $.each(pictureGames, function(key, scenarioName) {
-                console.log(scenarioName);
-                var btn = '<button class="btn btn-info scenario-btn" value="p">' + scenarioName +  '</button>';
-                $('#scenario-container').append(btn);
-            });
-
-
-            //listen for scenario-btn click
-            $('.scenario-btn').on('click', function() {
-                console.log($(this).val());
-                if ($(this).val() === 'p') {
-                    $location.path('/pictureGame/:' + $(this).text());
-                }
-            $scope.$apply();
-        });
-
-        $scope.role="student";
-        //append buttons for scenarios to play
-        $.each(wordGames, function(key, scenarioName) {
-            console.log(scenarioName);
-            var btn = '<button class="btn btn-info scenario-btn" value="w">' + scenarioName +  '</button>';
-            $('#scenario-container').append(btn);
-        });
-
-
-        //listen for scenario-btn click
-        $('.scenario-btn').on('click', function() {
-            console.log($(this).val());
-            if ($(this).val() === 'w') {
-                $location.path('/wordGame/:' + $(this).text());
-            }
-            $scope.$apply();
-        });
-
-
-
-        //========================= TEACHER CONTAINER =========================
-
-        $scope.pupils = [];
-
-        $scope.registerPupil = function() {
-
-            var username = $scope.user.username + $scope.pupilName;
-            console.log('register pupil ' + username);
-
-            auth.register({
-                username: username,
-                password: $scope.user.username,
-                role: 'student',
-                creator: $scope.user._id
-            }, function(error) {
-                if(error) {
-                    displayError(error);
-                }
-                else {
-                    displayMessage('Pupil successfully added.');
-                }
-            });
-
-            $scope.pupils.push({
-                'name': $scope.pupilName
-            });
         };
 
-        function displayError(error) {
-            console.log(error);
+        $scope.checkScenarioCompletion = function(scenario) {
+            if(!scenario.completionList) {
+                return false;
+            } else {
+                return scenario.completionList.indexOf($scope.user._id) > -1;
+            }
         }
-        function displayMessage(message) {
-            console.log(message);
-        }
-
-
-        // ======================= END TEACHER CONTAINER ======================
     }
-])
+]);

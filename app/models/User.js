@@ -31,6 +31,7 @@ UserSchema.methods.generateJWT = function() {
         _id: this._id,
         username: this.username,
         role: this.role,
+        creator: this.creator,
         exp: parseInt(exp.getTime() / 1000)
     }, config.secret);
 };

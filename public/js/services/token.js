@@ -55,6 +55,16 @@ angular.module('calliApp')
                         .error(function(error) {
                             console.log(error);
                         });
+                } else {
+                    callback('unassigned');
+                }
+            };
+
+            token.currentUserCreator = function() {
+                if(token.isLoggedIn()) {
+                    var userToken = token.getToken();
+                    var user = JSON.parse($window.atob(userToken.split('.')[1]));
+                    return user.creator;
                 }
             };
 
