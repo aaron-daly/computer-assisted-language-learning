@@ -19,12 +19,12 @@ angular.module('calliApp')
                                     {
                                         "answer": "seaclaid",
                                         "branch": "2",
-                                        "correct": true
+                                        "correct": false
                                     },
                                     {
                                         "answer": "brioscai",
                                         "branch": "2",
-                                        "correct": false
+                                        "correct": true
                                     },
                                     {
                                         "answer": "caca milis",
@@ -41,7 +41,7 @@ angular.module('calliApp')
                                 {
                                     "answer": "seaclaid",
                                     "branch": "3",
-                                    "correct": false
+                                    "correct": true
                                 },
                                 {
                                     "answer": "criospai",
@@ -51,7 +51,7 @@ angular.module('calliApp')
                                 {
                                     "answer": "milsean",
                                     "branch": "3",
-                                    "correct": true
+                                    "correct": false
                                 }
                             ] //end "answers"
                         },
@@ -131,12 +131,12 @@ angular.module('calliApp')
                                 {
                                     "answer": "milsean",
                                     "branch": "7",
-                                    "correct": false
+                                    "correct": true
                                 },
                                 {
                                     "answer": "criospai",
                                     "branch": "7",
-                                    "correct": true
+                                    "correct": false
                                 }
                             ] //end "answers"
                         },

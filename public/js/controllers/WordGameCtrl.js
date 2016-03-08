@@ -17,13 +17,19 @@ angular.module('WordGameCtrl', []).controller('WordGameController', ['$scope', '
             $('#answer-container').append(html);
         };
 
+        //increments image number.
+        var count = 0;
         $scope.drawQuestion = function(question) {
 
-            $('#current-question').append(question.question);
+            var questionHtml = '<h2>' + question.question +'<img src="../images/'+$scope.scenario.name+'/Image'+count+'.jpg" style="width:50px;height:50px;display:inline;"/>'+ '</h2>';
+            count++;
+            $('#current-question').append(questionHtml);
+
 
             $.each(question.answers, function(key, val) {
                 $scope.drawAnswer(val);
             });
+
         };
 
         $scope.clearScreen = function() {
@@ -61,7 +67,8 @@ angular.module('WordGameCtrl', []).controller('WordGameController', ['$scope', '
             var answerHTML = 0;
 
             $.each(results.questions, function(key, val) {
-                questionHTML = '<h2>' + val + '</h2>';
+                console.log(key);
+                questionHTML = '<h2>' + val +'<img src="../images/'+$scope.scenario.name+'/Image'+key+'.jpg" style="width:50px;height:50px;display:inline;"/>'+ '</h2>';
                 //if the correct value in corresponding position of array is true then ....
                 if (results.correct[key]) {
                     answerHTML = '<h4 class="text-success", style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
