@@ -6,28 +6,25 @@ angular.module('calliApp')
     .factory('pictureGame', ['$http', 'scenario',
         function($http, scenario){
 
-            var pictureGameExample =                     {
+            var pictureGameExample =
+            {
                 "name": "pictureSample",
-                "level": 1,
+                "level": 2,
                 "conversation":[
                     {
                         "question": "Ceard is ainm do",
-                        "position": 1,
                         "answers": [
                             {
                                 "answer": "Pól is ainm do",
-                                "branch": 2,
                                 "correct": true
                             },
                             {
                                 "answer": "Rici is ainm do",
-                                "branch": 2,
                                 "correct": false
                             },
                             {
 
                                 "answer": "Padraig is ainm do",
-                                "branch": 2,
                                 "correct": false
 
                             }
@@ -37,21 +34,17 @@ angular.module('calliApp')
                     {
 
                         "question": "Cen dath an bhfuil a geansai?",
-                        "position": 2,
                         "answers": [
                             {
                                 "answer": "gorm",
-                                "branch": 3,
                                 "correct": true
                             },
                             {
                                 "answer": "ban",
-                                "branch": 3,
                                 "correct": false
                             },
                             {
                                 "answer": "dearg",
-                                "branch": 3,
                                 "correct": false
                             }
                         ]
@@ -60,21 +53,17 @@ angular.module('calliApp')
                     {
 
                         "question": "Ceard ata ar an mballa",
-                        "position": 3,
                         "answers": [
                             {
                                 "answer": "Ta clog ar an mballa",
-                                "branch": 4,
                                 "correct": true
                             },
                             {
                                 "answer": "Ta pictúir ar an mballa",
-                                "branch": 4,
                                 "correct": false
                             },
                             {
                                 "answer": "Ta clar dubh ar an mballa",
-                                "branch": 4,
                                 "correct": false
                             }
                         ]
@@ -82,16 +71,13 @@ angular.module('calliApp')
                     {
 
                         "question": "An bhfaca tu fear sa pictúir?",
-                        "position": 4,
                         "answers": [
                             {
                                 "answer": "Chonaic me fear sa pictúir",
-                                "branch": 5,
                                 "correct": true
                             },
                             {
                                 "answer": "Chonaic me bean sa pictúir",
-                                "branch": 5,
                                 "correct": false
                             }
                         ]
@@ -99,21 +85,17 @@ angular.module('calliApp')
                     {
 
                         "question": "Ce mhead uachtar reoite ata sa pictúir",
-                        "position": 5,
                         "answers": [
                             {
                                 "answer": "Ta ceithre uachtar reoite sa pictúir",
-                                "branch": 6,
                                 "correct": false
                             },
                             {
                                 "answer": "Ta tri uachtar reoite sa pictúir",
-                                "branch": 6,
                                 "correct": true
                             },
                             {
                                 "answer": "Ta cuig uachtar reoite sa pictúir",
-                                "branch": 6,
                                 "correct": false
                             }
                         ]
@@ -121,21 +103,17 @@ angular.module('calliApp')
                     {
 
                         "question": "Ceard ata ar an mbord",
-                        "position": 6,
                         "answers": [
                             {
                                 "answer": "Ta cupan ar an mbord",
-                                "branch": 7,
                                 "correct": true
                             },
                             {
                                 "answer": "Ta milsean ar an mbord",
-                                "branch": 7,
                                 "correct": false
                             },
                             {
                                 "answer": "Ta malla ar an mbord",
-                                "branch": 7,
                                 "correct": false
                             }
                         ]
@@ -143,27 +121,24 @@ angular.module('calliApp')
                     {
 
                         "question": "Ce mhead caca milis ata sa pictúir",
-                        "position": 7,
                         "answers": [
                             {
                                 "answer": "Ta seacht caca milis sa pictúir",
-                                "branch": 0,
                                 "correct": false
                             },
                             {
                                 "answer": "Ta do caca milis sa pictúir",
-                                "branch": 0,
                                 "correct": true
                             },
                             {
                                 "answer": "Ta se caca milis sa pictúir",
-                                "branch": 0,
                                 "correct": false
                             }
                         ]
                     }
 
-                ]};
+                ]
+            };
 
             var pictureGame = {
                 scenario: {},
@@ -206,7 +181,6 @@ angular.module('calliApp')
 
                 //if we reach delimiter position 0, callback results and release game
                 this.position++;
-                console.log(this.scenario.conversation.length);
 
                 if(this.position >= this.scenario.conversation.length) {
                     callback(this.getResults());

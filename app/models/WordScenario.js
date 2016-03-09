@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var WordScenarioSchema = new mongoose.Schema({
 
-    name: {type: String, unique: true, required: true},
+    name: {type: String, required: true},
     level: Number,
     conversation: [{
         question: String,

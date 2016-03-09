@@ -20,10 +20,10 @@
             <td class="text-center">{{ pupilGame.scenarioType }}</td>
             <td class="text-center">{{ pupilGame.scenarioLevel }}</td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-play-circle" ng-click="playScenario(pupilGame)"></span>
+                <span class="glyphicon glyphicon-play-circle text-danger" ng-click="playScenario(pupilGame)"></span>
             </td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-ok" ng-show="checkScenarioCompletion(pupilGame)"></span>
+                <span class="glyphicon glyphicon-ok text-info" ng-show="checkScenarioCompletion(pupilGame)"></span>
                 <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(pupilGame)"></span>
             </td>
         </tr>
