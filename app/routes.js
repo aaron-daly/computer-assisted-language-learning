@@ -4,6 +4,9 @@ var User = require('../app/models/User');
 var Role = require('../app/models/Role');
 var Group = require('../app/models/Group');
 
+var Scenario = require('../app/models/Scenario');
+var ScenarioType = require('../app/models/ScenarioType');
+
 var ConversationScenario = require('../app/models/ConversationScenario');
 var PictureScenario = require('../app/models/PictureScenario');
 var WordScenario = require('../app/models/WordScenario');
@@ -16,7 +19,65 @@ module.exports = function(app) {
     // =========================================================================
     // SCENARIOS ===============================================================
 
-    // POST scenario type C
+    // POST ScenarioType
+    app.post('/scenarioType', function(req, res, next) {
+
+        var scenarioType = new ScenarioType({
+            scenarioType: req.body.scenarioType,
+            name: req.body.name
+        });
+
+        scenarioType.save(function(err) {
+            if(err)
+                return next(err);
+            return next(scenarioType);
+        });
+    });
+
+    // GET ScenarioTypes
+    app.get('/scenarioTypes', function(req, res, next) {
+
+        ScenarioType.find(function(err, scenarioTypes) {
+            if(err)
+                return next(err);
+            res.json(scenarioTypes);
+        });
+    });
+
+    // POST Scenario
+    app.post('/scenario', function(req, res, next) {
+
+        ScenarioType.findOne({ name: req.body.scenarioType }, function(err, scenarioType) {
+
+            if(err)
+                return next(err);
+
+            var scenario = new Scenario({
+                name: req.body.name,
+                level: req.body.level,
+                scenarioType: { id: scenarioType._id, name: scenarioType.name },
+                conversation: req.body.conversation
+            });
+
+            scenario.save(function(err) {
+                if(err)
+                    return next(err);
+                return res.json(scenario);
+            });
+        });
+    });
+
+    // GET all Scenarios
+    app.get('/scenarios', function(req, res, next) {
+
+        Scenario.find(function(err, scenarios) {
+            if(err)
+                return next(err);
+            return res.json(scenarios);
+        });
+    });
+
+    /* POST scenario type C
     app.post('/scenario/add/c', function(req, res, next) {
 
         var cS = new ConversationScenario({
@@ -63,6 +124,7 @@ module.exports = function(app) {
             return next(wS);
         });
     });
+    */
 
 
     // GET all conversation scenarios, callback array
@@ -296,7 +358,7 @@ module.exports = function(app) {
     app.post('/group', function(req, res, next) {
 
         var group = new Group({
-            teacherId: req.body.teacherId,
+            teacherId: req.body.teacherId
         });
 
         group.save(function(err) {
