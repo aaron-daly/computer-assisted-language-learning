@@ -55,7 +55,7 @@ angular.module('calliApp')
                if(scenarioGame.containsScenario(scenarioName)) {
                     type = 's';
                    return type;
-                } 
+                }
 
                 return type;
             };
