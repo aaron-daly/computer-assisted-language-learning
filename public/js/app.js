@@ -12,6 +12,7 @@ angular.module('calliApp', [
     'ProfileCtrl',
     'WordGameCtrl',
     'PictureGameCtrl',
+    'ScenarioGameCtrl',
     'TeacherCtrl',
     'AddScenarioCtrl'
 ]).config(['$locationProvider', '$routeProvider',
@@ -41,7 +42,37 @@ angular.module('calliApp', [
                 templateUrl: 'views/mini3.html',
                 controller: 'Mini3Controller'
             })
+            .when('/scenarioGame/:name', {
+                templateUrl: 'views/scenarioGame.html',
+                controller: 'ScenarioGameController',
+                restricted: true,
+                resolve: {
+                    scenarioPromise: ['scenarioGame', '$q', '$timeout', '$route', function(scenarioGame, $q, $timeout, $route) {
+                        var defer = $q.defer();
 
+                        //if game scenariolist is empty, preload (for game page refresh)
+                        if(scenarioGame.scenarioList.length < 1) {
+                            scenarioGame.preload();
+                        }
+
+                        var str = $route.current.params.name;
+                        var name = str.substr(1, str.length);
+
+                        $timeout(function() {
+                            scenarioGame.loadScenario(name, function(data) {
+                                if(data) {
+                                    defer.resolve('Scenario loaded');
+                                } else {
+                                    $location.path('/profile');
+                                    defer.resolve('Error loading scenario');
+                                }
+                            });
+                        });
+
+                        return defer.promise;
+                    }]
+                }
+            })
             .when('/wordGame/:name', {
                 templateUrl: 'views/wordGame.html',
                 controller: 'WordGameController',
@@ -149,11 +180,12 @@ angular.module('calliApp', [
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['conversationGame', 'pictureGame', 'wordGame', '$q', '$timeout',
-                        function (conversationGame, pictureGame, wordGame, $q, $timeout) {
+                    scenarioPromise: ['conversationGame', 'pictureGame','scenarioGame', 'wordGame', '$q', '$timeout',
+                        function (conversationGame, pictureGame,scenarioGame, wordGame, $q, $timeout) {
                             var defer = $q.defer();
                             $timeout(function () {
                                 conversationGame.preload();
+                                scenarioGame.preload();
                                 pictureGame.preload();
                                 wordGame.preload();
                                 defer.resolve();

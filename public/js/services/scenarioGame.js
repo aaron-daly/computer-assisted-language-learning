@@ -1,13 +1,26 @@
 /**
- * Created by Raphaelle on 04/03/2016.
+ * Created by Raphaelle on 10/03/2016.
  */
 angular.module('calliApp')
 
-    .factory('pictureGame', ['$http', 'scenario',
+    .factory('scenarioGame', ['$http', 'scenario',
         function($http, scenario){
 
-            var pictureGame = {
-                scenario: {},
+            var scenarioGame = {
+                scenario: {
+                    name: "ScenarioTest",
+                    level: 1,
+                    scenarioType:"Conversation",
+                    conversation:[{
+                                question: String,
+                                translation: String,
+                                answers:[{
+                                            answer: String,
+                                            translation: String,
+                                            correct: Boolean
+                                        }]
+                                }]
+                },
                 scenarioList: [],
                 position: 1,
                 recordedQuestions: [],
@@ -18,13 +31,8 @@ angular.module('calliApp')
 
 
             //initiate game, callback first question
-            pictureGame.initGame = function(callback) {
+            scenarioGame.initGame = function(callback) {
 
-                /*
-                 if(this.isPlaying) {
-                 callback('Game in progress');
-                 return;
-                 }*/
 
                 this.isPlaying = true;
                 var firstQuestion = this.nextQuestion();
@@ -33,17 +41,20 @@ angular.module('calliApp')
             };
 
             //receives answer, calls back next question
-            pictureGame.tick = function(answer, callback) {
+            scenarioGame.tick = function(answer, callback) {
                 this.recordedAnswers.push(answer.answer);
 
                 //answer,branch,correct of current answer.
-                var currentAnswers = pictureGame.scenario.conversation[pictureGame.position-1].answers;
+                //if the scenario type is conversation dont push correct answers
+                if(scenarioGame.scenario.scenarioType.name != "Conversation"){
+                    var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
 
-                $.each(currentAnswers, function(key, val) {
-                    if(val.answer == answer.answer) {
-                        pictureGame.recordedCorrectAnswers.push(val.correct);
-                    }
-                });
+                    $.each(currentAnswers, function (key, val) {
+                        if (val.answer == answer.answer) {
+                            scenarioGame.recordedCorrectAnswers.push(val.correct);
+                        }
+                    });
+                }
 
                 //if we reach delimiter position 0, callback results and release game
                 this.position++;
@@ -59,7 +70,7 @@ angular.module('calliApp')
             };
 
             //results of questions and answers
-            pictureGame.getResults = function() {
+            scenarioGame.getResults = function() {
                 return {
                     questions: this.recordedQuestions,
                     answers: this.recordedAnswers,
@@ -68,7 +79,7 @@ angular.module('calliApp')
             };
 
             //release game data
-            pictureGame.release = function() {
+            scenarioGame.release = function() {
                 this.scenario = {};
                 this.position = 1;
                 this.recordedQuestions = [];
@@ -77,23 +88,23 @@ angular.module('calliApp')
             };
 
             //load question of game's current position
-            pictureGame.nextQuestion = function() {
-                var question = this.scenario.conversation[pictureGame.position-1];
+            scenarioGame.nextQuestion = function() {
+                var question = this.scenario.conversation[scenarioGame.position-1];
                 this.recordedQuestions.push(question.question);
                 return question;
             };
 
             //loaf scenario for the game
-            pictureGame.loadScenario = function(scenarioName, callback) {
+            scenarioGame.loadScenario = function(scenarioName, callback) {
 
                 var i = 0;
-                var len = pictureGame.scenarioList.length;
+                var len = scenarioGame.scenarioList.length;
                 var data = {};
 
                 for(i; i < len; i++) {
-                    if(pictureGame.scenarioList[i].name === scenarioName) {
-                        data = pictureGame.scenarioList[i];
-                        angular.copy(data, pictureGame.scenario);
+                    if(scenarioGame.scenarioList[i].name === scenarioName) {
+                        data = scenarioGame.scenarioList[i];
+                        angular.copy(data, scenarioGame.scenario);
                         callback(data);
                     }
                 }
@@ -101,36 +112,37 @@ angular.module('calliApp')
             };
 
             //preloads games into scenarioList
-            pictureGame.preload = function() {
+            scenarioGame.preload = function() {
 
-                scenario.getPictureScenarios(function(data) {
-                    if(pictureGame.scenarioList.length == 0){
+                scenario.getScenarios(function(data) {
+                    console.log(data);
+                    if(scenarioGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
-                            pictureGame.scenarioList.push(scenario);
+                            scenarioGame.scenarioList.push(scenario);
                         })
                     }
                 });
             };
 
             //return array of names of scenarios in scenarioList
-            pictureGame.scenarioListNames = function() {
+            scenarioGame.scenarioListNames = function() {
                 var arr = [];
                 var i = 0;
-                var len = pictureGame.scenarioList.length;
+                var len = scenarioGame.scenarioList.length;
 
                 for(i; i < len; i++) {
-                    arr.push(pictureGame.scenarioList[i].name);
+                    arr.push(scenarioGame.scenarioList[i].name);
                 }
 
                 return arr;
             };
 
-            pictureGame.containsScenario = function(scenarioName) {
-                if(pictureGame.scenarioList) {
+           scenarioGame.containsScenario = function(scenarioName) {
+                if(scenarioGame.scenarioList) {
                     var i = 0;
-                    var len = pictureGame.scenarioList.length;
+                    var len = scenarioGame.scenarioList.length;
                     for(i; i<len; i++) {
-                        if(pictureGame.scenarioList[i].name === scenarioName) {
+                        if(scenarioGame.scenarioList[i].name === scenarioName) {
                             return true;
                         }
                     }
@@ -138,6 +150,7 @@ angular.module('calliApp')
                 return false;
             };
 
-            return pictureGame;
+            return scenarioGame;
         }
     ]);
+
