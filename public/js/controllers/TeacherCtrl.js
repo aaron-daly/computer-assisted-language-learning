@@ -1,6 +1,4 @@
-/**
- * Created by Dalyy on 23/02/2016.
- */
+
 angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'scenarioGame',
     function($scope, $http, $location, $route, token, scenario, teacher, scenarioGame) {
 

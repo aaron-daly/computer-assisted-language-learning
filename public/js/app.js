@@ -25,18 +25,6 @@ angular.module('calliApp', [
                 templateUrl: 'views/login.html',
                 controller: 'LoginController'
             })
-
-            // mini2 page
-            .when('/mini2', {
-                templateUrl: 'views/mini2.html',
-                controller: 'Mini2Controller'
-            })
-
-            // mini2 page
-            .when('/mini3', {
-                templateUrl: 'views/mini3.html',
-                controller: 'Mini3Controller'
-            })
             .when('/scenarioGame/:name', {
                 templateUrl: 'views/scenarioGame.html',
                 controller: 'ScenarioGameController',
@@ -94,15 +82,13 @@ angular.module('calliApp', [
                         function($q, $timeout, auth, token, teacher) {
                             var defer = $q.defer();
 
-
-                            //if student
-                            auth.authorize('student', function(authorized) {
+                            //if pupil
+                            auth.authorize('Pupil', function(authorized) {
                                 $timeout(function() {
                                     teacher.getGroup(token.currentUserCreator());
                                     defer.resolve();
                                 })
                             });
-
 
                             return defer.promise;
                         }]
@@ -163,7 +149,6 @@ angular.module('calliApp', [
         $locationProvider.html5Mode(true);
 
     }
-
 ]).run(['$rootScope', '$location', '$timeout', '$q', 'token','auth', 'teacher',
     function($rootScope, $location, $timeout, $q, token, auth, teacher) {
 

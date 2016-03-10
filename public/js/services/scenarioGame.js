@@ -8,18 +8,27 @@ angular.module('calliApp')
 
             var scenarioGame = {
                 scenario: {
-                    name: "ScenarioTest",
+                    name: String,
                     level: 1,
-                    scenarioType:"Conversation",
-                    conversation:[{
-                                question: String,
-                                translation: String,
-                                answers:[{
-                                            answer: String,
-                                            translation: String,
-                                            correct: Boolean
-                                        }]
-                                }]
+                    scenarioType: String,
+                    conversation: [], /*[{
+                     question: String,
+                     translation: String,
+                     answers:[{
+                     answer: String,
+                     translation: String,
+                     correct: Boolean
+                     }]
+                     },
+                     {
+                     question: String,
+                     translation: String,
+                     answers:[{
+                     answer: String,
+                     translation: String,
+                     correct: Boolean
+                     }]
+                     }] */
                 },
                 scenarioList: [],
                 position: 1,
@@ -59,7 +68,7 @@ angular.module('calliApp')
                 //if we reach delimiter position 0, callback results and release game
                 this.position++;
 
-                if(this.position >= this.scenario.conversation.length) {
+                if(this.position > this.scenario.conversation.length) {
                     callback(this.getResults());
                     this.release();
                 } else {
@@ -112,7 +121,7 @@ angular.module('calliApp')
             };
 
             //preloads games into scenarioList
-            scenarioGame.preload = function() {
+            scenarioGame.preload = function() {   //preload?
 
                 scenario.getScenarios(function(data) {
                     if(scenarioGame.scenarioList.length == 0){
@@ -147,6 +156,15 @@ angular.module('calliApp')
                     }
                 }
                 return false;
+            };
+
+            scenarioGame.getScenarioInfo = function(scenarioId) {
+
+                $.each(scenarioGame.scenarioList, function(key, val) {
+                    if(val._id === scenarioId) {
+                        return val;
+                    }
+                });
             };
 
             return scenarioGame;

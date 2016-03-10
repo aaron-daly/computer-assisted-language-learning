@@ -18,16 +18,17 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             $('#answer-container').append(html);
         };
 
-        //var count=0
+        var count=0;
         $scope.drawQuestion = function(question) {
-        /*if (scenarioGame.scenario.ScenarioType.name == "Word") {
-             var questionHtml = '<h2>' + question.question +'<img src="../images/'+$scope.scenario.name+'/Image'+count+'.jpg" style="width:50px;height:50px;display:inline;"/>'+ '</h2>';
-             count++;
-             $('#current-question').append(questionHtml);
-         else{
-            */
-            $('#current-question').append(question.question);
-        //}
+            if ($scope.scenario.scenarioType.name == "Word") {
+                var questionHtml = '<h2>' + question.question + '<img src="../images/wordSample/Image' + count + '.jpg" style="width:50px;height:50px;display:inline;"/>' + '</h2>';
+                count++;
+                $('#current-question').append(questionHtml);
+            }
+             else{
+                $('#current-question').append(question.question);
+            }
+
             $.each(question.answers, function(key, val) {
                 $scope.drawAnswer(val);
             });
@@ -41,20 +42,17 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
         $scope.tick = function(answer){
             scenarioGame.tick(answer, function(data) {
-
                 $scope.clearScreen();
 
-                if(data.position) {
+                if(data.question) {
                     $scope.drawQuestion(data);
 
                     $('.answer-btn').click(function () {
 
                         var answer = $(this).text();
-                        var branch = $(this).val();
 
                         $scope.tick({
                             answer: answer,
-                            branch: branch
                         });
                     });
                 } else {
@@ -85,7 +83,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             $.each(results.questions, function(key, val) {
                 questionHTML = '<h2>' + val + '</h2>';
                 //if the correct value in corresponding position of array is true then ....
-                if (results.correct) {
+                if (results.correct.length != 0) {
                     if (results.correct[key]) {
                         answerHTML = '<h4 class="text-success" style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
                     }
@@ -94,9 +92,9 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                     }
                     $('#answer-container').append(questionHTML).append(answerHTML);
                 }
-
                 else {
                 answerHTML = '<h4>' + results.answers[key] + '</h4>';
+                $('#answer-container').append(questionHTML).append(answerHTML);
                 }
             });
 

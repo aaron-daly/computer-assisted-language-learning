@@ -49,9 +49,6 @@ angular.module('calliApp')
                     });
             };
 
-            teacher.getScenarioType = function(scenarioName) {
-            };
-
             teacher.enableScenario = function(scenario) {
 
                 var scenarioType = this.getScenarioType(scenario.name);
