@@ -8,7 +8,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.submitScenario = function() {
 
-            console.log($scope.scenarioJSON);
+            console.log(JSON.parse($scope.scenarioJSON));
             var scenarioJSON = JSON.parse($scope.scenarioJSON);
 
 
@@ -20,6 +20,35 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             else {
                 //error message for invalid scenario json
             }
+
+        };
+
+        $scope.generatePictureScenarioFrame = function(level) {
+
+            var questionsLength = 5 * level;
+            var answersLength = 2;
+
+            if(level > 1) {
+                answersLength = 3;
+            }
+
+            var q = 1;
+            var a = 1;
+
+            for(i; i <= questionsLength; i++) {
+
+            }
+        };
+
+        $scope.submitPictureScenario = function(level) {
+
+            var questionsLength = 5 * level;
+            var answersLength = 2;
+
+            if(level > 1) {
+                answersLength = 3;
+            }
+
         }
     }
 ]);

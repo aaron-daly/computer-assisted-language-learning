@@ -4,13 +4,14 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('ConversationGameCtrl', []).controller('ConversationGameController', ['$scope', '$routeParams', '$location', 'conversationGame', 'teacher',
-    function($scope, $routeParams, $location, conversationGame, teacher) {
+angular.module('ConversationGameCtrl', []).controller('ConversationGameController', ['$scope', '$routeParams', '$route', '$location', 'conversationGame', 'teacher',
+    function($scope, $routeParams, $route, $location, conversationGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
 
+        $('#replay-btn').hide();
         $('#return-btn').hide();
 
         $scope.scenario = conversationGame.scenario;
@@ -71,8 +72,12 @@ angular.module('ConversationGameCtrl', []).controller('ConversationGameControlle
                 $('#answer-container').append(questionHTML).append(answerHTML);
             });
 
+            $('#replay-btn').show();
             $('#return-btn').show();
+        };
 
+        $scope.gameReplay = function() {
+            $route.reload();
         };
 
         $scope.profileReturn = function() {

@@ -1,6 +1,8 @@
 <div class="text-center">
     <h1>User: <span class="text-success">{{ username }}</span></h1>
     <hr>
+    <h1>Role: <span class="text-success">{{ role }}</span></h1>
+    <hr>
 </div>
 
 <!-- PUPIL REGISTER SECTION -->
@@ -60,7 +62,11 @@
         </thead>
         <tr dir-paginate="pupilGame in allScenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
             <td class="text-left">{{ pupilGame.name }}</td>
-            <td class="text-center">{{ getScenarioType(pupilGame.name) }}</td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.type === 'c'"></span>
+                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.type === 'p'"></span>
+                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.type === 'w'"></span>
+            </td>
             <td class="text-center">{{ pupilGame.level}}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-check" ng-show="!isEnabled(pupilGame)" ng-click="enableScenario(pupilGame)"></span>
@@ -78,7 +84,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Progress of {{ selectedPupil.username.replace(user.username, '') }}</h3>
+                <h3 class="modal-title">Progress of {{ selectedPupil.username.replace(username, '') }}</h3>
             </div>
             <div class="modal-body">
                 <p>Username: {{selectedPupil.username}}</p>
@@ -91,7 +97,7 @@
                     <tr dir-paginate="groupScenario in groupScenarios | itemsPerPage:5 " pagination-id="pupilProgressPagination">
                         <td class="text-left">{{ groupScenario.scenarioName }}</td>
                         <td class="text-center">
-                            <span class="glyphicon glyphicon-ok" ng-show="checkScenarioCompletion(selectedPupil, groupScenario)"></span>
+                            <span class="glyphicon glyphicon-ok text-primary" ng-show="checkScenarioCompletion(selectedPupil, groupScenario)"></span>
                             <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(selectedPupil, groupScenario)"></span>
                         </td>
                     </tr>

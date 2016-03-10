@@ -6,6 +6,7 @@ angular.module('calliApp')
     .factory('pictureGame', ['$http', 'scenario',
         function($http, scenario){
 
+<<<<<<< HEAD
             var pictureGame =
                 {
                     "name": "pictureSample",
@@ -163,6 +164,141 @@ angular.module('calliApp')
                                 }
                             ]
                         }
+=======
+            var pictureGameExample =
+            {
+                "name": "pictureSample",
+                "level": 2,
+                "conversation":[
+                    {
+                        "question": "Ceard is ainm do",
+                        "answers": [
+                            {
+                                "answer": "Pól is ainm do",
+                                "correct": true
+                            },
+                            {
+                                "answer": "Rici is ainm do",
+                                "correct": false
+                            },
+                            {
+
+                                "answer": "Padraig is ainm do",
+                                "correct": false
+
+                            }
+                        ]
+                    },
+
+                    {
+
+                        "question": "Cen dath an bhfuil a geansai?",
+                        "answers": [
+                            {
+                                "answer": "gorm",
+                                "correct": true
+                            },
+                            {
+                                "answer": "ban",
+                                "correct": false
+                            },
+                            {
+                                "answer": "dearg",
+                                "correct": false
+                            }
+                        ]
+                    },
+
+                    {
+
+                        "question": "Ceard ata ar an mballa",
+                        "answers": [
+                            {
+                                "answer": "Ta clog ar an mballa",
+                                "correct": true
+                            },
+                            {
+                                "answer": "Ta pictúir ar an mballa",
+                                "correct": false
+                            },
+                            {
+                                "answer": "Ta clar dubh ar an mballa",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+
+                        "question": "An bhfaca tu fear sa pictúir?",
+                        "answers": [
+                            {
+                                "answer": "Chonaic me fear sa pictúir",
+                                "correct": true
+                            },
+                            {
+                                "answer": "Chonaic me bean sa pictúir",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+
+                        "question": "Ce mhead uachtar reoite ata sa pictúir",
+                        "answers": [
+                            {
+                                "answer": "Ta ceithre uachtar reoite sa pictúir",
+                                "correct": false
+                            },
+                            {
+                                "answer": "Ta tri uachtar reoite sa pictúir",
+                                "correct": true
+                            },
+                            {
+                                "answer": "Ta cuig uachtar reoite sa pictúir",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+
+                        "question": "Ceard ata ar an mbord",
+                        "answers": [
+                            {
+                                "answer": "Ta cupan ar an mbord",
+                                "correct": true
+                            },
+                            {
+                                "answer": "Ta milsean ar an mbord",
+                                "correct": false
+                            },
+                            {
+                                "answer": "Ta malla ar an mbord",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+
+                        "question": "Ce mhead caca milis ata sa pictúir",
+                        "answers": [
+                            {
+                                "answer": "Ta seacht caca milis sa pictúir",
+                                "correct": false
+                            },
+                            {
+                                "answer": "Ta do caca milis sa pictúir",
+                                "correct": true
+                            },
+                            {
+                                "answer": "Ta se caca milis sa pictúir",
+                                "correct": false
+                            }
+                        ]
+                    }
+
+                ]
+            };
+>>>>>>> 2c9e4e521437759aac900ff438b7bfbb397592c1
 
                     ]}
             var pictureGame = {
@@ -206,7 +342,6 @@ angular.module('calliApp')
 
                 //if we reach delimiter position 0, callback results and release game
                 this.position++;
-                console.log(this.scenario.conversation.length);
 
                 if(this.position >= this.scenario.conversation.length) {
                     callback(this.getResults());

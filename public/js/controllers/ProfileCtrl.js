@@ -2,20 +2,22 @@
  * Created by Dalyy on 23/02/2016.
  */
 
-angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', '$route', 'token', 'auth', 'conversationGame', 'teacher',
-    function($scope, $http, $location, $route, token, auth, conversationGame, teacher) {
+angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$http', '$location', '$route', 'token', 'auth', 'teacher',
+    function($scope, $http, $location, $route, token, auth, teacher) {
 
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
-        $scope.preview = function() {
-            $location.path('/preview');
-        };
 
-        $scope.user = {};
+        $scope.username = token.currentUser();
+        $scope.userId  = token.currentUserId();
+
         $scope.role = {};
 
+        token.currentUserRole(function(role) {
+            $scope.role = role;
+        });
 
         $scope.scenarios = [];
         $.each(teacher.group.scenarios, function(key, val) {
@@ -24,22 +26,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
                 }
             }
         );
-
-            //get current user
-        $http.post('/user', { username: token.currentUser() })
-
-            .then(function(data) {
-
-                $scope.user = data.data;
-                var roleId = $scope.user.role;
-
-                //with user's role id, get current user's role
-                $http.post('/role/id', { roleId:roleId })
-                    .then(function(data) {
-                        $scope.role = data.data;
-                    })
-
-            });
 
 
         $scope.playScenario = function(scenario) {
@@ -57,7 +43,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             if(!scenario.completionList) {
                 return false;
             } else {
-                return scenario.completionList.indexOf($scope.user._id) > -1;
+                return scenario.completionList.indexOf($scope.userId) > -1;
             }
         }
     }
