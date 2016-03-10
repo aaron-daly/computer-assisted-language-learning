@@ -21,24 +21,7 @@ angular.module('calliApp', [
             // home page
             .when('/', {
                 templateUrl: 'views/home.html',
-                controller: 'MainController',
-                resolve: {
-                    loginPromise: ['token', '$q', '$timeout', '$location',
-                        function (token, $q, $timeout, $location) {
-                            var defer = $q.defer();
-                            $timeout(function () {
-                                token.currentUserRole(function(role) {
-                                    if(role === 'student' || role === 'pupil') {
-                                        $location.path('/profile');
-                                    } else if(role === 'teacher') {
-                                        $location.path('/teacher');
-                                    }
-                                    defer.resolve();
-                                });
-                            });
-                            return defer.promise;
-                        }]
-                }
+                controller: 'MainController'
             })
 
             // login page
@@ -253,8 +236,8 @@ angular.module('calliApp', [
 
     }
 
-]).run(['$rootScope', '$location', 'token', 'conversationGame', 'pictureGame', 'wordGame', 'auth', 'teacher',
-    function($rootScope, $location, token, conversationGame, pictureGame, wordGame, auth, teacher) {
+]).run(['$rootScope', '$location', '$timeout', '$q', 'token', 'conversationGame', 'pictureGame', 'wordGame', 'auth', 'teacher',
+    function($rootScope, $location, $timeout, $q, token, conversationGame, pictureGame, wordGame, auth, teacher) {
 
 
         //on route change...
@@ -267,9 +250,8 @@ angular.module('calliApp', [
                 }
             }
 
-
-            //if next route is profile page, preload list of games
-            if(nextRoute.$$route.originalPath == '/profile' || nextRoute.$$route.originalPath == '/teacher') {
+            /*if next route is profile page, preload list of games
+            if(nextRoute.$$route.originalPath === '/profile' || nextRoute.$$route.originalPath === '/teacher') {
 
                 conversationGame.preload();
                 pictureGame.preload();
@@ -281,7 +263,7 @@ angular.module('calliApp', [
                     }
                 });
 
-            }
+            } */
 
         });
     }

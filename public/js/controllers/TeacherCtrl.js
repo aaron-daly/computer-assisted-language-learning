@@ -5,6 +5,11 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
     function($scope, $http, $location, $route, token, scenario, teacher, conversationGame, pictureGame, wordGame) {
 
         $scope.username = token.currentUser();
+        $scope.role = {};
+
+        token.currentUserRole(function(role) {
+            $scope.role = role;
+        });
 
         $scope.pupils = teacher.pupils;
         $scope.selectedPupil = '';
@@ -13,15 +18,19 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.allScenarios = [];
         $.each(conversationGame.scenarioList, function(key, val) {
-            $scope.allScenarios.push(val);
-        });
-        $.each(pictureGame.scenarioList, function(key, val) {
-            $scope.allScenarios.push(val);
-        });
-        $.each(wordGame.scenarioList, function(key, val) {
+            val.type = 'c'; //append type since the scenario type is not stored in the database
             $scope.allScenarios.push(val);
         });
 
+        $.each(pictureGame.scenarioList, function(key, val) {
+            val.type = 'p'; //append type since the scenario type is not stored in the database
+            $scope.allScenarios.push(val);
+        });
+
+        $.each(wordGame.scenarioList, function(key, val) {
+            val.type = 'w'; //append type since the scenario type is not stored in the database
+            $scope.allScenarios.push(val);
+        });
 
         $scope.enabledList = [];
         $.each($scope.groupScenarios, function(key, val) {
@@ -32,10 +41,6 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.isEnabled = function(scenario) {
             return $scope.enabledList.indexOf(scenario.name) > -1;
-        };
-
-        $scope.getScenarioType = function(scenarioName) {
-            return teacher.getScenarioType(scenarioName);
         };
 
         $scope.enableScenario = function(scenario) {

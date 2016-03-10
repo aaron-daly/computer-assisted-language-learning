@@ -38,6 +38,17 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             for(i; i <= questionsLength; i++) {
 
             }
+        };
+
+        $scope.submitPictureScenario = function(level) {
+
+            var questionsLength = 5 * level;
+            var answersLength = 2;
+
+            if(level > 1) {
+                answersLength = 3;
+            }
+
         }
     }
 ]);

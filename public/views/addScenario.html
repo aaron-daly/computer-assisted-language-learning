@@ -4,7 +4,7 @@
     <div class="form-group">
         <label>Scenario Type</label>
         <select class="form-control" name="type" ng-model="type" required="required">
-            <option value="c" selected="selected">Conversational</option>
+            <option value="c" selected="selected">Conversation</option>
             <option value="p" selected="selected">Picture</option>
             <option value="w" selected="selected">Word</option>
         </select>
@@ -22,7 +22,7 @@
     </form>
 
     <!-- picture scenario form -->
-    <form name="picture-form" ng-submit="submitPicture()" ng-show="type === 'p'" enctype="multipart/form-data" role="form">
+    <form name="picture-form" ng-submit="submitPictureScenario(pictureLevel)" ng-show="type === 'p'" enctype="multipart/form-data" role="form">
 
         <div class="form-group">
             <label>Scenario Name</label>
@@ -37,9 +37,9 @@
         <div class="form-group">
             <label>Choose Scenario Level</label>
             <select class="form-control" name="pictureLevel" ng-model="pictureLevel" required="required">
-                <option value="1" selected="selected">1</option>
-                <option value="2" selected="selected">2</option>
-                <option value="3" selected="selected">3</option>
+                <option value="1" selected="selected">Level 1 - (5 questions, 2 answers each)</option>
+                <option value="2" selected="selected">Level 2 - (10 questions, 3 answers each)</option>
+                <option value="3" selected="selected">Level 3 - (15 questions, 3 answers each)</option>
             </select>
         </div>
 

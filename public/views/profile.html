@@ -1,7 +1,7 @@
 <div class="text-center">
-    <h1>User: <span class="text-success">{{ user.username }}</span></h1>
+    <h1>User: <span class="text-success">{{ username }}</span></h1>
     <hr>
-    <h2>Role: <span class="text-success">{{ role.type }}</span></h2>
+    <h2>Role: <span class="text-success">{{ role }}</span></h2>
     <hr>
 </div>
 
@@ -17,13 +17,17 @@
         </thead>
         <tr dir-paginate="pupilGame in scenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
             <td class="text-left">{{ pupilGame.scenarioName }}</td>
-            <td class="text-center">{{ pupilGame.scenarioType }}</td>
-            <td class="text-center">{{ pupilGame.scenarioLevel }}</td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType === 'c'"></span>
+                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType === 'p'"></span>
+                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType === 'w'"></span>
+            </td>
+            <td class="text-center">{{ getScenarioLevel(pupilGame._id) }}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-play-circle text-danger" ng-click="playScenario(pupilGame)"></span>
             </td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-ok text-info" ng-show="checkScenarioCompletion(pupilGame)"></span>
+                <span class="glyphicon glyphicon-ok text-primary" ng-show="checkScenarioCompletion(pupilGame)"></span>
                 <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(pupilGame)"></span>
             </td>
         </tr>
