@@ -180,11 +180,12 @@ angular.module('calliApp', [
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['conversationGame', 'pictureGame', 'wordGame', '$q', '$timeout',
-                        function (conversationGame, pictureGame, wordGame, $q, $timeout) {
+                    scenarioPromise: ['conversationGame', 'pictureGame','scenarioGame', 'wordGame', '$q', '$timeout',
+                        function (conversationGame, pictureGame,scenarioGame, wordGame, $q, $timeout) {
                             var defer = $q.defer();
                             $timeout(function () {
                                 conversationGame.preload();
+                                scenarioGame.preload();
                                 pictureGame.preload();
                                 wordGame.preload();
                                 defer.resolve();

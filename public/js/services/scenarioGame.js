@@ -10,7 +10,7 @@ angular.module('calliApp')
                 scenario: {
                     name: "ScenarioTest",
                     level: 1,
-                    ScenarioType:"Conversation",
+                    scenarioType:"Conversation",
                     conversation:[{
                                 question: String,
                                 translation: String,
@@ -46,7 +46,7 @@ angular.module('calliApp')
 
                 //answer,branch,correct of current answer.
                 //if the scenario type is conversation dont push correct answers
-                if(scenarioGame.scenario.ScenarioType != "Conversation"){
+                if(scenarioGame.scenario.scenarioType.name != "Conversation"){
                     var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
 
                     $.each(currentAnswers, function (key, val) {
@@ -114,7 +114,8 @@ angular.module('calliApp')
             //preloads games into scenarioList
             scenarioGame.preload = function() {
 
-                scenario.getScenarios(function(data) {                    //grey getScenarios change value
+                scenario.getScenarios(function(data) {
+                    console.log(data);
                     if(scenarioGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
                             scenarioGame.scenarioList.push(scenario);
@@ -124,7 +125,7 @@ angular.module('calliApp')
             };
 
             //return array of names of scenarios in scenarioList
-            pictureGame.scenarioListNames = function() {
+            scenarioGame.scenarioListNames = function() {
                 var arr = [];
                 var i = 0;
                 var len = scenarioGame.scenarioList.length;

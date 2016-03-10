@@ -81,7 +81,7 @@ angular.module('calliApp')
 
             // get all word scenarios, callback list
             scenario.getScenarios = function(callback) {
-                $http.get('/Scenarios')
+                $http.get('/scenarios')
                     .success(function(data){
                         callback(data);
                     })

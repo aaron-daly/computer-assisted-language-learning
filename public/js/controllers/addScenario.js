@@ -6,7 +6,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             $(this).scrollTop(0);
         });
 
-        $scope.submitConversation = function() {
+        $scope.submitScenario = function() {
 
             var scenarioJSON = JSON.parse($scope.scenarioJSON);
 

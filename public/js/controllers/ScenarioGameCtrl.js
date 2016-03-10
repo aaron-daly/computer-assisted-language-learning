@@ -32,7 +32,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                 $scope.drawAnswer(val);
             });
         };
-        
+
 
         $scope.clearScreen = function() {
             $('#answer-container').empty();
@@ -67,10 +67,11 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
         $scope.finish = function(results) {
 
             var isCompleted = true;
-
-            for(var i = 0; i < results.correct.length; i++) {
-                if(!results.correct[i]) {
-                    isCompleted = false;
+            if(results.correct) {
+                for (var i = 0; i < results.correct.length; i++) {
+                    if (!results.correct[i]) {
+                        isCompleted = false;
+                    }
                 }
             }
 
@@ -84,19 +85,19 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             $.each(results.questions, function(key, val) {
                 questionHTML = '<h2>' + val + '</h2>';
                 //if the correct value in corresponding position of array is true then ....
-                //if(scenarioGame.scenario.ScenarioType != "Conversation")
-                //{
-                if (results.correct[key]) {
-                    answerHTML = '<h4 class="text-success" style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
+                if (results.correct) {
+                    if (results.correct[key]) {
+                        answerHTML = '<h4 class="text-success" style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
+                    }
+                    else {
+                        answerHTML = '<h4 class="text-success" style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' + '</h4>';
+                    }
+                    $('#answer-container').append(questionHTML).append(answerHTML);
                 }
+
                 else {
-                    answerHTML = '<h4 class="text-success" style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' + '</h4>';
+                answerHTML = '<h4>' + results.answers[key] + '</h4>';
                 }
-                $('#answer-container').append(questionHTML).append(answerHTML);
-                //}
-                //else {
-                //answerHTML = '<h4>' + results.answers[key] + '</h4>';
-                //}
             });
 
             $('#replay-btn').show();
