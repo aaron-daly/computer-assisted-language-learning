@@ -19,6 +19,10 @@ angular.module('calliApp')
                     });
             };
 
+            scenario.getAll = function(callback) {
+
+            };
+
             // get all conversation scenarios, callback list
             scenario.getConversationScenarios = function(callback) {
                 $http.get('/conversationScenarios')
