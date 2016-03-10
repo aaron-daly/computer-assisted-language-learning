@@ -69,6 +69,26 @@ angular.module('calliApp')
                         console.log(error);
                     });
             };
+            scenario.getScenarios = function(callback) {
+                $http.get('/Scenarios')
+                    .success(function(data){
+                        callback(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
+                    });
+            };
+
+            // get all word scenarios, callback list
+            scenario.getScenarios = function(callback) {
+                $http.get('/Scenarios')
+                    .success(function(data){
+                        callback(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
+                    });
+            };
 
 
             return scenario;
