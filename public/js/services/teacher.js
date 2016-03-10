@@ -48,10 +48,10 @@ angular.module('calliApp')
                         console.log(error);
                     });
             };
-            
+
             teacher.enableScenario = function(scenario) {
 
-                var scenarioType = this.getScenarioType(scenario.name);
+                var scenarioType = scenario.scenarioType.name;
 
                 $http.put('/group/scenario', {
                     teacherId: token.currentUserId(),
