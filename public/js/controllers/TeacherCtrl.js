@@ -1,8 +1,8 @@
 /**
  * Created by Dalyy on 23/02/2016.
  */
-angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'conversationGame', 'pictureGame', 'wordGame',
-    function($scope, $http, $location, $route, token, scenario, teacher, conversationGame, pictureGame, wordGame) {
+angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher',
+    function($scope, $http, $location, $route, token, scenario, teacher) {
 
         $scope.username = token.currentUser();
         $scope.role = {};
@@ -17,18 +17,11 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
         $scope.groupScenarios = teacher.group.scenarios;
 
         $scope.allScenarios = [];
-        $.each(conversationGame.scenarioList, function(key, val) {
-            val.type = 'c'; //append type since the scenario type is not stored in the database
-            $scope.allScenarios.push(val);
-        });
 
-        $.each(pictureGame.scenarioList, function(key, val) {
-            val.type = 'p'; //append type since the scenario type is not stored in the database
-            $scope.allScenarios.push(val);
-        });
 
-        $.each(wordGame.scenarioList, function(key, val) {
-            val.type = 'w'; //append type since the scenario type is not stored in the database
+
+        $.each(scenarioGame.scenarioList, function(key, val) {
+            val.type = 's'; //append type since the scenario type is not stored in the database
             $scope.allScenarios.push(val);
         });
 
