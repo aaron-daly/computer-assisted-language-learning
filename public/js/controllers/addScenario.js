@@ -8,17 +8,32 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.submitScenario = function() {
 
-            console.log(JSON.parse($scope.scenarioJSON));
             var scenarioJSON = JSON.parse($scope.scenarioJSON);
 
+            var scenario = {
+                name: $scope.name,
+                level: $scope.level,
+                scenarioType: $scope.type,
+                conversation: scenarioJSON
+            };
 
-            if(scenarioJSON) {
-                $http.post('/scenario/add/' + $scope.type, scenarioJSON, function(response) {
-                    console.log(response);
-                });
+            console.log(scenario);
+
+            if(scenario) {
+                $http.post('/scenario',{
+                    name: scenario.name,
+                    level: scenario.level,
+                    scenarioType: scenario.scenarioType,
+                    conversation: scenario.conversation
+                })
+                    .success(function(data) {
+                        console.log(data);
+                    })
+                    .error(function(error) {
+                        console.log(error);
+                    });
             }
-            else {
-                //error message for invalid scenario json
+            else {//error message for invalid scenario json
             }
 
         };
