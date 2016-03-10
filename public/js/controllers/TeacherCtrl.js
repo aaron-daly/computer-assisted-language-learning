@@ -1,8 +1,6 @@
-/**
- * Created by Dalyy on 23/02/2016.
- */
-angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher',
-    function($scope, $http, $location, $route, token, scenario, teacher) {
+
+angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'scenarioGame',
+    function($scope, $http, $location, $route, token, scenario, teacher, scenarioGame) {
 
         $scope.username = token.currentUser();
         $scope.role = {};
@@ -16,14 +14,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.groupScenarios = teacher.group.scenarios;
 
-        $scope.allScenarios = [];
-
-
-
-        $.each(scenarioGame.scenarioList, function(key, val) {
-            val.type = 's'; //append type since the scenario type is not stored in the database
-            $scope.allScenarios.push(val);
-        });
+        $scope.allScenarios = scenarioGame.scenarioList;
 
         $scope.enabledList = [];
         $.each($scope.groupScenarios, function(key, val) {

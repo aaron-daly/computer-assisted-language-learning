@@ -158,6 +158,15 @@ angular.module('calliApp')
                 return false;
             };
 
+            scenarioGame.getScenarioInfo = function(scenarioId) {
+
+                $.each(scenarioGame.scenarioList, function(key, val) {
+                    if(val._id === scenarioId) {
+                        return val;
+                    }
+                });
+            };
+
             return scenarioGame;
         }
     ]);

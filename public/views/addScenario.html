@@ -5,9 +5,12 @@
     <form name="conversation-form" ng-submit="submitScenario()" role="form">
 
         <div class="form-group">
-            <label>Name</label>
+            <label>Scenario Name</label>
             <input class="form-control" type="text" name="name" ng-model="name" required="required">
         </div>
+
+        <label>Scenario Picture</label>
+        <input class="form-control" type="text" name="name" ng-model="name" required="required">
 
         <div class="form-group">
             <label>Scenario Type</label>
@@ -20,137 +23,18 @@
 
         <div class="form-group">
             <label>Scenario Level</label>
-            <select class="form-control" name="level" ng-model="level" required="required">
+            <select class="form-control" name="level" ng-model="level" ng-change="buildQuestionsForm()" required="required">
                 <option value="1" selected="selected">1</option>
                 <option value="2" selected="selected">2</option>
                 <option value="3" selected="selected">3</option>
             </select>
         </div>
 
-        <div class="form-group">
-            <label>JSON Text</label>
-            <textarea class="form-control" name="scenarioJSON" ng-model="scenarioJSON" rows="10" cols="30"></textarea>
-        </div>
+        <hr>
+
+        <div id="questions-container" ng-show="level > 0"></div>
 
         <button type="submit" class="btn btn-info">Finish</button>
     </form>
-
-    <!-- picture scenario form -->
-    <form name="picture-form" ng-submit="submitPictureScenario(pictureLevel)" ng-show="type === 'p'" enctype="multipart/form-data" role="form">
-
-        <div class="form-group">
-            <label>Scenario Name</label>
-            <input class="form-control" type="text" name="pictureName" ng-model="pictureName">
-        </div>
-
-        <div class="form-group">
-            <label>Upload Picture for Scenario</label>
-            <input class="form-control" type="file" name="pictureImage" ng-model="pictureImage" size="chars">
-        </div>
-
-        <div class="form-group">
-            <label>Choose Scenario Level</label>
-            <select class="form-control" name="pictureLevel" ng-model="pictureLevel" required="required">
-                <option value="1" selected="selected">Level 1 - (5 questions, 2 answers each)</option>
-                <option value="2" selected="selected">Level 2 - (10 questions, 3 answers each)</option>
-                <option value="3" selected="selected">Level 3 - (15 questions, 3 answers each)</option>
-            </select>
-        </div>
-
-        <div id="pictureScenarioLevelOne" ng-show="pictureLevel === '1'">
-
-            <hr>
-
-            <div class="form-group">
-                <label>Question 1</label>
-                <input class="form-control" type="text" name="pictureQ1" ng-model="pictureQ1">
-            </div>
-            <div class="form-group">
-                <label>Q1 Answer 1</label>
-                <input type="radio" name="pictureQ1Correct" ng-model="pictureQ1Correct" value="A1">
-                <input class="form-control" type="text" name="pictureQ1A1" ng-model="pictureQ1A1">
-            </div>
-            <div class="form-group">
-                <label>Q1 Answer 2</label>
-                <input type="radio" name="pictureQ1Correct" ng-model="pictureQ1Correct" value="A2">
-                <input class="form-control" type="text" name="pictureQ1A2" ng-model="pictureQ1A2">
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label>Question 2</label>
-                <input class="form-control" type="text" name="pictureQ2" ng-model="pictureQ2">
-            </div>
-            <div class="form-group">
-                <label>Q2 Answer 1</label>
-                <input type="radio" name="pictureQ2Correct" ng-model="pictureQ2Correct" value="A1">
-                <input class="form-control" type="text" name="pictureQ2A1" ng-model="pictureQ2A1">
-            </div>
-            <div class="form-group">
-                <label>Q2 Answer 2</label>
-                <input type="radio" name="pictureQ2Correct" ng-model="pictureQ2Correct" value="A2">
-                <input class="form-control" type="text" name="pictureQ2A2" ng-model="pictureQ2A2">
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label>Question 3</label>
-                <input class="form-control" type="text" name="pictureQ3" ng-model="pictureQ3">
-            </div>
-            <div class="form-group">
-                <label>Q3 Answer 1</label>
-                <input type="radio" name="pictureQ3Correct" ng-model="pictureQ3Correct" value="A1">
-                <input class="form-control" type="text" name="pictureQ3A1" ng-model="pictureQ3A1">
-            </div>
-            <div class="form-group">
-                <label>Q3 Answer 2</label>
-                <input type="radio" name="pictureQ3Correct" ng-model="pictureQ3Correct" value="A2">
-                <input class="form-control" type="text" name="pictureQ3A2" ng-model="pictureQ3A2">
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label>Question 4</label>
-                <input class="form-control" type="text" name="pictureQ4" ng-model="pictureQ4">
-            </div>
-            <div class="form-group">
-                <label>Q4 Answer 1</label>
-                <input type="radio" name="pictureQ4Correct" ng-model="pictureQ4Correct" value="A1">
-                <input class="form-control" type="text" name="pictureQ4A1" ng-model="pictureQ4A1">
-            </div>
-            <div class="form-group">
-                <label>Q4 Answer 2</label>
-                <input type="radio" name="pictureQ4Correct" ng-model="pictureQ4Correct" value="A2">
-                <input class="form-control" type="text" name="pictureQ4A2" ng-model="pictureQ4A2">
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label>Question 5</label>
-                <input class="form-control" type="text" name="pictureQ5" ng-model="pictureQ5">
-            </div>
-            <div class="form-group">
-                <label>Q5 Answer 1</label>
-                <input type="radio" name="pictureQ5Correct" ng-model="pictureQ5Correct" value="A1">
-                <input class="form-control" type="text" name="pictureQ5A1" ng-model="pictureQ5A1">
-            </div>
-            <div class="form-group">
-                <label>Q5 Answer 2</label>
-                <input type="radio" name="pictureQ5Correct" ng-model="pictureQ5Correct" value="A2">
-                <input class="form-control" type="text" name="pictureQ5A2" ng-model="pictureQ5A2">
-            </div>
-
-            <hr>
-
-        </div>
-
-        <button type="submit" class="btn btn-info" ng-show="pictureLevel">Submit Picture Scenario</button>
-
-    </form>
-
 
 </div>

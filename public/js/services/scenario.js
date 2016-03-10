@@ -29,58 +29,9 @@ angular.module('calliApp')
                     });
             };
 
-            // get all conversation scenarios, callback list
-            scenario.getConversationScenarios = function(callback) {
-                $http.get('/conversationScenarios')
-                    .success(function(data){
-                        callback(data);
-                    })
-                    .error(function(error) {
-                       console.log(error);
-                    });
-            };
-
-            // get picture scenarios, callback list
-            scenario.getPictureScenarios = function(callback) {
-                $http.get('/pictureScenarios')
-                    .success(function(data){
-                        callback(data);
-                    })
-                    .error(function(error) {
-                        console.log(error);
-                    });
-            };
-            scenario.getPictureScenarios = function(callback) {
-                $http.get('/pictureScenarios')
-                    .success(function(data){
-                        callback(data);
-                    })
-                    .error(function(error) {
-                        console.log(error);
-                    });
-            };
-            scenario.getWordScenarios = function(callback) {
-                $http.get('/wordScenarios')
-                    .success(function(data){
-                        callback(data);
-                    })
-                    .error(function(error) {
-                        console.log(error);
-                    });
-            };
-
             // get all word scenarios, callback list
-            scenario.getWordScenarios = function(callback) {
-                $http.get('/wordScenarios')
-                    .success(function(data){
-                        callback(data);
-                    })
-                    .error(function(error) {
-                        console.log(error);
-                    });
-            };
             scenario.getScenarios = function(callback) {
-                $http.get('/Scenarios')
+                $http.get('/scenarios')
                     .success(function(data){
                         callback(data);
                     })
@@ -88,9 +39,6 @@ angular.module('calliApp')
                         console.log(error);
                     });
             };
-
-
-
 
             return scenario;
         }

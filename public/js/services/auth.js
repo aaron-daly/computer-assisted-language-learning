@@ -13,20 +13,14 @@ angular.module('calliApp')
                         .success(function(data) {
                             if(!token.getToken()) {
                                 token.saveToken(data.token);
-                                token.currentUserRole(function(role) {
-                                    if(role === 'student' || role === 'pupil') {
-                                        $location.path('/profile');
-                                    } else {
-                                        $http.post('/group', { teacherId: token.currentUserId() })
-                                            .success(function(data){
-                                                console.log(data);
-                                            })
-                                            .error(function(error){
-                                                console.log(error);
-                                            });
-                                        $location.path('/teacher');
-                                    }
-                                });
+                                $http.post('/group', { teacherId: token.currentUserId() })
+                                    .success(function(data){
+                                        console.log(data);
+                                    })
+                                    .error(function(error){
+                                        console.log(error);
+                                    });
+                                $location.path('/teacher');
                             }
                         })
                         .error(function(error) {
@@ -42,10 +36,10 @@ angular.module('calliApp')
                         .success(function(data) {
                             token.saveToken(data.token);
                             token.currentUserRole(function(role) {
-                                if(role === 'student' || role === 'pupil') {
-                                    $location.path('profile');
+                                if(role === 'Student' || role === 'Pupil') {
+                                    $location.path('/profile');
                                 } else {
-                                    $location.path('teacher');
+                                    $location.path('/teacher');
                                 }
                             });
 

@@ -21,7 +21,7 @@ angular.module('RegisterCtrl', []).controller('RegisterController', ['$scope', '
                     password: $scope.password,
                     role: $scope.role
                 }, function (error) {
-                    displayError(error.message);
+                    displayError(error);
                 });
             } else {
                 displayError('Please enter in all fields.');

@@ -7,8 +7,8 @@ angular.module('calliApp', [
     'LoginCtrl',
     'RegisterCtrl',
     'ProfileCtrl',
-    'ScenarioGameCtrl',
     'TeacherCtrl',
+    'ScenarioGameCtrl',
     'AddScenarioCtrl'
 ]).config(['$locationProvider', '$routeProvider',
     function ($locationProvider, $routeProvider) {
@@ -56,6 +56,7 @@ angular.module('calliApp', [
                     }]
                 }
             })
+
             // register page
             .when('/register', {
                 templateUrl: 'views/register.html',
@@ -68,7 +69,7 @@ angular.module('calliApp', [
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['scenarioGame','$q', '$timeout',
+                    scenarioPromise: ['scenarioGame', '$q', '$timeout',
                         function (scenarioGame, $q, $timeout) {
                             var defer = $q.defer();
                             $timeout(function () {
@@ -81,15 +82,13 @@ angular.module('calliApp', [
                         function($q, $timeout, auth, token, teacher) {
                             var defer = $q.defer();
 
-
-                            //if student
-                            auth.authorize('student', function(authorized) {
+                            //if pupil
+                            auth.authorize('Pupil', function(authorized) {
                                 $timeout(function() {
                                     teacher.getGroup(token.currentUserCreator());
                                     defer.resolve();
                                 })
                             });
-
 
                             return defer.promise;
                         }]
@@ -113,7 +112,7 @@ angular.module('calliApp', [
                     pupilPromise: ['$q','$timeout', 'auth', 'teacher',
                         function($q, $timeout, auth, teacher) {
                             var defer = $q.defer();
-                            auth.authorize('teacher', function(authorized) {
+                            auth.authorize('Teacher', function(authorized) {
                                 $timeout(function() {
                                     teacher.getPupils();
                                     defer.resolve();
@@ -126,7 +125,7 @@ angular.module('calliApp', [
                             var defer = $q.defer();
 
                             //if teacher
-                            auth.authorize('teacher', function(authorized) {
+                            auth.authorize('Teacher', function(authorized) {
                                 $timeout(function() {
                                     teacher.getGroup(token.currentUserId());
                                     defer.resolve();
@@ -150,8 +149,7 @@ angular.module('calliApp', [
         $locationProvider.html5Mode(true);
 
     }
-
-]).run(['$rootScope', '$location', '$timeout', '$q', 'token', 'auth', 'teacher',
+]).run(['$rootScope', '$location', '$timeout', '$q', 'token','auth', 'teacher',
     function($rootScope, $location, $timeout, $q, token, auth, teacher) {
 
 
