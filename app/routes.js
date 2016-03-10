@@ -55,7 +55,7 @@ module.exports = function(app) {
             var scenario = new Scenario({
                 name: req.body.name,
                 level: req.body.level,
-                scenarioType: { id: scenarioType._id, name: req.body.scenarioType },
+                scenarioType: { id: scenarioType._id, name: scenarioType.name },
                 conversation: req.body.conversation
             });
 
