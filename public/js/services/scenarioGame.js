@@ -8,80 +8,18 @@ angular.module('calliApp')
 
             var scenarioGame = {
                 scenario: {
-                    name: String,
-                    level: Number,
-                    ScenarioType:String,
-                    conversation:[
-                        {
-                            "question": "Dia dhuit",
-                            "answers": [
-                                {
-                                    "answer": "Dia is muire dhuit"
-                                },
-                                {
-                                    "answer": "Dia is muire dhuit, Tá an lá go breá"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "An maith leat milseáin?",
-                            "answers": [
-                                {
-                                    "answer": "Is maith liom milseáin"
-                                },
-                                {
-                                    "answer": "Ní maith liom milseáin"
-                                },
-                            ]
-                        },
-
-                        {
-
-                            "question": "Cen milseáin ba mhaith leat?",
-                            "answers": [
-                                {
-                                    "answer": "Ba mhaith liom seacláid"
-                                },
-                                {
-                                    "answer": "Ba mhaith liom criospaí"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "Seo dhuit",
-                            "answers": [
-                                {
-                                    "answer": "Seo dhuit an t-airgead"
-                                },
-                                {
-                                    "answer": "Seo dhuit mo airgead"
-                                }
-                            ]
-                        },
-                        {
-
-                            "question": "Go raibh maith agat, Slán",
-                            "answers": [
-                                {
-                                    "answer": "Go raibh maith agat"
-                                },
-                                {
-                                    "answer": "Slán go fól"
-                                }
-                            ]
-                        },
-
-                           /* question:String,
-                            translation:String,
-                            answers:[
-                            {
-                                answer: String,
+                    name: "ScenarioTest",
+                    level: 1,
+                    ScenarioType:"Conversation",
+                    conversation:[{
+                                question: String,
                                 translation: String,
-                                correct: Boolean
-                            }]*/
-                        ]
+                                answers:[{
+                                            answer: String,
+                                            translation: String,
+                                            correct: Boolean
+                                        }]
+                                }]
                 },
                 scenarioList: [],
                 position: 1,
@@ -107,13 +45,16 @@ angular.module('calliApp')
                 this.recordedAnswers.push(answer.answer);
 
                 //answer,branch,correct of current answer.
-                var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position-1].answers;
+                //if the scenario type is conversation dont push correct answers
+                if(scenarioGame.scenario.ScenarioType != "Conversation"){
+                    var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
 
-                $.each(currentAnswers, function(key, val) {
-                    if(val.answer == answer.answer) {
-                        pictureGame.recordedCorrectAnswers.push(val.correct);
-                    }
-                });
+                    $.each(currentAnswers, function (key, val) {
+                        if (val.answer == answer.answer) {
+                            scenarioGame.recordedCorrectAnswers.push(val.correct);
+                        }
+                    });
+                }
 
                 //if we reach delimiter position 0, callback results and release game
                 this.position++;

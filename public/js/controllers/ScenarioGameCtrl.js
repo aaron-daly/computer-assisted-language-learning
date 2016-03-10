@@ -18,14 +18,21 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             $('#answer-container').append(html);
         };
 
+        //var count=0
         $scope.drawQuestion = function(question) {
-
+        /*if (scenarioGame.scenario.ScenarioType.name == "Word") {
+             var questionHtml = '<h2>' + question.question +'<img src="../images/'+$scope.scenario.name+'/Image'+count+'.jpg" style="width:50px;height:50px;display:inline;"/>'+ '</h2>';
+             count++;
+             $('#current-question').append(questionHtml);
+         else{
+            */
             $('#current-question').append(question.question);
-
+        //}
             $.each(question.answers, function(key, val) {
                 $scope.drawAnswer(val);
             });
         };
+        
 
         $scope.clearScreen = function() {
             $('#answer-container').empty();
@@ -77,6 +84,8 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             $.each(results.questions, function(key, val) {
                 questionHTML = '<h2>' + val + '</h2>';
                 //if the correct value in corresponding position of array is true then ....
+                //if(scenarioGame.scenario.ScenarioType != "Conversation")
+                //{
                 if (results.correct[key]) {
                     answerHTML = '<h4 class="text-success" style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
                 }
@@ -84,6 +93,10 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                     answerHTML = '<h4 class="text-success" style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' + '</h4>';
                 }
                 $('#answer-container').append(questionHTML).append(answerHTML);
+                //}
+                //else {
+                //answerHTML = '<h4>' + results.answers[key] + '</h4>';
+                //}
             });
 
             $('#replay-btn').show();
