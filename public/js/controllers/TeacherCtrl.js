@@ -16,6 +16,9 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.allScenarios = scenarioGame.scenarioList;
 
+        console.log($scope.groupScenarios);
+        console.log($scope.allScenarios);
+
         $scope.enabledList = [];
         $.each($scope.groupScenarios, function(key, val) {
             if(val.enabled) {

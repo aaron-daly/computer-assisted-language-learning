@@ -409,6 +409,7 @@ module.exports = function(app) {
                             scenarioId: req.body.scenarioId,
                             scenarioName: req.body.scenarioName,
                             scenarioType: req.body.scenarioType,
+                            scenarioLevel: req.body.scenarioLevel,
                             enabled: true
                         }}
                     },
