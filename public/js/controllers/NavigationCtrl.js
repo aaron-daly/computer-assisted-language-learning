@@ -18,7 +18,7 @@ angular.module('NavigationCtrl', []).controller('NavigationController', ['$scope
             var defer = $q.defer();
 
             token.currentUserRole(function(role) {
-                if(role === 'pupil' || role === 'student') {
+                if(role === 'Pupil' || role === 'Student') {
                     $location.path('/profile');
                     defer.resolve('pupil/student');
                 } else {

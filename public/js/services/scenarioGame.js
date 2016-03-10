@@ -115,7 +115,6 @@ angular.module('calliApp')
             scenarioGame.preload = function() {
 
                 scenario.getScenarios(function(data) {
-                    console.log(data);
                     if(scenarioGame.scenarioList.length == 0){
                         $.each(data, function(key, scenario) {
                             scenarioGame.scenarioList.push(scenario);
