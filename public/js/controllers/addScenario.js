@@ -1,6 +1,6 @@
 
-angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http',
-    function($scope, $http) {
+angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -62,6 +62,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     answer = {};
                     answer.answer = $('input[name=q'+i+'a'+j+']').val();
                     if($scope.type != 'Conversation') {
+                        console.log($('input[name='+'q'+i+'correct').val(), j);
                         if($('input[name=' + 'q'+i+'correct]').val() == j) {
                             answer.correct = true;
                         } else {
@@ -75,6 +76,9 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
             scenario.conversation = questions;
 
+            console.log(scenario.conversation);
+
+            /*
             $http.post('/scenario', {
                 name: scenario.name,
                 level: scenario.level,
@@ -83,10 +87,12 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             })
                 .success(function(data) {
                     console.log(data);
+                    $location.path('/teacher');
                 })
                 .error(function(error) {
                     console.log(error);
                 });
+                */
         };
 
         $scope.generatePictureScenarioFrame = function(level) {

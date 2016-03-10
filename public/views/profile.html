@@ -18,11 +18,11 @@
         <tr dir-paginate="pupilGame in scenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
             <td class="text-left">{{ pupilGame.scenarioName }}</td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType.name === 'Conversation'"></span>
-                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType.name === 'Picture'"></span>
-                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType.name === 'Word'"></span>
+                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType === 'Conversation'"></span>
+                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType === 'Picture'"></span>
+                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType === 'Word'"></span>
             </td>
-            <td class="text-center">{{ getScenarioLevel(pupilGame._id) }}</td>
+            <td class="text-center">{{ pupilGame.scenarioLevel }}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-play-circle text-danger" ng-click="playScenario(pupilGame)"></span>
             </td>

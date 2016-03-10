@@ -51,13 +51,13 @@ angular.module('calliApp')
 
             teacher.enableScenario = function(scenario) {
 
-                var scenarioType = scenario.scenarioType.name;
 
                 $http.put('/group/scenario', {
                     teacherId: token.currentUserId(),
                     scenarioId: scenario._id,
                     scenarioName: scenario.name,
-                    scenarioType: scenarioType,
+                    scenarioType: scenario.scenarioType.name,
+                    scenarioLevel: scenario.level,
                     enabled: true
                 })
                     .error(function(error) {
