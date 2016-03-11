@@ -102,6 +102,10 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             $('#return-btn').show();
         };
 
+
+
+
+
         $scope.gameReplay = function() {
             $route.reload();
         };
@@ -112,6 +116,10 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
 
         scenarioGame.initGame(function(data) {
+            //if ($scope.scenario.scenarioType.name != "Picture"){
+            //    $(#'scenarioGame-header).hide();
+            //}
+            //else $(#'scenarioGame-header').show();
             $scope.drawQuestion(data);
 
             $('.answer-btn').click(function(){
