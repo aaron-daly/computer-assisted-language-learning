@@ -10,6 +10,7 @@ var GroupSchema = new mongoose.Schema({
         scenarioType: String,
         scenarioLevel: Number,
         completionList: [{ type: mongoose.Schema.Types.ObjectId, ref:'User' }],
+        translations: Boolean,
         enabled: Boolean
     }]
 

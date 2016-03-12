@@ -16,9 +16,6 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.allScenarios = scenarioGame.scenarioList;
 
-        console.log($scope.groupScenarios);
-        console.log($scope.allScenarios);
-
         $scope.enabledList = [];
         $.each($scope.groupScenarios, function(key, val) {
             if(val.enabled) {
@@ -32,21 +29,25 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.enableScenario = function(scenario) {
             teacher.enableScenario(scenario);
-            $route.reload();
         };
 
         $scope.disableScenario = function(scenario) {
             teacher.disableScenario(scenario);
-            $route.reload();
         };
 
         $scope.batchRegister = function() {
             var names = $scope.batchPupilNames.replace(' ', '').split('\n');
+            var errorMessage = " couldn't be registered!";
+            var isError = false;
 
             $.each(names, function(key, name) {
-                teacher.registerPupil(name);
+                teacher.registerPupil(name, function(error) {
+                    //TODO ADD ERROR HANDLING
+                    if(key == names.length-1) {
+                        $('#register-success').html('Pupils registered!');
+                    }
+                });
             });
-            $route.reload();
         };
 
         $scope.togglePupil = function(pupil) {
@@ -59,6 +60,10 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             } else {
                 return scenario.completionList.indexOf(pupil._id) > -1;
             }
+        };
+
+        $scope.routeToAddScenario = function() {
+            $location.path('/addScenario');
         }
     }
 ]);

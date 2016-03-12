@@ -62,8 +62,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     answer = {};
                     answer.answer = $('input[name=q'+i+'a'+j+']').val();
                     if($scope.type != 'Conversation') {
-                        console.log($('input[name='+'q'+i+'correct').val(), j);
-                        if($('input[name=' + 'q'+i+'correct]').val() == j) {
+                        if($('input[name=' + 'q'+i+'correct]:checked').val() == j) {
                             answer.correct = true;
                         } else {
                             answer.correct = false;

@@ -17,13 +17,15 @@ angular.module('calliApp', [
             // home page
             .when('/', {
                 templateUrl: 'views/home.html',
-                controller: 'MainController'
+                controller: 'MainController',
+                restricted: false
             })
 
             // login page
             .when('/login', {
                 templateUrl: 'views/login.html',
-                controller: 'LoginController'
+                controller: 'LoginController',
+                restricted: false
             })
             .when('/scenarioGame/:name', {
                 templateUrl: 'views/scenarioGame.html',
@@ -60,7 +62,8 @@ angular.module('calliApp', [
             // register page
             .when('/register', {
                 templateUrl: 'views/register.html',
-                controller: 'RegisterController'
+                controller: 'RegisterController',
+                restricted: false
             })
 
             // user profile page
@@ -139,7 +142,8 @@ angular.module('calliApp', [
 
             .when('/addScenario', {
                 templateUrl: 'views/addScenario.html',
-                controller: 'AddScenarioController'
+                controller: 'AddScenarioController',
+                restricted: false
             })
 
             .otherwise({

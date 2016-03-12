@@ -24,10 +24,10 @@ angular.module('calliApp')
                             }
                         })
                         .error(function(error) {
+                            callback(error);
                             if(!token.getToken()) {
                                 $location.path('/register');
                             }
-                            callback(error);
                         });
                 },
 

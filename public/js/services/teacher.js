@@ -8,7 +8,7 @@ angular.module('calliApp')
                 group: {}
             };
 
-            teacher.registerPupil = function(pupilName) {
+            teacher.registerPupil = function(pupilName, callback) {
                 var teacherUsername = token.currentUser();
                 var username = teacherUsername + pupilName;
                 auth.register({
@@ -17,7 +17,7 @@ angular.module('calliApp')
                     role: 'Pupil',
                     creator: token.currentUserId()
                 }, function(error) {
-                    console.log(error);
+                    callback(error);
                 });
             };
 

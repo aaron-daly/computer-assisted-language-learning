@@ -1,33 +1,8 @@
 <div class="text-center">
     <h1>User: <span class="text-success">{{ username }}</span></h1>
-    <hr>
-    <h1>Role: <span class="text-success">{{ role }}</span></h1>
-    <hr>
 </div>
 
-<!-- PUPIL REGISTER SECTION -->
-<div class="col-sm-4 col-sm-offset-1">
-
-    <!-- BATCH REGISTER SECTION -->
-    <h2>Batch Registration</h2>
-    <p class="text-info">Paste your pupil's names below. Each name must be on a new line and be one word only.</p>
-    <form id="batch-register-form" ng-submit="batchRegister()" role="form">
-        <div class="form-group">
-            <label>Pupil Names</label>
-                        <textarea class="form-control"
-                                  id="batch-pupil-names-input"
-                                  name="batchPupilNames"
-                                  ng-model="batchPupilNames"
-                                  rows="9"
-                                  cols="10"
-                                  required="required"></textarea>
-        </div>
-        <button type="submit" class="btn btn-info">Register Pupil Batch</button>
-        <span id="batch-register-error" class="text-danger"></span>
-    </form>
-
-</div>
-
+<hr>
 
 <!-- PUPIL LIST SECTION -->
 <div class="col-sm-4 col-sm-offset-2 text-center">
@@ -36,49 +11,82 @@
     <h2>Current Pupils</h2>
     <table class="table table-striped">
         <thead>
-        <th class="text-left">Username</th>
+        <th class="text-left">Name</th>
         <th class="text-center">Progress</th>
+        <th class="text-center">Completed</th>
         </thead>
         <tr dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
             <td class="text-left">{{ pupil.username.replace(username, '') }}</td>
             <td class="text-center"><span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span></td>
+            <td class="text-center">2/6</td>
         </tr>
     </table>
-    <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+    <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true"></dir-pagination-controls>
 
 </div>
 
+<!-- BUTTON SECTION -->
+<div class="col-sm-3 col-sm-offset-1 text-center">
 
-<!-- GAME LIST WITH ENABLE FEATURE -->
-<div class="col-sm-8 col-sm-offset-2 text-center">
-    <h2>Game Scenarios</h2><span class="text-center"><button class="btn btn-info"><a href="/addScenario">Add Scenario</a></button></span>
+    <h2>Tools</h2>
+    <br>
+    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#gameModal">View Games</button>
     <hr>
-    <table class="table table-striped">
-        <thead>
-        <th class="text-left">Name</th>
-        <th class="text-center">Type</th>
-        <th class="text-center">Level</th>
-        <th class="text-center">Enabled</th>
-        </thead>
-        <tr dir-paginate="pupilGame in allScenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
-            <td class="text-left">{{ pupilGame.name }}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType.name === 'Conversation'"></span>
-                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType.name === 'Picture'"></span>
-                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType.name === 'Word'"></span>
-            </td>
-            <td class="text-center">{{ pupilGame.level}}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-check" ng-show="!isEnabled(pupilGame)" ng-click="enableScenario(pupilGame)"></span>
-                <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(pupilGame)" ng-click="disableScenario(pupilGame)"></span>
-            </td>
-        </tr>
-    </table>
-    <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+    <button class="btn btn-info btn-block" ng-click="routeToAddScenario()">Create New Game</button>
+    <hr>
+    <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#registerModal">Register Pupils</button>
+
+</div>
+
+<!-- GAME LIST MODAL -->
+<div id="gameModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Game List</h3>
+            </div>
+
+            <div class="modal-body">
+                <!-- GAME LIST WITH ENABLE FEATURE -->
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <h2>Game Scenarios</h2>
+                    <hr>
+                    <table class="table table-striped">
+                        <thead>
+                        <th class="text-left">Name</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Level</th>
+                        <th class="text-center">Enabled</th>
+                        </thead>
+                        <tr dir-paginate="pupilGame in allScenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
+                            <td class="text-left">{{ pupilGame.name }}</td>
+                            <td class="text-center">
+                                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType.name === 'Conversation'"></span>
+                                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType.name === 'Picture'"></span>
+                                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType.name === 'Word'"></span>
+                            </td>
+                            <td class="text-center">{{ pupilGame.level}}</td>
+                            <td class="text-center">
+                                <span class="glyphicon glyphicon-check" ng-show="!isEnabled(pupilGame)" ng-click="enableScenario(pupilGame)"></span>
+                                <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(pupilGame)" ng-click="disableScenario(pupilGame)"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- PUPIL PROGRESS MODAL -->
-<div id="pupilModal" class="modal fade" role="dialog">
+<div id="pupilModal" class="modal fade col-sm-4 col-sm-offset-4" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -104,6 +112,40 @@
                 </table>
                 <dir-pagination-controls pagination-id="pupilProgressPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PUPIL REGISTER MODAL -->
+<div id="registerModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Register Pupils</h3>
+            </div>
+            <div class="modal-body">
+                <!-- BATCH REGISTER SECTION -->
+                <p class="text-info">Paste your pupil's names below. Each name must be on a new line and be one word only.</p>
+                <form id="batch-register-form" ng-submit="batchRegister()" role="form">
+                    <div class="form-group">
+                        <label>Pupil Names</label>
+                        <textarea class="form-control"
+                                  id="batch-pupil-names-input"
+                                  name="batchPupilNames"
+                                  ng-model="batchPupilNames"
+                                  rows="9"
+                                  cols="10"
+                                  required="required"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-info">Register Pupils</button>
+                    <span id="register-error" class="text-danger"></span>
+                    <span id="register-success" class="text-success"></span>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
