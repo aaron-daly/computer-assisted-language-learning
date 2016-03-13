@@ -42,7 +42,9 @@
     <hr>
     <button class="btn btn-info btn-block" ng-click="routeToAddScenario()">Create New Game</button>
     <hr>
-    <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#registerModal">Register Pupils</button>
+    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#registerModal">Register Pupils</button>
+    <hr>
+    <button class="btn btn-primary btn-block" ng-click="logout()">Logout</button>
 
 </div>
 
@@ -58,32 +60,34 @@
             </div>
 
             <div class="modal-body">
-                <!-- GAME LIST WITH ENABLE FEATURE -->
+
+                <!-- GAME LIST -->
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                        <th class="text-left">Name</th>
-                        <th class="text-center">Type</th>
-                        <th class="text-center">Level</th>
-                        <th class="text-center">Translations</th>
+                        <th class="text-left">Scenario</th>
+                        <!-- th class="text-center">Translations</th -->
                         <th class="text-center">Enabled</th>
+                        <th class="text-center">Preview</th>
                         <th class="text-center">Remove</th>
                         </thead>
                         <tr dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:5 " pagination-id="pupilGamePagination">
-                            <td class="text-left">{{ scenario.scenarioName }}</td>
-                            <td class="text-center">
+                            <td class="text-left">
                                 <span class="glyphicon glyphicon-eye-open" ng-if="scenario.scenarioType === 'Conversation'"></span>
                                 <span class="glyphicon glyphicon-picture" ng-if="scenario.scenarioType === 'Picture'"></span>
                                 <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="scenario.scenarioType === 'Word'"></span>
+                                <span>{{ scenario.scenarioName }} - {{ scenario.scenarioLevel }}</span>
                             </td>
-                            <td class="text-center">{{ scenario.scenarioLevel }}</td>
-                            <td class="text-center">
+                            <!-- td class="text-center">
                                 <span class="glyphicon glyphicon-check" ng-show="!translationsEnabled(scenario)" ng-click="enableTranslations(scenario)"></span>
                                 <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="translationsEnabled(scenario)" ng-click="disableTranslations(scenario)"></span>
-                            </td>
+                            </td -->
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-check" ng-show="!isEnabled(scenario)" ng-click="enableScenario(scenario)"></span>
                                 <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(scenario)" ng-click="disableScenario(scenario)"></span>
+                            </td>
+                            <td class="text-center">
+                                <span class="glyphicon glyphicon-play" data-dismiss="modal" ng-click="previewScenario(scenario)"></span>
                             </td>
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-remove" ng-click="deleteScenario(scenario)"></span>
@@ -92,6 +96,11 @@
                     </table>
                 </div>
                 <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+
+                <h4>Game Types:</h4>
+                <span class="glyphicon glyphicon-eye-open"> - Conversation</span><br>
+                <span class="glyphicon glyphicon-picture"> - Picture</span><br>
+                <span class="glyphicon glyphicon-ice-lolly-tasted"> - Word</span><br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

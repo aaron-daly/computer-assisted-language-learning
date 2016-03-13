@@ -100,7 +100,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         function uploadPictures() {
             console.log($('input[name=picture]').val());
-        };
+        }
 
         $scope.cancel = function() {
             $location.path('/teacher');

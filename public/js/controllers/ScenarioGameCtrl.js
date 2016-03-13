@@ -1,8 +1,8 @@
 /**
  * Created by Raphaelle on 10/03/2016.
  */
-angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$scope', '$routeParams', '$route', '$location', 'scenarioGame', 'teacher',
-    function($scope, $routeParams, $route, $location, scenarioGame, teacher) {
+angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$scope', '$routeParams', '$route', '$location', 'auth', 'scenarioGame', 'teacher',
+    function($scope, $routeParams, $route, $location, auth, scenarioGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -74,7 +74,9 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             }
 
             if(isCompleted) {
-                teacher.logScenarioCompletion($scope.scenario);
+                auth.authorize("Pupil", function(authorized) {
+                    teacher.logScenarioCompletion($scope.scenario);
+                });
             }
 
             var questionHTML = 0;
@@ -107,7 +109,12 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
         };
 
         $scope.profileReturn = function() {
-            $location.path('/profile');
+            auth.authorize('Teacher', function(authorized) {
+                $location.path('/teacher');
+            });
+            auth.authorize('Pupil', function(authorized) {
+                $location.path('/profile');
+            });
         };
 
 

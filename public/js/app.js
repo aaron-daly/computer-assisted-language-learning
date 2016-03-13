@@ -147,7 +147,8 @@ angular.module('calliApp', [
             })
 
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/',
+                restricted: false
             });
 
         $locationProvider.html5Mode(true);

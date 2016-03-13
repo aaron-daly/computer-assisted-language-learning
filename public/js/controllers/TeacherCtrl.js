@@ -1,6 +1,6 @@
 
-angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'scenario', 'teacher', 'scenarioGame',
-    function($scope, $http, $location, $route, token, scenario, teacher, scenarioGame) {
+angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$http', '$location', '$route', 'token', 'auth', 'scenario', 'teacher', 'scenarioGame',
+    function($scope, $http, $location, $route, token, auth, scenario, teacher, scenarioGame) {
 
         $scope.username = token.currentUser();
         $scope.role = {};
@@ -13,6 +13,10 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
         $scope.selectedPupil = '';
 
         $scope.groupScenarios = teacher.group.scenarios;
+
+        $scope.logout = function() {
+            auth.logout();
+        };
 
         $scope.isEnabled = function(scenario) {
             return scenario.enabled;
@@ -50,6 +54,9 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             scenario.translations = false;
         };
 
+        $scope.previewScenario = function(scenario) {
+            $location.path('/scenarioGame/:' + scenario.scenarioName);
+        };
 
 
         $scope.batchRegister = function() {
