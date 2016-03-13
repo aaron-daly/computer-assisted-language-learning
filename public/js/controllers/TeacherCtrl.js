@@ -16,37 +16,58 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.allScenarios = scenarioGame.scenarioList;
 
-        console.log($scope.groupScenarios);
-        console.log($scope.allScenarios);
-
-        $scope.enabledList = [];
-        $.each($scope.groupScenarios, function(key, val) {
-            if(val.enabled) {
-                $scope.enabledList.push(val.scenarioName);
-            }
-        });
-
         $scope.isEnabled = function(scenario) {
-            return $scope.enabledList.indexOf(scenario.name) > -1;
+            return scenario.enabled;
+        };
+
+        $scope.translationsEnabled = function(scenario) {
+            if(scenario.translations) {
+                return scenario.translations;
+            }
+            return false;
         };
 
         $scope.enableScenario = function(scenario) {
             teacher.enableScenario(scenario);
-            $route.reload();
+            scenario.enabled = true;
         };
 
         $scope.disableScenario = function(scenario) {
             teacher.disableScenario(scenario);
-            $route.reload();
+            scenario.enabled = false;
+        };
+
+        $scope.deleteScenario = function(scenario) {
+            teacher.deleteScenario(scenario);
+            $scope.groupScenarios.splice($scope.groupScenarios.indexOf(scenario), 1);
+        };
+
+        $scope.enableTranslations = function(scenario) {
+            teacher.enableTranslations(scenario);
+            scenario.translations = true;
+        };
+
+        $scope.disableTranslations = function(scenario) {
+            teacher.disableTranslations(scenario);
+            scenario.translations = false;
         };
 
         $scope.batchRegister = function() {
             var names = $scope.batchPupilNames.replace(' ', '').split('\n');
+            var errorMessage = " couldn't be registered!";
+            var isError = false;
 
             $.each(names, function(key, name) {
-                teacher.registerPupil(name);
+                teacher.registerPupil(name, function(response) {
+                    $scope.pupils.push(response.user);
+                });
             });
-            $route.reload();
+
+        };
+
+        $scope.removePupil = function(pupil) {
+            teacher.removePupil(pupil);
+            $scope.pupils.splice($scope.pupils.indexOf(pupil), 1);
         };
 
         $scope.togglePupil = function(pupil) {
@@ -59,6 +80,10 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             } else {
                 return scenario.completionList.indexOf(pupil._id) > -1;
             }
+        };
+
+        $scope.routeToAddScenario = function() {
+            $location.path('/addScenario');
         }
     }
 ]);

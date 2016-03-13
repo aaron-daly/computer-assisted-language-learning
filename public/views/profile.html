@@ -1,12 +1,13 @@
 <div class="text-center">
-    <h1>User: <span class="text-success">{{ username }}</span></h1>
-    <hr>
-    <h2>Role: <span class="text-success">{{ role }}</span></h2>
+    <h1>Hello <span class="">{{ username }}!</span></h1>
     <hr>
 </div>
 
-<div class="text-center col-sm-8 col-sm-offset-2">
-    <h2>Available Games:</h2>
+<div class="text-center col-sm-10 col-sm-offset-1">
+
+    <!--
+    <h2>Available Games</h2>
+    <br>
     <table class="table table-striped">
         <thead>
         <th class="text-left">Name</th>
@@ -33,5 +34,35 @@
         </tr>
     </table>
     <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+    -->
+    <div class="row">
+        <h2>New Games</h2>
+        <br>
+        <div class="games-list">
+            <div class="col-sm-4 col-xs-6 text-center" ng-repeat="newGame in newGames">
+                <div class="game-container new-game" ng-click="playScenario(newGame)">
+                    <h3>{{newGame.scenarioName}} ({{newGame.scenarioLevel}})</h3>
+                </div>
+            </div>
+            <span ng-if="newGames.length === 0">No new games to play!</span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <h2>Completed Games</h2>
+        <br>
+        <div class="games-list">
+            <div class="col-sm-4 col-xs-6" ng-repeat="completedGame in completedGames">
+                <div class="game-container completed-game" ng-click="playScenario(completedGame)">
+                    <h3>{{completedGame.scenarioName}} ({{completedGame.scenarioLevel}})</h3>
+                </div>
+            </div>
+            <span ng-if="completedGames.length === 0">No completed games yet!</span>
+        </div>
+    </div>
+
+    <br>
 </div>
 

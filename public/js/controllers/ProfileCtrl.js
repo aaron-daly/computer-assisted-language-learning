@@ -20,13 +20,6 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         });
 
         $scope.scenarios = [];
-        $.each(teacher.group.scenarios, function(key, val) {
-                if (val.enabled) {
-                    $scope.scenarios.push(val);
-                }
-            }
-        );
-
 
         $scope.playScenario = function(scenario) {
             $location.path('/scenarioGame/:' + scenario.scenarioName);
@@ -38,6 +31,23 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
             } else {
                 return scenario.completionList.indexOf($scope.userId) > -1;
             }
-        }
+        };
+
+        $scope.completedGames = [];
+        $scope.newGames = [];
+
+        $.each(teacher.group.scenarios, function(key, val) {
+                if (val.enabled) {
+                    $scope.scenarios.push(val);
+                    if($scope.checkScenarioCompletion(val)) {
+                        $scope.completedGames.push(val);
+                    } else {
+                        $scope.newGames.push(val);
+                    }
+                }
+            }
+        );
+
+
     }
 ]);
