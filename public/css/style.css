@@ -69,7 +69,7 @@ html,body {
 }
 
 .navbar-inverse {
-    margin-bottom: 60px;
+    margin-bottom: 10px;
 
 }
 .glyphicon.glyphicon-user {
@@ -110,8 +110,65 @@ html,body {
 
 /*== STYLE ==*/
 
+.bar-blue {
+    border-color: #5bc0de;
+}
 .glyphicon-blue {
     color: #5bc0de;
+}
+
+.games-list {
+}
+
+.game-container {
+    position: relative;
+    margin: auto;
+    width: 10em;
+    height: 10em;
+    -webkit-border-radius: 5em !important;
+    -moz-border-radius: 5em !important;
+    border-radius: 5em !important;
+    -webkit-transition-duration: .2s;
+    -moz-transition-duration: .2s;
+    -ms-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    transition-duration: .2s;
+}
+
+.completed-game {
+    background-color: #5bc0de;
+}
+.completed-game:hover {
+    background-color: #ffffff;
+}
+
+.new-game {
+    background-color: #d43f3a;
+}
+.new-game:hover {
+    background-color: #ffffff;
+}
+
+.game-container > h3 {
+    position: relative;
+    top: 40%;
+    color: #ffffff;
+    -webkit-transition-duration: .2s;
+    -moz-transition-duration: .2s;
+    -ms-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    transition-duration: .2s;
+}
+
+.game-container > span {
+    font-size: 150%;
+}
+
+.completed-game:hover > h3 {
+    color: #5bc0de;
+}
+.new-game:hover > h3 {
+    color: #d43f3a;
 }
 
 /*--------*/

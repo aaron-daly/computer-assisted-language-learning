@@ -7,11 +7,6 @@ var Group = require('../app/models/Group');
 var Scenario = require('../app/models/Scenario');
 var ScenarioType = require('../app/models/ScenarioType');
 
-var ConversationScenario = require('../app/models/ConversationScenario');
-var PictureScenario = require('../app/models/PictureScenario');
-var WordScenario = require('../app/models/WordScenario');
-
-
 // app/routes.js
 module.exports = function(app) {
 
@@ -67,6 +62,16 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/deleteScenarios', function(req, res, next) {
+
+        Scenario.remove({}, function(err, scenarios) {
+            if(err)
+                return res.send(err);
+            return res.json(scenarios);
+        });
+
+    });
+
     // GET all Scenarios
     app.get('/scenarios', function(req, res, next) {
 
@@ -76,120 +81,6 @@ module.exports = function(app) {
             return res.json(scenarios);
         });
     });
-
-    /* POST scenario type C
-    app.post('/scenario/add/c', function(req, res, next) {
-
-        var cS = new ConversationScenario({
-            name: req.body.name,
-            level: req.body.level,
-            conversation: req.body.conversation
-        });
-
-        cS.save(function(err) {
-            if(err)
-                throw err;
-            return next(cS);
-        });
-    });
-
-    // POST scenario type P
-    app.post('/scenario/add/p', function(req, res, next) {
-
-        var pS = new PictureScenario({
-            name: req.body.name,
-            level: req.body.level,
-            conversation: req.body.conversation
-        });
-
-        pS.save(function(err) {
-            if(err)
-                throw err;
-            return next(pS);
-        });
-    });
-
-    // POST scenario type w
-    app.post('/scenario/add/w', function(req, res, next) {
-
-        var wS = new WordScenario({
-            name: req.body.name,
-            level: req.body.level,
-            conversation: req.body.conversation
-        });
-
-        wS.save(function(err) {
-            if(err)
-                throw err;
-            return next(wS);
-        });
-    });
-    */
-
-
-    // GET all conversation scenarios, callback array
-    app.get('/conversationScenarios', function(req, res, next) {
-
-        var scenarios = [];
-        var i = 0;
-        var len = 0;
-
-        ConversationScenario.find(function(err, cS) {
-            if (err)
-                throw err;
-
-            len = cS.length;
-            for(i; i < len; i++) {
-                scenarios.push(cS[i]);
-            }
-
-            res.json(scenarios);    //remove once other scenario types added
-        });
-
-    });
-
-    // GET all picture scenarios, callback array
-    app.get('/pictureScenarios', function(req, res, next) {
-
-        var scenarios = [];
-        var i = 0;
-        var len = 0;
-
-        PictureScenario.find(function(err, cS) {
-            if (err)
-                throw err;
-
-            len = cS.length;
-            for(i; i < len; i++) {
-                scenarios.push(cS[i]);
-            }
-
-            res.json(scenarios);    //remove once other scenario types added
-        });
-
-    });
-
-    // GET all word scenarios, callback array
-    app.get('/wordScenarios', function(req, res, next) {
-
-        var scenarios = [];
-        var i = 0;
-        var len = 0;
-
-        WordScenario.find(function(err, cS) {
-            if (err)
-                throw err;
-
-            len = cS.length;
-            for(i; i < len; i++) {
-                scenarios.push(cS[i]);
-            }
-
-            res.json(scenarios);    //remove once other scenario types added
-        });
-
-    });
-
 
 
     // END OF SCENARIOS ========================================================
@@ -227,7 +118,7 @@ module.exports = function(app) {
                             throw err;
                     });
 
-                    return res.json({ token: user.generateJWT() });
+                    return res.json({ token: user.generateJWT(), user: user });
 
                 });
 
@@ -257,6 +148,14 @@ module.exports = function(app) {
     });
     */
 
+    app.post('/user/remove', function(req, res, next) {
+
+        User.remove({ _id: req.body._id }, function(err, user) {
+            if(err)
+                return res.send(err);
+            return res.json(user);
+        })
+    });
 
     //POST to login user
     app.post('/login', function(req, res, next) {
@@ -387,10 +286,53 @@ module.exports = function(app) {
         })
     });
 
-    //PUT to a class
-    app.put('/group/scenario', function(req, res, next) {
+    app.put('/group/scenario/delete', function(req, res, next) {
 
         console.log(req.body);
+
+        Group.findOneAndUpdate({ teacherId: req.body.teacherId },
+            {
+                $pull: { "scenarios": {
+                    _id: req.body._id
+                }}
+            }, function(err, group) {
+                if(err)
+                    return res.send(err);
+                return res.json(group);
+            });
+
+    });
+
+    app.put('/group/scenario/add', function(req, res, next) {
+
+        console.log(req.body);
+
+        Group.findOneAndUpdate({ teacherId: req.body.teacherId },
+            {
+                $push: { "scenarios": {
+                    scenarioId: req.body.scenarioId,
+                    scenarioName: req.body.scenarioName,
+                    scenarioType: req.body.scenarioType,
+                    scenarioLevel: req.body.scenarioLevel,
+                    translations: req.body.translations,
+                    enabled: req.body.enabled,
+                    completionList: []
+                }}
+            },
+            {
+                safe: true,
+                upsert: true,
+                new: true
+            },function(err, group) {
+                if(err)
+                    res.send(err);
+                else res.json(group);
+            });
+
+    });
+
+    //PUT to a class
+    app.put('/group/scenario/enable', function(req, res, next) {
 
         Group.findOneAndUpdate({
             teacherId: req.body.teacherId,
@@ -401,31 +343,9 @@ module.exports = function(app) {
             }
         }, function(err, group) {
             if(err)
-                throw err;
-            if(!group) {
-                Group.findOneAndUpdate({ teacherId: req.body.teacherId },
-                    {
-                        $push: { "scenarios": {
-                            scenarioId: req.body.scenarioId,
-                            scenarioName: req.body.scenarioName,
-                            scenarioType: req.body.scenarioType,
-                            scenarioLevel: req.body.scenarioLevel,
-                            enabled: true
-                        }}
-                    },
-                    {
-                        safe: true,
-                        upsert: true,
-                        new: true
-                    }, function(err, group2) {
-                        if(err)
-                            throw(err);
-                        else res.json(group2);
-                    })
-            } else {
-                res.json(group);
-            }
-        })
+                return res.send(err);
+            return res.json(group);
+        });
     });
 
 

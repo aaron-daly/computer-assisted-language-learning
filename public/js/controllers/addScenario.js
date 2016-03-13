@@ -1,12 +1,16 @@
 
-angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
+angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'teacher',
+    function($scope, $http, $location, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
         });
 
         $scope.buildQuestionsForm = function() {
+
+            if(!$scope.level) {
+                return;
+            }
 
             var questionsSize = 5 * $scope.level;
             var answersSize = 2;
@@ -20,10 +24,17 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     '<hr><div class="form-group"><label>Question '+i+'</label><input class="form-control" type="text" name="q'+i+'"></div>'
                 );
 
+                var radioBtn = '';
+
                 for(var j = 1; j <= answersSize; j++) {
+
+                    if($scope.type != 'Conversation') {
+                        radioBtn = ' <input type="radio" name="q' + i + 'correct" value="' + j + '">';
+                    }
+
                     $('#questions-container').append(
                         '<div class="form-group"><label>Q'+i+' Answer '+j+'</label>' +
-                        ' <input type="radio" name="q'+i+'correct" value="'+j+'">' +
+                        radioBtn +
                         '<input class="form-control" type="text" name="q'+i+'a'+j+'"></div>'
                     )
                 }
@@ -75,23 +86,20 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
             scenario.conversation = questions;
 
-            console.log(scenario.conversation);
-
-            /*
-            $http.post('/scenario', {
-                name: scenario.name,
-                level: scenario.level,
-                scenarioType: scenario.scenarioType,
-                conversation: scenario.conversation
-            })
+            $http.post('/scenario', scenario)
                 .success(function(data) {
-                    console.log(data);
-                    $location.path('/teacher');
+                    teacher.addScenario(data);
+                    uploadPictures();
                 })
                 .error(function(error) {
                     console.log(error);
                 });
-                */
+
+            $location.path('/teacher');
+        };
+
+        function uploadPictures() {
+            console.log($('input[name=picture]').val());
         };
 
         $scope.generatePictureScenarioFrame = function(level) {

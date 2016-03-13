@@ -22,6 +22,7 @@ angular.module('calliApp')
                                     });
                                 $location.path('/teacher');
                             }
+                            callback(data);
                         })
                         .error(function(error) {
                             callback(error);

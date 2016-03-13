@@ -1,24 +1,30 @@
 <div class="text-center">
-    <h1>User: <span class="text-success">{{ username }}</span></h1>
+    <h1>Hello <span>{{ username }}!</span></h1>
 </div>
 
 <hr>
 
 <!-- PUPIL LIST SECTION -->
-<div class="col-sm-4 col-sm-offset-2 text-center">
+<div class="col-sm-5 col-sm-offset-1 text-center">
 
     <!-- PUPIL LIST  -->
-    <h2>Current Pupils</h2>
+    <h2>Pupils</h2>
     <table class="table table-striped">
         <thead>
         <th class="text-left">Name</th>
         <th class="text-center">Progress</th>
         <th class="text-center">Completed</th>
+        <th class="text-center">Remove</th>
         </thead>
         <tr dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
             <td class="text-left">{{ pupil.username.replace(username, '') }}</td>
-            <td class="text-center"><span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span></td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span>
+            </td>
             <td class="text-center">2/6</td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-remove" ng-click="removePupil(pupil)"></span>
+            </td>
         </tr>
     </table>
     <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true"></dir-pagination-controls>
@@ -26,7 +32,7 @@
 </div>
 
 <!-- BUTTON SECTION -->
-<div class="col-sm-3 col-sm-offset-1 text-center">
+<div class="col-sm-3 col-sm-offset-2 col-xs-6 col-xs-offset-3 text-center">
 
     <h2>Tools</h2>
     <br>
@@ -51,7 +57,7 @@
 
             <div class="modal-body">
                 <!-- GAME LIST WITH ENABLE FEATURE -->
-                <div class="col-sm-8 col-sm-offset-2 text-center">
+                <div class="text-center">
                     <h2>Game Scenarios</h2>
                     <hr>
                     <table class="table table-striped">
@@ -59,19 +65,28 @@
                         <th class="text-left">Name</th>
                         <th class="text-center">Type</th>
                         <th class="text-center">Level</th>
+                        <th class="text-center">Translations</th>
                         <th class="text-center">Enabled</th>
+                        <th class="text-center">Remove</th>
                         </thead>
-                        <tr dir-paginate="pupilGame in allScenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
-                            <td class="text-left">{{ pupilGame.name }}</td>
+                        <tr dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:5 " pagination-id="pupilGamePagination">
+                            <td class="text-left">{{ scenario.scenarioName }}</td>
                             <td class="text-center">
-                                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType.name === 'Conversation'"></span>
-                                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType.name === 'Picture'"></span>
-                                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType.name === 'Word'"></span>
+                                <span class="glyphicon glyphicon-eye-open" ng-if="scenario.scenarioType === 'Conversation'"></span>
+                                <span class="glyphicon glyphicon-picture" ng-if="scenario.scenarioType === 'Picture'"></span>
+                                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="scenario.scenarioType === 'Word'"></span>
                             </td>
-                            <td class="text-center">{{ pupilGame.level}}</td>
+                            <td class="text-center">{{ scenario.scenarioLevel }}</td>
                             <td class="text-center">
-                                <span class="glyphicon glyphicon-check" ng-show="!isEnabled(pupilGame)" ng-click="enableScenario(pupilGame)"></span>
-                                <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(pupilGame)" ng-click="disableScenario(pupilGame)"></span>
+                                <span class="glyphicon glyphicon-check" ng-show="!translationsEnabled(scenario)" ng-click="enableTranslations(scenario)"></span>
+                                <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="translationsEnabled(scenario)" ng-click="disableTranslations(scenario)"></span>
+                            </td>
+                            <td class="text-center">
+                                <span class="glyphicon glyphicon-check" ng-show="!isEnabled(scenario)" ng-click="enableScenario(scenario)"></span>
+                                <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(scenario)" ng-click="disableScenario(scenario)"></span>
+                            </td>
+                            <td class="text-center">
+                                <span class="glyphicon glyphicon-remove" ng-click="deleteScenario(scenario)"></span>
                             </td>
                         </tr>
                     </table>
@@ -86,7 +101,7 @@
 </div>
 
 <!-- PUPIL PROGRESS MODAL -->
-<div id="pupilModal" class="modal fade col-sm-4 col-sm-offset-4" role="dialog">
+<div id="pupilModal" class="modal fade col-sm-6 col-sm-offset-3" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">

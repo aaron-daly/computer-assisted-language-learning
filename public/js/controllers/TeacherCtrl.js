@@ -16,23 +16,40 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.allScenarios = scenarioGame.scenarioList;
 
-        $scope.enabledList = [];
-        $.each($scope.groupScenarios, function(key, val) {
-            if(val.enabled) {
-                $scope.enabledList.push(val.scenarioName);
-            }
-        });
-
         $scope.isEnabled = function(scenario) {
-            return $scope.enabledList.indexOf(scenario.name) > -1;
+            return scenario.enabled;
+        };
+
+        $scope.translationsEnabled = function(scenario) {
+            if(scenario.translations) {
+                return scenario.translations;
+            }
+            return false;
         };
 
         $scope.enableScenario = function(scenario) {
             teacher.enableScenario(scenario);
+            scenario.enabled = true;
         };
 
         $scope.disableScenario = function(scenario) {
             teacher.disableScenario(scenario);
+            scenario.enabled = false;
+        };
+
+        $scope.deleteScenario = function(scenario) {
+            teacher.deleteScenario(scenario);
+            $scope.groupScenarios.splice($scope.groupScenarios.indexOf(scenario), 1);
+        };
+
+        $scope.enableTranslations = function(scenario) {
+            teacher.enableTranslations(scenario);
+            scenario.translations = true;
+        };
+
+        $scope.disableTranslations = function(scenario) {
+            teacher.disableTranslations(scenario);
+            scenario.translations = false;
         };
 
         $scope.batchRegister = function() {
@@ -41,13 +58,16 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             var isError = false;
 
             $.each(names, function(key, name) {
-                teacher.registerPupil(name, function(error) {
-                    //TODO ADD ERROR HANDLING
-                    if(key == names.length-1) {
-                        $('#register-success').html('Pupils registered!');
-                    }
+                teacher.registerPupil(name, function(response) {
+                    $scope.pupils.push(response.user);
                 });
             });
+
+        };
+
+        $scope.removePupil = function(pupil) {
+            teacher.removePupil(pupil);
+            $scope.pupils.splice($scope.pupils.indexOf(pupil), 1);
         };
 
         $scope.togglePupil = function(pupil) {

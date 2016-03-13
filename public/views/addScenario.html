@@ -2,7 +2,7 @@
     <h1 class="text-center">Add Scenario Page</h1>
 
     <!-- conversation scenario form -->
-    <form name="conversation-form" ng-submit="submitScenario()" role="form">
+    <form name="conversation-form" ng-submit="submitScenario()" role="form" enctype="multipart/form-data">
 
         <div class="form-group">
             <label>Scenario Name</label>
@@ -10,11 +10,11 @@
         </div>
 
         <label>Scenario Picture</label>
-        <input class="form-control" type="text" name="name" ng-model="name" required="required">
+        <input class="form-control" type="file" name="picture" ng-model="picture" size=char">
 
         <div class="form-group">
             <label>Scenario Type</label>
-            <select class="form-control" name="type" ng-model="type" required="required">
+            <select class="form-control" name="type" ng-model="type" ng-change="buildQuestionsForm()" required="required">
                 <option value="Conversation" selected="selected">Conversation</option>
                 <option value="Picture" selected="selected">Picture</option>
                 <option value="Word" selected="selected">Word</option>
