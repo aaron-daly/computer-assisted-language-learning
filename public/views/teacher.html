@@ -9,30 +9,32 @@
 
     <!-- PUPIL LIST  -->
     <h2>Pupils</h2>
-    <table class="table table-striped">
-        <thead>
-        <th class="text-left">Name</th>
-        <th class="text-center">Progress</th>
-        <th class="text-center">Completed</th>
-        <th class="text-center">Remove</th>
-        </thead>
-        <tr dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
-            <td class="text-left">{{ pupil.username.replace(username, '') }}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span>
-            </td>
-            <td class="text-center">2/6</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-remove" ng-click="removePupil(pupil)"></span>
-            </td>
-        </tr>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <th class="text-left">Name</th>
+            <th class="text-center">Completed</th>
+            <th class="text-center">Progress</th>
+            <th class="text-center">Remove</th>
+            </thead>
+            <tr dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
+                <td class="text-left">{{ pupil.username.replace(username, '') }}</td>
+                <td class="text-center">{{ getScenarioCompletionTotal(pupil) }}/{{ getNumScenarios() }}</td>
+                <td class="text-center">
+                    <span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span>
+                </td>
+                <td class="text-center">
+                    <span class="glyphicon glyphicon-remove" ng-click="removePupil(pupil)"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
     <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true"></dir-pagination-controls>
 
 </div>
 
 <!-- BUTTON SECTION -->
-<div class="col-sm-3 col-sm-offset-2 col-xs-6 col-xs-offset-3 text-center">
+<div class="col-sm-3 col-sm-offset-2 col-xs-8 col-xs-offset-2 text-center">
 
     <h2>Tools</h2>
     <br>
@@ -57,9 +59,7 @@
 
             <div class="modal-body">
                 <!-- GAME LIST WITH ENABLE FEATURE -->
-                <div class="text-center">
-                    <h2>Game Scenarios</h2>
-                    <hr>
+                <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                         <th class="text-left">Name</th>
@@ -90,11 +90,11 @@
                             </td>
                         </tr>
                     </table>
-                    <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
                 </div>
+                <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -110,26 +110,28 @@
                 <h3 class="modal-title">Progress of {{ selectedPupil.username.replace(username, '') }}</h3>
             </div>
             <div class="modal-body">
-                <p>Username: {{selectedPupil.username}}</p>
-                <hr>
-                <table class="table table-striped">
-                    <thead>
-                    <th class="text-left">Scenario</th>
-                    <th class="text-center">Completed</th>
-                    </thead>
-                    <tr dir-paginate="groupScenario in groupScenarios | itemsPerPage:5 " pagination-id="pupilProgressPagination">
-                        <td class="text-left">{{ groupScenario.scenarioName }}</td>
-                        <td class="text-center">
-                            <span class="glyphicon glyphicon-ok text-primary" ng-show="checkScenarioCompletion(selectedPupil, groupScenario)"></span>
-                            <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(selectedPupil, groupScenario)"></span>
-                        </td>
-                    </tr>
-                </table>
-                <dir-pagination-controls pagination-id="pupilProgressPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
-
+                <p>Games completed: {{ getScenarioCompletionTotal(selectedPupil) }}/{{ getNumScenarios() }}</p>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <th class="text-left">Name</th>
+                        <th class="text-center">Level</th>
+                        <th class="text-center">Completed</th>
+                        </thead>
+                        <tr dir-paginate="groupScenario in groupScenarios | itemsPerPage:5 " pagination-id="pupilProgressPagination">
+                            <td class="text-left">{{ groupScenario.scenarioName }}</td>
+                            <td class="text-center">{{ groupScenario.scenarioLevel }}</td>
+                            <td class="text-center">
+                                <span class="glyphicon glyphicon-ok text-primary" ng-show="checkScenarioCompletion(selectedPupil, groupScenario)"></span>
+                                <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(selectedPupil, groupScenario)"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <dir-pagination-controls pagination-id="pupilProgressPagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -140,12 +142,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" ng-click="clearRegistration()">&times;</button>
                 <h3 class="modal-title">Register Pupils</h3>
             </div>
             <div class="modal-body">
                 <!-- BATCH REGISTER SECTION -->
-                <p class="text-info">Paste your pupil's names below. Each name must be on a new line and be one word only.</p>
+                <p class="text-info">Enter or copy & paste your pupil's names below. Each name must be on a new line, unique and one word only.</p>
                 <form id="batch-register-form" ng-submit="batchRegister()" role="form">
                     <div class="form-group">
                         <label>Pupil Names</label>
@@ -158,12 +160,12 @@
                                   required="required"></textarea>
                     </div>
                     <button type="submit" class="btn btn-info">Register Pupils</button>
-                    <span id="register-error" class="text-danger"></span>
-                    <span id="register-success" class="text-success"></span>
+                    <span id="register-error" class="text-danger" ng-if="registrationError">{{ registrationErrorMessage }}</span>
+                    <span id="register-success" class="text-success" ng-if="successfulRegistration && !registrationError" >Pupils registered successfully!</span>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearRegistration()">Close</button>
             </div>
         </div>
     </div>

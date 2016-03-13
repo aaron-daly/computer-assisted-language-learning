@@ -21,7 +21,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             for(var i = 1; i <= questionsSize; i++) {
 
                 $('#questions-container').append(
-                    '<hr><div class="form-group"><label>Question '+i+'</label><input class="form-control" type="text" name="q'+i+'"></div>'
+                    '<div class="form-group"><label>Question '+i+'</label><input class="form-control" type="text" name="q'+i+'"></div>'
                 );
 
                 var radioBtn = '';
@@ -35,7 +35,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     $('#questions-container').append(
                         '<div class="form-group"><label>Q'+i+' Answer '+j+'</label>' +
                         radioBtn +
-                        '<input class="form-control" type="text" name="q'+i+'a'+j+'"></div>'
+                        '<input class="form-control" type="text" name="q'+i+'a'+j+'"></div><hr>'
                     )
                 }
             }
@@ -102,22 +102,9 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             console.log($('input[name=picture]').val());
         };
 
-        $scope.generatePictureScenarioFrame = function(level) {
-
-            var questionsLength = 5 * level;
-            var answersLength = 2;
-
-            if(level > 1) {
-                answersLength = 3;
-            }
-
-            var q = 1;
-            var a = 1;
-
-            for(i; i <= questionsLength; i++) {
-
-            }
-        };
+        $scope.cancel = function() {
+            $location.path('/teacher');
+        }
 
     }
 ]);

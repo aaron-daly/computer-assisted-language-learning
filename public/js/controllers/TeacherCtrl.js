@@ -14,8 +14,6 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         $scope.groupScenarios = teacher.group.scenarios;
 
-        $scope.allScenarios = scenarioGame.scenarioList;
-
         $scope.isEnabled = function(scenario) {
             return scenario.enabled;
         };
@@ -52,17 +50,40 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             scenario.translations = false;
         };
 
+
+
         $scope.batchRegister = function() {
+
+            $scope.successfulRegistration = false;
+            $scope.registrationError = false;
+            $scope.registrationErrorMessage = "Oops, there was a problem registering - ";
+
             var names = $scope.batchPupilNames.replace(' ', '').split('\n');
-            var errorMessage = " couldn't be registered!";
             var isError = false;
 
             $.each(names, function(key, name) {
                 teacher.registerPupil(name, function(response) {
-                    $scope.pupils.push(response.user);
+                    console.log(response);
+                    if(response.user) {
+                        $scope.pupils.push(response.user);
+                    } else {
+                        $scope.registrationError = true;
+                        $scope.registrationErrorMessage += name;
+                        if(key < names.length-1) {
+                            $scope.registrationErrorMessage += ', ';
+                        }
+                    }
                 });
             });
 
+            $scope.successfulRegistration = true;
+        };
+
+        $scope.clearRegistration = function() {
+            $('#batch-register-form')[0].reset();
+            $scope.successfulRegistration = false;
+            $scope.registrationError = false;
+            $scope.registrationErrorMessage = "Oops, there was a problem registering - ";
         };
 
         $scope.removePupil = function(pupil) {
@@ -82,7 +103,37 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             }
         };
 
-        $scope.routeToAddScenario = function() {
+        $scope.getScenarioCompletionTotal = function(pupil) {
+            var count = 0;
+            $.each($scope.groupScenarios, function(key, val) {
+                if($scope.checkScenarioCompletion(pupil, val)) {
+                    count++;
+                }
+            });
+            return count;
+        };
+
+        $scope.getNumScenarios = function() {
+            if($scope.groupScenarios) {
+                return $scope.groupScenarios.length;
+            }
+            return 0;
+        };
+
+        $scope.getScenarioCompletionRank = function(pupil) {
+            var numScenarios = $scope.getNumScenarios().toFixed(1);
+            var completionTotal = $scope.getScenarioCompletionTotal(pupil).toFixed(1);
+            var completionPerc = completionTotal / numScenarios;
+
+            if(completionTotal == 0 || completionPerc < 0.5) {
+                return 3
+            } else if(completionPerc < 1) {
+                return 2;
+            }
+            return 1;
+        };
+
+            $scope.routeToAddScenario = function() {
             $location.path('/addScenario');
         }
     }
