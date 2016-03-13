@@ -123,7 +123,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             //else {
             // $(#'scenarioGame-header').show();
             //}
-            
+
             $scope.drawQuestion(data);
 
             $('.answer-btn').click(function(){
