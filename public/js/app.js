@@ -32,29 +32,30 @@ angular.module('calliApp', [
                 controller: 'ScenarioGameController',
                 restricted: true,
                 resolve: {
-                    scenarioPromise: ['scenarioGame', '$q', '$timeout', '$route', function(scenarioGame, $q, $timeout, $route) {
-                        var defer = $q.defer();
+                    scenarioPromise: ['scenarioGame', '$q', '$timeout', '$route',
+                        function(scenarioGame, $q, $timeout, $route) {
+                            var defer = $q.defer();
 
-                        //if game scenariolist is empty, preload (for game page refresh)
-                        if(scenarioGame.scenarioList.length < 1) {
-                            scenarioGame.preload();
-                        }
+                            //if game scenariolist is empty, preload (for game page refresh)
+                            if(scenarioGame.scenarioList.length < 1) {
+                                scenarioGame.preload();
+                            }
 
-                        var str = $route.current.params.name;
-                        var name = str.substr(1, str.length);
+                            var str = $route.current.params.name;
+                            var name = str.substr(1, str.length);
 
-                        $timeout(function() {
-                            scenarioGame.loadScenario(name, function(data) {
-                                if(data) {
-                                    defer.resolve('Scenario loaded');
-                                } else {
-                                    $location.path('/profile');
-                                    defer.resolve('Error loading scenario');
-                                }
+                            $timeout(function() {
+                                scenarioGame.loadScenario(name, function(data) {
+                                    if(data) {
+                                        defer.resolve('Scenario loaded');
+                                    } else {
+                                        $location.path('/profile');
+                                        defer.resolve('Error loading scenario');
+                                    }
+                                });
                             });
-                        });
 
-                        return defer.promise;
+                            return defer.promise;
                     }]
                 }
             })
@@ -84,15 +85,21 @@ angular.module('calliApp', [
                     groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
                         function($q, $timeout, auth, token, teacher) {
                             var defer = $q.defer();
-
-                            //if pupil
-                            auth.authorize('Pupil', function(authorized) {
-                                $timeout(function() {
-                                    teacher.getGroup(token.currentUserCreator());
-                                    defer.resolve();
-                                })
+                            $timeout(function() {
+                                teacher.getGroup(token.currentUserCreator());
+                                defer.resolve();
                             });
-
+                            return defer.promise;
+                        }],
+                    permissionPromise: ['$q', '$location', 'auth',
+                        function($q, $location, auth) {
+                            var defer = $q.defer();
+                            auth.authorizePermission(2, function(authorized) {
+                                if(!authorized) {
+                                    $location.path('/teacher');
+                                }
+                                defer.resolve();
+                            });
                             return defer.promise;
                         }]
                 }
@@ -112,38 +119,55 @@ angular.module('calliApp', [
                             });
                             return defer.promise;
                         }],
-                    pupilPromise: ['$q','$timeout', 'auth', 'teacher',
-                        function($q, $timeout, auth, teacher) {
+                    pupilPromise: ['$q','$timeout', 'teacher',
+                        function($q, $timeout, teacher) {
                             var defer = $q.defer();
-                            auth.authorize('Teacher', function(authorized) {
-                                $timeout(function() {
-                                    teacher.getPupils();
-                                    defer.resolve();
-                                },1000);
+                            $timeout(function() {
+                                teacher.getPupils();
+                                defer.resolve();
+                            },1000);
+                            return defer.promise;
+                        }],
+                    groupPromise: ['$q', '$timeout', 'token', 'teacher',
+                        function($q, $timeout, token, teacher) {
+                            var defer = $q.defer();
+                            $timeout(function() {
+                                teacher.getGroup(token.currentUserId());
+                                defer.resolve();
                             });
                             return defer.promise;
                         }],
-                    groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
-                        function($q, $timeout, auth, token, teacher) {
+                    permissionPromise: ['$q', '$location', 'auth',
+                        function($q, $location, auth) {
                             var defer = $q.defer();
-
-                            //if teacher
-                            auth.authorize('Teacher', function(authorized) {
-                                $timeout(function() {
-                                    teacher.getGroup(token.currentUserId());
-                                    defer.resolve();
-                                });
+                            auth.authorizePermission(1, function(authorized) {
+                                if(!authorized) {
+                                    $location.path('/profile');
+                                }
+                                defer.resolve();
                             });
                             return defer.promise;
                         }]
-
                 }
             })
 
             .when('/addScenario', {
                 templateUrl: 'views/addScenario.html',
                 controller: 'AddScenarioController',
-                restricted: false
+                restricted: true,
+                resolve: {
+                    permissionPromise: ['$q', '$location', 'auth',
+                        function($q, $location, auth) {
+                            var defer = $q.defer();
+                            auth.authorizePermission(1, function(authorized) {
+                                if(!authorized) {
+                                    $location.path('/profile');
+                                }
+                                defer.resolve();
+                            });
+                            return defer.promise;
+                        }]
+                }
             })
 
             .otherwise({
@@ -154,8 +178,8 @@ angular.module('calliApp', [
         $locationProvider.html5Mode(true);
 
     }
-]).run(['$rootScope', '$location', '$timeout', '$q', 'token','auth', 'teacher',
-    function($rootScope, $location, $timeout, $q, token, auth, teacher) {
+]).run(['$rootScope', '$location', '$timeout', '$q', 'token',
+    function($rootScope, $location, $timeout, $q, token) {
 
 
         //on route change...

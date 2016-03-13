@@ -56,16 +56,16 @@ angular.module('calliApp')
                     $location.path('/');
                 },
 
-                //*****TO DO
-                authorize: function(role, callback) {
-                    token.currentUserRole(function(data) {
-                        if(role === data) {
-                            callback(true);
+                //authorize permission level of user, callback true or false
+                authorizePermission: function(permission, authorized) {
+                    token.currentUserPermission(function(userPermission) {
+                        if(userPermission == permission) {
+                            authorized(true);
+                        } else {
+                            authorized(false);
                         }
-                    });
-                    callback(false);
+                    })
                 }
-
 
             }
         }

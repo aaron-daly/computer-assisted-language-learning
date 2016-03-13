@@ -60,6 +60,17 @@ angular.module('calliApp')
                 }
             };
 
+            token.currentUserPermission = function(callback) {
+                if(token.isLoggedIn()) {
+                    var userToken = token.getToken();
+                    var user = JSON.parse($window.atob(userToken.split('.')[1]));
+                    $http.post('/role/id', { roleId: user.role })
+                        .success(function(data) {
+                            callback(data.permission);
+                        })
+                }
+            };
+
             token.currentUserCreator = function() {
                 if(token.isLoggedIn()) {
                     var userToken = token.getToken();

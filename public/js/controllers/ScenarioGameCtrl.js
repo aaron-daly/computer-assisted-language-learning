@@ -62,6 +62,16 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             });
         };
 
+        // TODO AUDIO CLIPS FOR EACH QUESTION...
+        $scope.playAudio = function() {
+
+        };
+
+        // TODO SHOW TRANSLATIONS ON RESULTS PAGE...
+        $scope.showTranslations = function() {
+
+        };
+
         $scope.finish = function(results) {
 
             var isCompleted = true;
@@ -73,9 +83,13 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                 }
             }
 
+            // if game completed...
             if(isCompleted) {
-                auth.authorize("Pupil", function(authorized) {
-                    teacher.logScenarioCompletion($scope.scenario);
+                // authorize permission level 2 (pupil/student)
+                auth.authorizePermission(2, function(authorized) {
+                    if(authorized) { // if authorized, log scenario completion
+                        teacher.logScenarioCompletion($scope.scenario);
+                    }
                 });
             }
 
@@ -109,12 +123,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
         };
 
         $scope.profileReturn = function() {
-            auth.authorize('Teacher', function(authorized) {
-                $location.path('/teacher');
-            });
-            auth.authorize('Pupil', function(authorized) {
-                $location.path('/profile');
-            });
+            $location.path('/profile');
         };
 
 
@@ -126,7 +135,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                 var answer = $(this).text();
 
                 $scope.tick({
-                    answer: answer,
+                    answer: answer
                 });
             });
 

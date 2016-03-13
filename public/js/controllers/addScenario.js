@@ -96,6 +96,11 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                 });
 
             $location.path('/teacher');
+
+            // TODO SUBMIT QUESTIONS ONE AT A TIME
+            // TODO FEEDBACK MESSAGE OF SUCCESS/ERROR
+            // TODO PICTURE SUBMIT
+            // TODO ADD TRANSLATIONS
         };
 
         function uploadPictures() {
