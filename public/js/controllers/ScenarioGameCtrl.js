@@ -83,6 +83,24 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                 }
             }
 
+           /* var isCompleted = true;
+            if(results.translations) {
+                for (var i = 0; i < results.translations.length; i++) {
+                    if (!results.translations[i]) {
+                        isCompleted = false;
+                    }
+                }
+            }*/
+
+            var isCompleted = true;
+            if(results.correctAnswers) {
+                for (var i = 0; i < results.correctAnswers.length; i++) {
+                    if (!results.correctAnswers[i]) {
+                        isCompleted = false;
+                    }
+                }
+            }
+
             // if game completed...
             if(isCompleted) {
                 // authorize permission level 2 (pupil/student)
@@ -97,14 +115,26 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             var answerHTML = 0;
 
             $.each(results.questions, function(key, val) {
+
+                //if ($scope.Translations.enabled){
                 questionHTML = '<h2>' + val + '</h2>';
+                /*append translation to question
+                 translation = '<h2>' + results.translations[key] +'</h2>';
+                }
+                else{
+                  questionHTML = '<h2>' + val + '</h2>';
+                }*/
                 //if the correct value in corresponding position of array is true then ....
                 if (results.correct.length != 0) {
+                    //if results.correct is true print question and right answer.
                     if (results.correct[key]) {
                         answerHTML = '<h4 class="text-success" style= "color:green" >' + results.answers[key] + '<span class="glyphicon glyphicon-ok"></span>' + '</h4>';
                     }
+                    //if false print question answer and correct answer.
                     else {
-                        answerHTML = '<h4 class="text-success" style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' + '</h4>';
+                        answerHTML = '<h4 class="text-success" style= "color:red" >' + results.answers[key] + '<span class="glyphicon glyphicon-remove"></span>' +
+                            '<span class="text-success" style= "color:Green" >' + results.correctAnswers[key] + '</span>'+ '</h4>';
+                        //put the correct answer beside.
                     }
                     $('#answer-container').append(questionHTML).append(answerHTML);
                 }
@@ -133,12 +163,13 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
         scenarioGame.initGame(function(data) {
 
-           /* if ($scope.scenario.scenarioType.name != "Picture"){
-                $(#'scenarioGame-header).hide();
+        //condition for picture scenario
+          if ($scope.scenario.scenarioType.name != "Picture"){
+                $('#scenarioGame-picture').hide();
             }
             else {
-             $(#'scenarioGame-header').show();
-            }*/
+             $('#scenarioGame-picture').show();
+            }
 
             $scope.drawQuestion(data);
 

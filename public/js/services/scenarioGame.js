@@ -34,7 +34,9 @@ angular.module('calliApp')
                 position: 1,
                 recordedQuestions: [],
                 recordedAnswers: [],
-                recordedCorrectAnswers: [],
+                recordedCorrect: [],
+                recordedCorrectAnswers:[],
+                recordedTranslations:[],
                 isPlaying: false
             };
 
@@ -56,11 +58,21 @@ angular.module('calliApp')
                 //answer,branch,correct of current answer.
                 //if the scenario type is conversation dont push correct answers
                 if(scenarioGame.scenario.scenarioType.name != "Conversation"){
+
                     var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
 
+                    //if correct=true fill correct answers array.
+
                     $.each(currentAnswers, function (key, val) {
+
+                        //record all correct answers
+                        if(val.correct){
+                            scenarioGame.recordedCorrect.push(val.answer);
+                        }
                         if (val.answer == answer.answer) {
+
                             scenarioGame.recordedCorrectAnswers.push(val.correct);
+                            //console.log(val.correct);
                         }
                     });
                 }
@@ -83,17 +95,21 @@ angular.module('calliApp')
                 return {
                     questions: this.recordedQuestions,
                     answers: this.recordedAnswers,
-                    correct: this.recordedCorrectAnswers
+                    correctAnswers: this.recordedCorrect,
+                    correct: this.recordedCorrectAnswers,
+                    translations: this.recordedTranslations
                 }
             };
 
             //release game data
             scenarioGame.release = function() {
-                this.scenario = {};
+                this.scenario={};
                 this.position = 1;
                 this.recordedQuestions = [];
                 this.recordedAnswers = [];
+                this.recordedCorrect = [];
                 this.recordedCorrectAnswers = [];
+                this.recordedTranslations =[];
             };
 
             //load question of game's current position
