@@ -126,7 +126,6 @@ angular.module('calliApp')
             };
 
             teacher.disableScenario = function(scenario) {
-
                 $http.put('/group/scenario/enable', {
                         teacherId: token.currentUserId(),
                         scenarioId: scenario.scenarioId,
@@ -137,9 +136,9 @@ angular.module('calliApp')
             };
 
             teacher.enableTranslations = function(scenario) {
-                $http.put('/group/scenario/update', {
+                $http.put('/group/scenario/translations', {
                     teacherId: token.currentUserId(),
-                    scenarioId: scenario._id,
+                    scenarioId: scenario.scenarioId,
                     translations: true
                 }).error(function(error) {
                         console.log(error);
@@ -147,9 +146,9 @@ angular.module('calliApp')
             };
 
             teacher.disableTranslations = function(scenario) {
-                $http.put('/group/scenario/update', {
+                $http.put('/group/scenario/translations', {
                         teacherId: token.currentUserId(),
-                        scenarioId: scenario._id,
+                        scenarioId: scenario.scenarioId,
                         translations: false
                     }).error(function(error) {
                         console.log(error);

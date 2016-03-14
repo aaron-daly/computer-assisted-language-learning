@@ -348,6 +348,24 @@ module.exports = function(app) {
         });
     });
 
+    //PUT to a class
+    app.put('/group/scenario/translations', function(req, res, next) {
+
+        Group.findOneAndUpdate({
+            teacherId: req.body.teacherId,
+            'scenarios.scenarioId': req.body.scenarioId
+        },{
+            '$set': {
+                'scenarios.$.translations': req.body.translations
+            }
+        }, function(err, group) {
+            if(err)
+                return res.send(err);
+            return res.json(group);
+        });
+    });
+
+
 
     app.put('/group/scenario/completion', function(req, res, next) {
 

@@ -66,7 +66,7 @@
                     <table class="table table-striped">
                         <thead>
                         <th class="text-left">Scenario</th>
-                        <!-- th class="text-center">Translations</th -->
+                        <th class="text-center">Translations</th>
                         <th class="text-center">Enabled</th>
                         <th class="text-center">Preview</th>
                         <th class="text-center">Remove</th>
@@ -78,10 +78,10 @@
                                 <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="scenario.scenarioType === 'Word'"></span>
                                 <span>{{ scenario.scenarioName }} - {{ scenario.scenarioLevel }}</span>
                             </td>
-                            <!-- td class="text-center">
+                            <td class="text-center">
                                 <span class="glyphicon glyphicon-check" ng-show="!translationsEnabled(scenario)" ng-click="enableTranslations(scenario)"></span>
                                 <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="translationsEnabled(scenario)" ng-click="disableTranslations(scenario)"></span>
-                            </td -->
+                            </td>
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-check" ng-show="!isEnabled(scenario)" ng-click="enableScenario(scenario)"></span>
                                 <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(scenario)" ng-click="disableScenario(scenario)"></span>

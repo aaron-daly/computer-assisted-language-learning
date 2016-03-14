@@ -62,16 +62,6 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             });
         };
 
-        // TODO AUDIO CLIPS FOR EACH QUESTION...
-        $scope.playAudio = function() {
-
-        };
-
-        // TODO SHOW TRANSLATIONS ON RESULTS PAGE...
-        $scope.showTranslations = function() {
-
-        };
-
         $scope.finish = function(results) {
 
             var isCompleted = true;
