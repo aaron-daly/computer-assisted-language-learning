@@ -1,9 +1,11 @@
 var passport = require('passport');
+var multer = require('multer');
+var upload = multer({ dest: 'images/' });
+var fs = require('fs');
 
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
 var Group = require('../app/models/Group');
-
 var Scenario = require('../app/models/Scenario');
 var ScenarioType = require('../app/models/ScenarioType');
 
@@ -400,6 +402,26 @@ module.exports = function(app) {
     // =======================================================================
 
 
+    // FILE TRANSFER =========================================================
+
+    // TODO IMAGE UPLOAD BACKEND
+    app.post('/scenario/image/upload', function(req, res, next) {
+
+        var upload = multer({
+            dest: 'images/',
+            rename: function(fieldname, filename, req, res) {
+                var name = req.scenarioName;
+                return name;
+            },
+            onFileUploadStart: function(file) {
+                console.log(file.originalname + ' is starting ...');
+
+            }
+        });
+        upload(req, res, next);
+    });
+
+    // =======================================================================
 
     // =======================================================================
     // FINAL ROUTE TO INDEX.HTML =============================================
