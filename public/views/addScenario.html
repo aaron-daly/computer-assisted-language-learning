@@ -71,48 +71,5 @@
         </div>
 
     </form>
-    <!--conversation scenario form
-    <form id="scenario-form" name="scenario-form" ng-submit="submitScenario()" role="form" enctype="multipart/form-data">
-
-        <div class="form-group">
-            <label>Scenario Name</label>
-            <input class="form-control" type="text" name="name" ng-model="name" required="required">
-        </div>
-
-        <div class="form-group">
-            <label>Scenario Type</label>
-            <select class="form-control" name="type" ng-model="type" ng-change="buildQuestionsForm()" required="required">
-                <option value="Conversation" selected="selected">Conversation</option>
-                <option value="Picture" selected="selected">Picture</option>
-                <option value="Word" selected="selected">Word</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Scenario Level</label>
-            <select class="form-control" name="level" ng-model="level" ng-change="buildQuestionsForm()" required="required">
-                <option value="1" selected="selected">1</option>
-                <option value="2" selected="selected">2</option>
-                <option value="3" selected="selected">3</option>
-            </select>
-        </div>
-
-        <div class="form-group" ng-if="level && (type === 'Conversation' || type === 'Picture') ">
-            <button type="button" class="btn btn-default" ngf-select ng-model="picture" name="picture" ngf-pattern="'image/*'"
-                    ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 300, height: 300}">Select Picture</button>
-            <img class="img-responsive" ngf-thumbnail="picture || '/images/default-avatar.png' " >
-        </div>
-
-        <hr>
-
-        <div id="questions-container" ng-show="level > 0"></div>
-        <input type="submit" id="submit-scenario" class="hidden">
-    </form>
-
-    <div class="text-right">
-        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-        <button type="submit" form="scenario-form" class="btn btn-info">Add Game Scenario</button>
-    </div>-->
-
 
 </div>

@@ -45,7 +45,6 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
         };
 
         //TODO ENABLE/DISABLE TRANSLATIONS
-
         $scope.enableTranslations = function(scenario) {
             teacher.enableTranslations(scenario);
             scenario.translations = true;

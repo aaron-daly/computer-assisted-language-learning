@@ -72,10 +72,12 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             });
         };
 
+
         // TODO AUDIO CLIPS FOR EACH QUESTION...
         $scope.playAudio = function() {
 
         };
+
 
 
 
