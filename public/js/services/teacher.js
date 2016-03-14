@@ -81,6 +81,27 @@ angular.module('calliApp')
 
             };
 
+            teacher.containsScenario = function(scenario) {
+
+                console.log(scenario);
+                console.log(teacher.group);
+                if(teacher.group) {
+                    if(teacher.group.scenarios) {
+                        $.each(teacher.group.scenarios, function(key, val) {
+                            console.log(val);
+                            if(val.scenarioName === scenario.name &&
+                                val.scenarioType === scenario.type &&
+                                val.scenarioLevel === scenario.level) {
+                                console.log(val);
+                                return true;
+                            }
+                        })
+                    }
+                }
+
+                return false;
+            };
+
             teacher.deleteScenario = function(scenario) {
 
                 $http.put('/group/scenario/delete', {
