@@ -7,7 +7,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         });
 
 
-       /* $scope.questions = [];
+        $scope.questions = [];
         $scope.currentQuestion = {};
         $scope.currentQuestionIndex = 0;
         $scope.lastQuestionIndex = 5;
@@ -65,6 +65,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             }
 
             $scope.questions = [];
+
             for (var i = 0; i <= $scope.lastQuestionIndex; i++) {
                 $scope.questions[i] = {
                     question: '',
@@ -137,22 +138,33 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             //TODO CHECK IF SCENARIO COMBO LREADY EXISTS
             else {
                 var finalQuestions = [];
-                $.each($scope.questions, function (key, question) {
-                    if (question.question != '') {
+
+                $.each($scope.questions, function(key, question) {
+                    if(question.question != '') {
+                        question.answers = $.map(question.answers, function(arr) {return arr}); //convert answers object to array
                         finalQuestions.push(question);
                     }
                 });
                 var scenario = {
                     name: $scope.name,
-                    level: $scope.level,
-                    type: $scope.type,
-                    conversation: finalQuestions
+                    level: parseInt($scope.level),
+                    scenarioType: $scope.type
                 };
 
-                console.log(scenario);
+                scenario.conversation = finalQuestions;
+
+                $http.post('/scenario', scenario)
+                    .success(function (data) {
+                        teacher.addScenario(data);
+                        $location.path('/teacher');
+                    })
+                    .error(function (error) {
+                        console.log(error);
+                    });
             }
         }
-    ]);*/
+
+                /*
 
 
         $scope.buildQuestionsForm = function() {
@@ -288,6 +300,6 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.cancel = function() {
             $location.path('/teacher');
-        }
+        }*/
     }
 ]);

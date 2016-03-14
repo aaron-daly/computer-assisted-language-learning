@@ -1,7 +1,4 @@
 var passport = require('passport');
-var multer = require('multer');
-var upload = multer({ dest: 'images/' });
-var fs = require('fs');
 
 var User = require('../app/models/User');
 var Role = require('../app/models/Role');
@@ -43,11 +40,12 @@ module.exports = function(app) {
 
     // POST Scenario
     app.post('/scenario', function(req, res, next) {
+        console.log(req.body);
 
         ScenarioType.findOne({ name: req.body.scenarioType }, function(err, scenarioType) {
 
             if(err)
-                return next(err);
+                return res.send(err);
 
             var scenario = new Scenario({
                 name: req.body.name,
@@ -58,7 +56,7 @@ module.exports = function(app) {
 
             scenario.save(function(err) {
                 if(err)
-                    return next(err);
+                    return res.send(err);
                 return res.json(scenario);
             });
         });
@@ -264,7 +262,7 @@ module.exports = function(app) {
 
         group.save(function(err) {
             if(err)
-                throw err;
+                return res.send(err);
             return next(group);
         });
     });
@@ -274,7 +272,7 @@ module.exports = function(app) {
 
         Group.findOne({ teacherId: req.body.teacherId }, function(err, group) {
             if(err)
-                throw err;
+                return res.send(err);
             else res.json(group);
         })
     });
@@ -404,22 +402,6 @@ module.exports = function(app) {
 
     // FILE TRANSFER =========================================================
 
-    // TODO IMAGE UPLOAD BACKEND
-    app.post('/scenario/image/upload', function(req, res, next) {
-
-        var upload = multer({
-            dest: 'images/',
-            rename: function(fieldname, filename, req, res) {
-                var name = req.scenarioName;
-                return name;
-            },
-            onFileUploadStart: function(file) {
-                console.log(file.originalname + ' is starting ...');
-
-            }
-        });
-        upload(req, res, next);
-    });
 
     // =======================================================================
 
