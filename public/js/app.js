@@ -2,7 +2,6 @@
 angular.module('calliApp', [
     'ngRoute',
     'angularUtils.directives.dirPagination',
-    'ngFileUpload',
     'MainCtrl',
     'NavigationCtrl',
     'LoginCtrl',
@@ -167,6 +166,18 @@ angular.module('calliApp', [
                                 defer.resolve();
                             });
                             return defer.promise;
+                        }],
+                    //TO ENSURE TEACHER'S GROUP IS PRELOADED...
+                    scenarioPromise: ['$q', '$timeout', 'teacher', 'token',
+                        function($q, $timeout, teacher, token) {
+                            var defer = $q.defer();
+
+                            $timeout( function(){
+                                teacher.getGroup(token.currentUserId());
+                                defer.resolve();
+                            }, 1000);
+
+                            return defer.promise;
                         }]
                 }
             })
@@ -181,33 +192,14 @@ angular.module('calliApp', [
     }
 ]).run(['$rootScope', '$location', '$timeout', '$q', 'token',
     function($rootScope, $location, $timeout, $q, token) {
-
-
         //on route change...
         $rootScope.$on('$routeChangeStart', function(event, nextRoute) {
-
             //authenticate user is logged in for restricted pages
             if(nextRoute.$$route.restricted) {
                 if(!token.isLoggedIn()) {
                     $location.path('/login');
                 }
             }
-
-            /*if next route is profile page, preload list of games
-            if(nextRoute.$$route.originalPath === '/profile' || nextRoute.$$route.originalPath === '/teacher') {
-
-                conversationGame.preload();
-                pictureGame.preload();
-                wordGame.preload();
-
-                auth.authorize('teacher', function(authorized) {
-                    if(authorized) {
-                        teacher.getPupils();
-                    }
-                });
-
-            } */
-
         });
     }
 ]);
