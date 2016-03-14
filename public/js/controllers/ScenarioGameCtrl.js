@@ -35,9 +35,10 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
         };
 
         // TODO SHOW TRANSLATIONS ON RESULTS PAGE...
-        $scope.drawTranslations = function(translation) {              //!!!!!!!!!!!!!!!!!!!
-            if ($scope.translationsEnabled){
-                 var translationHTML = '<h2>' + translation.translations + '</h2>';
+        $scope.drawTranslations = function(translation) {
+            console.log(scenarioGame.scenario.conversation[scenarioGame.position -1].translation);//!!!!!!!!!!!!!!!!!!!
+            if (scenarioGame.scenario.conversation[scenarioGame.position -1].translation){
+                 var translationHTML = '<h2>' + translation.translation + '</h2>';
                  $('#current-question').append(translationHTML);
              }
         };

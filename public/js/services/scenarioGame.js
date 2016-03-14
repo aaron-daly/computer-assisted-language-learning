@@ -56,13 +56,11 @@ angular.module('calliApp')
                 this.recordedAnswers.push(answer.answer);
 
                 var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
-
-                    if($scope.translationsEnabled) {
-                        var translationAnswers = scenarioGame.scenario.conversation[scenarioGame.position -1].translation;
-                        console.log(translationAnswers);
-                        scenarioGame.recordedTranslations.push(translationAnswers);
-                    }
-                        // console.log(val.answer);
+                if(scenarioGame.scenario.conversation[scenarioGame.position -1].translation) {
+                    var translationAnswers = scenarioGame.scenario.conversation[scenarioGame.position -1].translation;
+                    scenarioGame.recordedTranslations.push(translationAnswers); //filing array with translations
+                }
+                    // console.log(val.answer);
 
 
 
