@@ -1,6 +1,6 @@
 
-angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'Upload', 'teacher',
-    function($scope, $http, $location, Upload, teacher) {
+angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'teacher',
+    function($scope, $http, $location, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -100,22 +100,25 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             return $scope.type != 'Conversation';
         };
 
-        $scope.ready = function(status) {
+        $scope.ready = function(questions, status) {
 
             if(!$scope.name || !$scope.type || !$scope.level) {
                 return status({
                     ready: false,
                     message: "Please make sure your scenario has a name, type and level!"
                 });
-            } else {
-                if(teacher.containsScenario({
-                        name: $scope.name,
-                        level: $scope.level,
-                        type: $scope.type
-                    })) {
-                    console.log('exists');
-                }
             }
+            if(teacher.containsScenario({
+                    name: $scope.name,
+                    level: parseInt($scope.level),
+                    type: $scope.type
+                })) {
+                return status({
+                    ready: false,
+                    message: "Error, you have already created a scenario of this configuration!"
+                });
+            }
+            $.each()
 
             return status({
                 ready: true
