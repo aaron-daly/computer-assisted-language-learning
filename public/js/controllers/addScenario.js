@@ -109,7 +109,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.upload = function(picture) {
             Upload.upload({
-                url: 'http://localhost:8080/public/images',
+                url: '/scenario/image/upload',
                 data: { file: picture }
             }).then(function (resp) {
                 console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
