@@ -1,6 +1,6 @@
 
-angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'teacher',
-    function($scope, $http, $location, teacher) {
+angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'Upload', 'teacher',
+    function($scope, $http, $location, Upload, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -8,7 +8,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.buildQuestionsForm = function() {
 
-            if(!$scope.level) {
+            if(!$scope.level || !$scope.type) {
                 return;
             }
 
@@ -35,9 +35,10 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     $('#questions-container').append(
                         '<div class="form-group"><label>Q'+i+' Answer '+j+'</label>' +
                         radioBtn +
-                        '<input class="form-control" type="text" name="q'+i+'a'+j+'"></div><hr>'
+                        '<input class="form-control" type="text" name="q'+i+'a'+j+'"></div>'
                     )
                 }
+                $('#questions-container').append('<hr>');
             }
         };
 
@@ -89,7 +90,6 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             $http.post('/scenario', scenario)
                 .success(function(data) {
                     teacher.addScenario(data);
-                    uploadPictures();
                 })
                 .error(function(error) {
                     console.log(error);
@@ -101,11 +101,25 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             // TODO FEEDBACK MESSAGE OF SUCCESS/ERROR
             // TODO PICTURE SUBMIT
             // TODO ADD TRANSLATIONS
+
+            if($scope.picture.$valid && $scope.picture) {
+                $scope.upload($scope.picture);
+            }
         };
 
-        function uploadPictures() {
-            console.log($('input[name=picture]').val());
-        }
+        $scope.upload = function(picture) {
+            Upload.upload({
+                url: 'http://localhost:8080/public/images',
+                data: { file: picture }
+            }).then(function (resp) {
+                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        };
 
         $scope.cancel = function() {
             $location.path('/teacher');

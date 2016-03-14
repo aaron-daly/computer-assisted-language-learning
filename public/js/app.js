@@ -2,6 +2,7 @@
 angular.module('calliApp', [
     'ngRoute',
     'angularUtils.directives.dirPagination',
+    'ngFileUpload',
     'MainCtrl',
     'NavigationCtrl',
     'LoginCtrl',

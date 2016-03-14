@@ -44,6 +44,8 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             $scope.groupScenarios.splice($scope.groupScenarios.indexOf(scenario), 1);
         };
 
+        //TODO ENABLE/DISABLE TRANSLATIONS
+
         $scope.enableTranslations = function(scenario) {
             teacher.enableTranslations(scenario);
             scenario.translations = true;

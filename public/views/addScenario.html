@@ -9,8 +9,9 @@
             <input class="form-control" type="text" name="name" ng-model="name" required="required">
         </div>
         <div class="form-group">
-            <label>Scenario Picture</label>
-            <input class="form-control" type="file" name="picture" ng-model="picture" size=char">
+            <button type="button" class="btn btn-default" ngf-select ng-model="picture" name="picture" ngf-pattern="'image/*'"
+                 ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 300, height: 300}">Select Picture</button>
+            <img ngf-thumbnail="picture">
         </div>
 
         <div class="form-group">
