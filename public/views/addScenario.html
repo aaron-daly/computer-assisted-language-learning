@@ -2,15 +2,12 @@
     <h1 class="text-center">Add Scenario Page</h1>
 
     <!-- conversation scenario form -->
-    <form name="conversation-form" ng-submit="submitScenario()" role="form" enctype="multipart/form-data">
+    <form id="scenario-form" name="scenario-form" ng-submit="submitScenario()" role="form" enctype="multipart/form-data">
 
         <div class="form-group">
             <label>Scenario Name</label>
             <input class="form-control" type="text" name="name" ng-model="name" required="required">
         </div>
-
-        <label>Scenario Picture</label>
-        <input class="form-control" type="file" name="picture" ng-model="picture" size=char">
 
         <div class="form-group">
             <label>Scenario Type</label>
@@ -30,11 +27,21 @@
             </select>
         </div>
 
+        <div class="form-group" ng-if="level && (type === 'Conversation' || type === 'Picture') ">
+            <button type="button" class="btn btn-default" ngf-select ng-model="picture" name="picture" ngf-pattern="'image/*'"
+                    ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 300, height: 300}">Select Picture</button>
+            <img class="img-responsive" ngf-thumbnail="picture || '/images/default-avatar.png' " >
+        </div>
+
         <hr>
 
         <div id="questions-container" ng-show="level > 0"></div>
-
-        <button type="submit" class="btn btn-info">Finish</button>
+        <input type="submit" id="submit-scenario" class="hidden">
     </form>
+
+    <div class="text-right">
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button type="submit" form="scenario-form" class="btn btn-info">Add Game Scenario</button>
+    </div>
 
 </div>

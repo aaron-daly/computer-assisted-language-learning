@@ -1,6 +1,6 @@
 
-angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'teacher',
-    function($scope, $http, $location, teacher) {
+angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'Upload', 'teacher',
+    function($scope, $http, $location, Upload, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -8,7 +8,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.buildQuestionsForm = function() {
 
-            if(!$scope.level) {
+            if(!$scope.level || !$scope.type) {
                 return;
             }
 
@@ -21,7 +21,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             for(var i = 1; i <= questionsSize; i++) {
 
                 $('#questions-container').append(
-                    '<hr><div class="form-group"><label>Question '+i+'</label><input class="form-control" type="text" name="q'+i+'"></div>'
+                    '<div class="form-group"><label>Question '+i+'</label><input class="form-control" type="text" name="q'+i+'"></div>'
                 );
 
                 var radioBtn = '';
@@ -38,6 +38,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                         '<input class="form-control" type="text" name="q'+i+'a'+j+'"></div>'
                     )
                 }
+                $('#questions-container').append('<hr>');
             }
         };
 
@@ -89,35 +90,40 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             $http.post('/scenario', scenario)
                 .success(function(data) {
                     teacher.addScenario(data);
-                    uploadPictures();
                 })
                 .error(function(error) {
                     console.log(error);
                 });
 
             $location.path('/teacher');
-        };
 
-        function uploadPictures() {
-            console.log($('input[name=picture]').val());
-        };
+            // TODO SUBMIT QUESTIONS ONE AT A TIME
+            // TODO FEEDBACK MESSAGE OF SUCCESS/ERROR
+            // TODO PICTURE SUBMIT
+            // TODO ADD TRANSLATIONS
 
-        $scope.generatePictureScenarioFrame = function(level) {
-
-            var questionsLength = 5 * level;
-            var answersLength = 2;
-
-            if(level > 1) {
-                answersLength = 3;
-            }
-
-            var q = 1;
-            var a = 1;
-
-            for(i; i <= questionsLength; i++) {
-
+            if($scope.picture.$valid && $scope.picture) {
+                $scope.upload($scope.picture);
             }
         };
+
+        $scope.upload = function(picture) {
+            Upload.upload({
+                url: '/scenario/image/upload',
+                data: { file: picture }
+            }).then(function (resp) {
+                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        };
+
+        $scope.cancel = function() {
+            $location.path('/teacher');
+        }
 
     }
 ]);

@@ -36,12 +36,12 @@
     <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
     -->
     <div class="row">
-        <h2>New Games</h2>
+        <h2>Play New Games</h2>
         <br>
         <div class="games-list">
             <div class="col-sm-4 col-xs-6 text-center" ng-repeat="newGame in newGames">
                 <div class="game-container new-game" ng-click="playScenario(newGame)">
-                    <h3>{{newGame.scenarioName}} ({{newGame.scenarioLevel}})</h3>
+                    <span class="game-heading">{{newGame.scenarioName}} {{newGame.scenarioLevel}}</span>
                 </div>
             </div>
             <span ng-if="newGames.length === 0">No new games to play!</span>
@@ -51,12 +51,13 @@
     <br>
 
     <div class="row">
-        <h2>Completed Games</h2>
+        <h2>Replay completed Games</h2>
         <br>
         <div class="games-list">
             <div class="col-sm-4 col-xs-6" ng-repeat="completedGame in completedGames">
                 <div class="game-container completed-game" ng-click="playScenario(completedGame)">
-                    <h3>{{completedGame.scenarioName}} ({{completedGame.scenarioLevel}})</h3>
+                    <span class="glyphicon glyphicon-eye-open game-type" ng-if="completedGame.scenarioType === 'Conversation'"></span>
+                    <span class="game-heading">{{completedGame.scenarioName}} {{completedGame.scenarioLevel}}</span>
                 </div>
             </div>
             <span ng-if="completedGames.length === 0">No completed games yet!</span>

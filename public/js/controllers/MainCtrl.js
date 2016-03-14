@@ -7,7 +7,6 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$locatio
         });
 
         $scope.registerRedirect = function() {
-
             $location.path('/register');
         };
 

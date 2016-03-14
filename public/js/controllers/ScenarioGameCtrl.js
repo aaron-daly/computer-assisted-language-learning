@@ -1,8 +1,8 @@
 /**
  * Created by Raphaelle on 10/03/2016.
  */
-angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$scope', '$routeParams', '$route', '$location', 'scenarioGame', 'teacher',
-    function($scope, $routeParams, $route, $location, scenarioGame, teacher) {
+angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$scope', '$routeParams', '$route', '$location', 'auth', 'scenarioGame', 'teacher',
+    function($scope, $routeParams, $route, $location, auth, scenarioGame, teacher) {
 
         $(document).ready(function(){
             $(this).scrollTop(0);
@@ -62,6 +62,16 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             });
         };
 
+        // TODO AUDIO CLIPS FOR EACH QUESTION...
+        $scope.playAudio = function() {
+
+        };
+
+        // TODO SHOW TRANSLATIONS ON RESULTS PAGE...
+        $scope.showTranslations = function() {
+
+        };
+
         $scope.finish = function(results) {
 
             var isCompleted = true;
@@ -73,8 +83,14 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                 }
             }
 
+            // if game completed...
             if(isCompleted) {
-                teacher.logScenarioCompletion($scope.scenario);
+                // authorize permission level 2 (pupil/student)
+                auth.authorizePermission(2, function(authorized) {
+                    if(authorized) { // if authorized, log scenario completion
+                        teacher.logScenarioCompletion($scope.scenario);
+                    }
+                });
             }
 
             var questionHTML = 0;
@@ -131,7 +147,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                 var answer = $(this).text();
 
                 $scope.tick({
-                    answer: answer,
+                    answer: answer
                 });
             });
 
