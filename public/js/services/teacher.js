@@ -22,13 +22,9 @@ angular.module('calliApp')
             };
 
             teacher.removePupil = function(pupil) {
-                console.log(pupil);
                 return $http.post('/user/remove', { _id: pupil._id } )
                     .error(function(error) {
                         console.log(error);
-                    })
-                    .success(function(response) {
-                        console.log(response);
                     });
             };
 
@@ -61,9 +57,6 @@ angular.module('calliApp')
             };
 
             teacher.addScenario = function(scenario) {
-
-                console.log(scenario);
-
                 $http.put('/group/scenario/add', {
                     teacherId: token.currentUserId(),
                     scenarioId: scenario._id,
@@ -77,8 +70,6 @@ angular.module('calliApp')
                 }).success(function(response) {
                     console.log(response);
                 });
-
-
             };
 
             teacher.containsScenario = function(scenario) {
@@ -107,8 +98,6 @@ angular.module('calliApp')
                     _id: scenario._id
                 }).error(function(error) {
                     console.log(error);
-                }).success(function(response) {
-                    console.log(response);
                 });
             };
 
@@ -119,8 +108,8 @@ angular.module('calliApp')
                     scenarioId: scenario.scenarioId,
                     enabled: true
                 }).error(function(error) {
-                        console.log(error);
-                    })
+                    console.log(error);
+                });
             };
 
             teacher.disableScenario = function(scenario) {
@@ -129,8 +118,8 @@ angular.module('calliApp')
                         scenarioId: scenario.scenarioId,
                         enabled: false
                 }).error(function(error) {
-                        console.log(error);
-                    });
+                    console.log(error);
+                });
             };
 
             teacher.enableTranslations = function(scenario) {
@@ -139,8 +128,8 @@ angular.module('calliApp')
                     scenarioId: scenario.scenarioId,
                     translations: true
                 }).error(function(error) {
-                        console.log(error);
-                    });
+                    console.log(error);
+                });
             };
 
             teacher.disableTranslations = function(scenario) {

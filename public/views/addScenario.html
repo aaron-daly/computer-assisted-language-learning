@@ -67,7 +67,7 @@
 
         <div class="text-right">
             <hr>
-            <button class="btn btn-danger" type="button" ng-if="currentQuestionIndex > 0" ng-click="finish()">Finish</button>
+            <button class="btn btn-danger" type="button" ng-if="currentQuestionIndex > 0 && currentQuestion.answers.length > 0" ng-click="finish()">Finish</button>
         </div>
 
     </form>

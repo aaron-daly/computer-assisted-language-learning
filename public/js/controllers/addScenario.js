@@ -118,53 +118,69 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     message: "Error, you have already created a scenario of this configuration!"
                 });
             }
-            $.each()
+
+            var answerError = false;
+            $.each(questions, function(key, question) {
+
+                if(!question.answers) {
+                    answerError = true;
+                } else {
+                    $.each(question.answers, function (key2, answer) {
+                        if (answer.answer === '') {
+                            answerError = true;
+                        }
+                    });
+                }
+            });
+
+            if(answerError) {
+                return status({
+                    ready: false,
+                    message: 'There is a problem with one or more of your questions, please make sure any questions you have contain all required fields!'
+                });
+            }
 
             return status({
                 ready: true
             });
+
         };
 
         $scope.finish = function() {
 
-            // TODO FEEDBACK MESSAGE OF SUCCESS/ERROR
-            $scope.ready(function(status) {
-                if(!status.ready) {
-                    alert(status.message);
-                } else {
+            var finalQuestions = [];
+            $.each($scope.questions, function(key, question) {
+                if(question.question) {
+                    question.answers = $.map(question.answers, function(arr) {return arr}) || []; //convert answers object to array
+                    finalQuestions.push(question);
                 }
             });
 
-            /*
-            if(!$scope.name) {
-                //TODO SHOW NO NAME ERROR;
-            }
-                //TODO CHECK IF SCENARIO COMBO LREADY EXISTS
-            else {
-                var finalQuestions = [];
-                $.each($scope.questions, function(key, question) {
-                    if(question.question != '') {
-                        question.answers = $.map(question.answers, function(arr) {return arr}); //convert answers object to array
-                        finalQuestions.push(question);
-                    }
-                });
-                var scenario = {
-                    name: $scope.name,
-                    level: parseInt($scope.level),
-                    scenarioType: $scope.type
-                };
+            $scope.ready(finalQuestions, function(status) {
 
-                scenario.conversation = finalQuestions;
+                if(!status.ready) {
+                    alert(status.message);
+                } else {
 
-                $http.post('/scenario', scenario)
-                    .success(function (data) {
-                        teacher.addScenario(data);
-                        $location.path('/teacher');
-                    })
-                    .error(function (error) {
-                        console.log(error);
-                    });
-            } */
+                    var scenario = {
+                        name: $scope.name,
+                        level: parseInt($scope.level),
+                        scenarioType: $scope.type
+                    };
+
+                    scenario.conversation = finalQuestions;
+
+                    $http.post('/scenario', scenario)
+                        .success(function (data) {
+                            teacher.addScenario(data);
+                            $location.path('/teacher');
+                            alert('Your scenario has been successfully created and is now in your game enabler!');
+                        })
+                        .error(function (error) {
+                            alert('Oops, there was a problem adding your scenario to our database! :(');
+                        });
+                }
+            });
         };
     }
 ]);
