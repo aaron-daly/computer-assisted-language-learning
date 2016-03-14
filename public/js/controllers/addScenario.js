@@ -2,31 +2,31 @@
 angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$scope', '$http', '$location', 'Upload', 'teacher',
     function($scope, $http, $location, Upload, teacher) {
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(this).scrollTop(0);
         });
 
 
-        $scope.questions = [];
+       /* $scope.questions = [];
         $scope.currentQuestion = {};
         $scope.currentQuestionIndex = 0;
         $scope.lastQuestionIndex = 5;
         $scope.numAnswers = 2;
 
-        $scope.incQuestion = function() {
+        $scope.incQuestion = function () {
             $scope.saveCurrentQuestion();
             $scope.currentQuestionIndex++;
             $scope.loadCurrentQuestion();
         };
 
-        $scope.decQuestion = function() {
+        $scope.decQuestion = function () {
             $scope.saveCurrentQuestion();
             $scope.currentQuestionIndex--;
             $scope.loadCurrentQuestion();
         };
 
-        $scope.saveCurrentQuestion = function() {
-            if($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
+        $scope.saveCurrentQuestion = function () {
+            if ($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
                 $.each($scope.currentQuestion.answers, function (key, answer) {
                     answer.correct = false;
                 });
@@ -37,89 +37,89 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             $scope.questions[$scope.currentQuestionIndex] = $scope.currentQuestion;
         };
 
-        $scope.loadCurrentQuestion = function() {
+        $scope.loadCurrentQuestion = function () {
             $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex];
             var foundCorrect = false;
-            if($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
-                $.each($scope.currentQuestion.answers, function(key, answer) {
-                    if(answer.correct) {
+            if ($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
+                $.each($scope.currentQuestion.answers, function (key, answer) {
+                    if (answer.correct) {
                         $scope.correctAnswer = key;
                         foundCorrect = true;
                     }
                 });
             }
 
-            if(!foundCorrect) {
+            if (!foundCorrect) {
                 $scope.correctAnswer = -1;
             }
         };
 
-        $scope.setQuestionLimit = function() {
+        $scope.setQuestionLimit = function () {
             $scope.lastQuestionIndex = ($scope.level * 5) - 1;
-            if($scope.currentQuestionIndex > $scope.lastQuestionIndex) {
+            if ($scope.currentQuestionIndex > $scope.lastQuestionIndex) {
                 $scope.currentQuestionIndex = $scope.lastQuestionIndex;
             }
 
-            if($scope.level > 1) {
+            if ($scope.level > 1) {
                 $scope.numAnswers = 3;
             }
 
             $scope.questions = [];
-            for(var i = 0; i <= $scope.lastQuestionIndex; i++) {
+            for (var i = 0; i <= $scope.lastQuestionIndex; i++) {
                 $scope.questions[i] = {
                     question: '',
                     answers: [
-                        { answer: '' },
-                        { answer: '' }
+                        {answer: ''},
+                        {answer: ''}
                     ]
                 };
 
-                if($scope.enableTranslations) {
+                if ($scope.enableTranslations) {
                     $scope.questions[i].translation = '';
                 }
 
-                if($scope.level > 1) {
-                    $scope.questions[i].answers.push({ answer: '' });
+                if ($scope.level > 1) {
+                    $scope.questions[i].answers.push({answer: ''});
                 }
 
-                if($scope.correctAnswersEnabled()) {
-                    $.each($scope.questions[i].answers, function(key, answer) {
+                if ($scope.correctAnswersEnabled()) {
+                    $.each($scope.questions[i].answers, function (key, answer) {
                         answer.correct = false;
                     });
                 }
             }
         };
 
-        $scope.checkQuestions = function() {
-            $.each($scope.questions, function(key, val) {
+        $scope.checkQuestions = function () {
+            $.each($scope.questions, function (key, val) {
             });
         };
 
-        $scope.correctAnswersEnabled = function() {
+        $scope.correctAnswersEnabled = function () {
             return $scope.type != 'Conversation';
         };
 
-        $scope.ready = function() {
+        $scope.ready = function () {
 
-            if(!$scope.name || !$scope.type || !$scope.level) {
+            if (!$scope.name || !$scope.type || !$scope.level) {
                 return false;
             }
 
             var finalQuestions = [];
-            $.each($scope.questions, function(key, question) {
-                if(question.question != '') {
+            $.each($scope.questions, function (key, question) {
+                if (question.question != '') {
                     finalQuestions.push(question);
                 }
             });
 
-            $.each(finalQuestions, function(key, question) {
+            $.each(finalQuestions, function (key, question) {
 
-                if($scope.translationsEnabled && question.translation === '') {
+                if ($scope.translationsEnabled && question.translation === '') {
                     return false;
                 }
 
-                $.each(question.answers, function(key, answer) {
-                    if(answer.answer === '') {
+                $.each(question.answers, function (key, answer) {
+                    if (answer.answer === '') {
                         return false;
                     }
                 });
@@ -129,16 +129,16 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             return true;
         };
 
-        $scope.finish = function() {
+        $scope.finish = function () {
 
-            if(!$scope.name) {
+            if (!$scope.name) {
                 //TODO SHOW NO NAME ERROR;
             }
-                //TODO CHECK IF SCENARIO COMBO LREADY EXISTS
+            //TODO CHECK IF SCENARIO COMBO LREADY EXISTS
             else {
                 var finalQuestions = [];
-                $.each($scope.questions, function(key, question) {
-                    if(question.question != '') {
+                $.each($scope.questions, function (key, question) {
+                    if (question.question != '') {
                         finalQuestions.push(question);
                     }
                 });
@@ -151,9 +151,9 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
                 console.log(scenario);
             }
-        };
+        }
+    ]);*/
 
-        /*
 
         $scope.buildQuestionsForm = function() {
 
@@ -192,6 +192,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         };
 
         $scope.submitScenario = function() {
+
 
             if(!teacher.containsScenario({
                     name: $scope.name,
@@ -242,12 +243,13 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                 }
 
                 scenario.conversation = questions;
+                console.log(scenario);
 
                 // TODO REJECT SCENARIO IF ALREADY IN TEACHER GROUP
                 $http.post('/scenario', scenario)
                     .success(function (data) {
                         teacher.addScenario(data);
-                       // $location.path('/teacher');
+                        //$location.path('/teacher');
                     })
                     .error(function (error) {
                         console.log(error);
@@ -287,7 +289,5 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         $scope.cancel = function() {
             $location.path('/teacher');
         }
-
-        */
     }
 ]);
