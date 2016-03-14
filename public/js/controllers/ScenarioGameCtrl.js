@@ -36,7 +36,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
         // TODO SHOW TRANSLATIONS ON RESULTS PAGE...
         $scope.drawTranslations = function(translation) {              //!!!!!!!!!!!!!!!!!!!
-            if ($scope.Translations.enabled){
+            if ($scope.translationsEnabled){
                  var translationHTML = '<h2>' + translation.translations + '</h2>';
                  $('#current-question').append(translationHTML);
              }
@@ -93,7 +93,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             var isCompleted = true;
             if(results.translations) {
                 for (var i = 0; i < results.translations.length; i++) {
-                    if (!results.translations[i]) {
+                    if (!results.translations[i]) {                                                         //!!!!!!!!!
                         isCompleted = false;
                     }
                 }

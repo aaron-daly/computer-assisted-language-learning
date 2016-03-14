@@ -12,7 +12,7 @@ angular.module('calliApp')
                     level: 1,
                     scenarioType: String,
                     conversation: [], /*[{
-                     question: String,
+                     /*question: String,
                      translation: String,
                      answers:[{
                      answer: String,
@@ -55,19 +55,27 @@ angular.module('calliApp')
             scenarioGame.tick = function(answer, callback) {
                 this.recordedAnswers.push(answer.answer);
 
+                var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
+
+                    if($scope.translationsEnabled) {
+                        var translationAnswers = scenarioGame.scenario.conversation[scenarioGame.position -1].translation;
+                        console.log(translationAnswers);
+                        scenarioGame.recordedTranslations.push(translationAnswers);
+                    }
+                        // console.log(val.answer);
+
+
+
                 //answer,branch,correct of current answer.
                 //if the scenario type is conversation dont push correct answers
                 if(scenarioGame.scenario.scenarioType.name != "Conversation"){
 
-                    var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
-
                     //if correct=true fill correct answers array.
-
                     $.each(currentAnswers, function (key, val) {
-
-                        //record all correct answers
+                            console.log(val.answer);
                         if(val.correct){
                             scenarioGame.recordedCorrect.push(val.answer);
+                            // console.log(val.answer);
                         }
                         if (val.answer == answer.answer) {
 
