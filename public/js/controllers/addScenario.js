@@ -26,11 +26,10 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         };
 
         $scope.saveCurrentQuestion = function() {
-            if($scope.correctAnswersEnabled()) {
+            if($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
                 $.each($scope.currentQuestion.answers, function (key, answer) {
                     answer.correct = false;
                 });
-
                 if ($scope.correctAnswer > -1) {
                     $scope.currentQuestion.answers[$scope.correctAnswer].correct = true;
                 }
@@ -41,7 +40,7 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         $scope.loadCurrentQuestion = function() {
             $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex];
             var foundCorrect = false;
-            if($scope.correctAnswersEnabled()) {
+            if($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
                 $.each($scope.currentQuestion.answers, function(key, answer) {
                     if(answer.correct) {
                         $scope.correctAnswer = key;
@@ -57,6 +56,9 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.setQuestionLimit = function() {
             $scope.lastQuestionIndex = ($scope.level * 5) - 1;
+            if($scope.currentQuestionIndex > $scope.lastQuestionIndex) {
+                $scope.currentQuestionIndex = $scope.lastQuestionIndex;
+            }
 
             if($scope.level > 1) {
                 $scope.numAnswers = 3;
@@ -97,8 +99,58 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             return $scope.type != 'Conversation';
         };
 
+        $scope.ready = function() {
+
+            if(!$scope.name || !$scope.type || !$scope.level) {
+                return false;
+            }
+
+            var finalQuestions = [];
+            $.each($scope.questions, function(key, question) {
+                if(question.question != '') {
+                    finalQuestions.push(question);
+                }
+            });
+
+            $.each(finalQuestions, function(key, question) {
+
+                if($scope.translationsEnabled && question.translation === '') {
+                    return false;
+                }
+
+                $.each(question.answers, function(key, answer) {
+                    if(answer.answer === '') {
+                        return false;
+                    }
+                });
+
+            });
+
+            return true;
+        };
+
         $scope.finish = function() {
-            console.log($scope.questions, $scope.checkQuestions());
+
+            if(!$scope.name) {
+                //TODO SHOW NO NAME ERROR;
+            }
+                //TODO CHECK IF SCENARIO COMBO LREADY EXISTS
+            else {
+                var finalQuestions = [];
+                $.each($scope.questions, function(key, question) {
+                    if(question.question != '') {
+                        finalQuestions.push(question);
+                    }
+                });
+                var scenario = {
+                    name: $scope.name,
+                    level: $scope.level,
+                    type: $scope.type,
+                    conversation: finalQuestions
+                };
+
+                console.log(scenario);
+            }
         };
 
         /*
