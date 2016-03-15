@@ -8,6 +8,7 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$locat
 
         $scope.loginErrorMessage = '';
 
+        // login user with auth.login
         $scope.login = function() {
             auth.login({
                 username: $scope.username,
@@ -20,6 +21,7 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$locat
 
         };
 
+        // display error to user
         $scope.displayError = function(error) {
             $('#error-message').empty().append(error);
         };

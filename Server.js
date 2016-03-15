@@ -16,13 +16,15 @@ var config = require('./config/config');
 // configuration ===========================================
 var app = express();
 
-
+// database
 var db = require('./config/db');
 var port = process.env.PORT || 8080;
 mongoose.connect(db.url);
 
+// passport
 require('./config/passport')(passport);
 
+// morgan for development
 app.use(morgan('dev'));
 app.use(cookieParser());
 

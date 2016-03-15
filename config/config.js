@@ -1,6 +1,6 @@
-/**
- * Created by Dalyy on 23/02/2016.
- */
+// config/config.js
+
+// app secret for JWTs
 module.exports = {
     secret: 'calliwins'
 };

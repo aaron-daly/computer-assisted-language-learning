@@ -262,7 +262,7 @@ footer {
 
     footer {
         margin-top: 2em;
-        position: relative;
+        position: absolute;
     }
 }
 
@@ -276,7 +276,7 @@ footer {
 @media only screen and (max-device-width: 768px) {
     footer {
         margin-top: 2em;
-        position: relative;
+        position: absolute;
     }
 }
 

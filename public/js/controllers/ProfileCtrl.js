@@ -13,18 +13,14 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.username = token.currentUser();
         $scope.userId  = token.currentUserId();
 
-        $scope.role = {};
-
-        token.currentUserRole(function(role) {
-            $scope.role = role;
-        });
-
         $scope.scenarios = [];
 
+        // route to the scenarioGame page with the scenario name of the chosen scenario
         $scope.playScenario = function(scenario) {
             $location.path('/scenarioGame/:' + scenario.scenarioName);
         };
 
+        // check if a scenario has been completed by the pupil
         $scope.checkScenarioCompletion = function(scenario) {
             if(!scenario.completionList) {
                 return false;
@@ -36,6 +32,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
         $scope.completedGames = [];
         $scope.newGames = [];
 
+        // filter the group games into two lists, completed and new games...
         $.each(teacher.group.scenarios, function(key, val) {
                 if (val.enabled) {
                     $scope.scenarios.push(val);

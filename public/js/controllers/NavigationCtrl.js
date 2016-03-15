@@ -6,28 +6,19 @@ angular.module('NavigationCtrl', []).controller('NavigationController', ['$scope
 
         $scope.authorized = "";
 
+        // check if user is logged in with token.isLoggedIn()
         $scope.isLoggedIn = function() {
             return token.isLoggedIn();
         };
 
+        // logout user with auth.logout
         $scope.logout = function() {
             auth.logout();
         };
 
+        // route to profile page
         $scope.directToProfile = function() {
-            var defer = $q.defer();
-
-            token.currentUserRole(function(role) {
-                if(role === 'Pupil' || role === 'Student') {
-                    $location.path('/profile');
-                    defer.resolve('pupil/student');
-                } else {
-                    $location.path('/teacher');
-                    defer.resolve('teacher');
-                }
-            });
-
-            return defer.promise;
-        }
+            $location.path('/profile');
+        };
     }
 ]);
