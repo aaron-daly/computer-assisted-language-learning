@@ -1,13 +1,13 @@
 <div class="container">
 
-<div class="text-center">
+<section class="text-center">
     <h1>Hello <span>{{ username }}!</span></h1>
-</div>
+</section>
 
 <hr>
 
 <!-- PUPIL LIST SECTION -->
-<div class="col-sm-5 col-sm-offset-1 text-center">
+<section class="col-sm-5 col-sm-offset-1 text-center">
 
     <!-- PUPIL LIST  -->
     <h2>Pupils</h2>
@@ -33,10 +33,10 @@
     </div>
     <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true"></dir-pagination-controls>
 
-</div>
+</section>
 
 <!-- BUTTON SECTION -->
-<div class="col-sm-3 col-sm-offset-2 col-xs-8 col-xs-offset-2 text-center">
+<section class="col-sm-3 col-sm-offset-2 col-xs-8 col-xs-offset-2 text-center">
 
     <h2>Tools</h2>
     <br>
@@ -48,7 +48,7 @@
     <hr>
     <button class="btn btn-primary btn-block" ng-click="logout()">Logout</button>
 
-</div>
+</section>
 
 <!-- GAME LIST MODAL -->
 <div id="gameModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog">
@@ -75,9 +75,9 @@
                         </thead>
                         <tr dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:5 " pagination-id="pupilGamePagination">
                             <td class="text-left">
-                                <span class="glyphicon glyphicon-eye-open" ng-if="scenario.scenarioType === 'Conversation'"></span>
-                                <span class="glyphicon glyphicon-picture" ng-if="scenario.scenarioType === 'Picture'"></span>
-                                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="scenario.scenarioType === 'Word'"></span>
+                                <span title="Conversation Game Icon" class="glyphicon icon-bubbles4" ng-if="scenario.scenarioType === 'Conversation'"></span>
+                                <span title="Picture Game Icon" class="glyphicon icon-image" ng-if="scenario.scenarioType === 'Picture'"></span>
+                                <span title="Word Game Icon" class="glyphicon icon-dice" ng-if="scenario.scenarioType === 'Word'"></span>
                                 <span>{{ scenario.scenarioName }} - {{ scenario.scenarioLevel }}</span>
                             </td>
                             <td class="text-center">
@@ -100,9 +100,9 @@
                 <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
 
                 <h4>Game Types:</h4>
-                <span class="glyphicon glyphicon-eye-open"> - Conversation</span><br>
-                <span class="glyphicon glyphicon-picture"> - Picture</span><br>
-                <span class="glyphicon glyphicon-ice-lolly-tasted"> - Word</span><br>
+                <span title="Conversation Game Icon" class="glyphicon icon-bubbles4"> - Conversation</span><br>
+                <span title="Picture Game Icon" class="glyphicon icon-image"> - Picture</span><br>
+                <span title="Word Game Icon" class="glyphicon icon-dice"> - Word</span><br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

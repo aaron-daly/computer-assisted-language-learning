@@ -14,7 +14,7 @@ html,body {
 }
 
 .margin-top-small {
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
 #container {
@@ -192,7 +192,7 @@ html,body {
     color: #5bc0de;
 }
 .new-game:hover .game-heading,
-.new-game:hover .game-heading {
+.new-game:hover .game-type {
     color: #d43f3a;
 }
 
@@ -219,6 +219,11 @@ html,body {
 
 .home-glyph-main {
     font-size: 1750%;
+}
+
+.game-glyph {
+    font-size:500%;
+    z-index: -1;
 }
 
 .social-icon {

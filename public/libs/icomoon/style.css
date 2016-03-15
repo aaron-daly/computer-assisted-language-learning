@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('fonts/icomoon.eot?7b809');
-    src:    url('fonts/icomoon.eot?7b809#iefix') format('embedded-opentype'),
-        url('fonts/icomoon.ttf?7b809') format('truetype'),
-        url('fonts/icomoon.woff?7b809') format('woff'),
-        url('fonts/icomoon.svg?7b809#icomoon') format('svg');
+    src:    url('fonts/icomoon.eot?wks470');
+    src:    url('fonts/icomoon.eot?wks470#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?wks470') format('truetype'),
+        url('fonts/icomoon.woff?wks470') format('woff'),
+        url('fonts/icomoon.svg?wks470#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -27,6 +27,9 @@
 .icon-image:before {
     content: "\e900";
 }
+.icon-dice:before {
+    content: "\e904";
+}
 .icon-display:before {
     content: "\e901";
 }
@@ -37,13 +40,13 @@
     content: "\e903";
 }
 .icon-bubble:before {
-    content: "\e904";
+    content: "\1f5e9";
 }
-.icon-cloud:before {
+.icon-bubble2:before {
+    content: "\e90a";
+}
+.icon-bubbles4:before {
     content: "\e905";
-}
-.icon-grin:before {
-    content: "\e906";
 }
 .icon-facebook:before {
     content: "\e907";
