@@ -7,10 +7,9 @@
 
 /*== LAYOUT ==*/
 html,body {
-    height: 100%;
+    display: block;
     margin: 0;
-    padding: 0;
-    font-family: "Trebuchet MS", Helvetica, sans-serif
+    font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
 .margin-top-small {
@@ -94,12 +93,13 @@ html,body {
     float: left;
 }
 
-#footer {
+footer {
     position: absolute;
-    height: 3em;
-    width: 100%;
     bottom: 0;
+    height: 2.5em;
+    width: 100%;
 }
+
 
 @media screen and (min-width: 768px) {
     .modal-dialog {
@@ -196,14 +196,22 @@ html,body {
     color: #d43f3a;
 }
 
+#home-title {
+    font-size: 300%;
+}
+
+#home-title-lg {
+    font-size: 1400%;
+    margin: 0;
+}
 
 #home-presentation {
     background-color: #F1F1F1;
 }
 
 .home-glyph-container {
-    height: 20em;
-    line-height: 20em;
+    height: 10em;
+    line-height: 10em;
 }
 
 .home-glyph {
@@ -213,12 +221,11 @@ html,body {
 }
 
 .home-glyph-small {
-    font-size: 1000%;
+    font-size: 500%;
 }
 
-
 .home-glyph-main {
-    font-size: 1750%;
+    font-size: 1000%;
 }
 
 .game-glyph {
@@ -232,6 +239,45 @@ html,body {
 
 #social-container > a {
     color: #222222;
+}
+
+
+@media only screen and (max-device-width: 480px) {
+
+    #home-title-lg {
+        font-size: 750%;
+        margin: 0;
+    }
+
+    .home-glyph-container {
+        height: 7.5em;
+        line-height:7.5em;
+    }
+    .home-glyph-small {
+        font-size: 325%;
+    }
+    .home-glyph-main {
+        font-size: 750%;
+    }
+
+    footer {
+        margin-top: 2em;
+        position: relative;
+    }
+}
+
+@media only screen and (max-device-width: 350px) {
+    #home-title-lg {
+        font-size: 675%;
+        margin: 0;
+    }
+}
+
+@media only screen and (max-device-width: 768px) {
+    footer {
+        margin-top: 2em;
+        position: relative;
+    }
 }
 
 

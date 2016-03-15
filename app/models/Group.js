@@ -11,6 +11,7 @@ var GroupSchema = new mongoose.Schema({
         scenarioLevel: Number,
         completionList: [{ type: mongoose.Schema.Types.ObjectId, ref:'User' }],
         translations: Boolean,
+        containsTranslations: Boolean,
         enabled: Boolean
     }]
 

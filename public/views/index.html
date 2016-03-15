@@ -78,8 +78,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/" ng-if="!isLoggedIn()"><span class="glyphicon glyphicon-tree-deciduous"></span> CALLi</a>
-                <a class="navbar-brand" href="#" ng-if="isLoggedIn()"><span class="glyphicon glyphicon-tree-deciduous"></span> CALLi</a>
+                <a class="navbar-brand" href="/" ng-if="!isLoggedIn()"></span> CALLi</a>
+                <a class="navbar-brand" href="/profile" ng-if="isLoggedIn()"></span> CALLi</a>
             </div>
 
             <div class="collapse navbar-collapse" id="nav-collapse-1">
@@ -96,7 +96,7 @@
         <div ng-view></div>
 
     <!-- FOOTER -->
-    <footer id="footer">
+    <footer>
         <div id="social-container" class="text-center">
             <a href="#"><span title="facebook link" class="social-icon icon-facebook"></span></a>
             <a href="#"><span class="social-icon icon-twitter"></span></a>

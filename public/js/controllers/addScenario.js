@@ -102,6 +102,8 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
         $scope.ready = function(questions, status) {
 
+            console.log(teacher.group.scenarios);
+
             if(!$scope.name || !$scope.type || !$scope.level) {
                 return status({
                     ready: false,
@@ -168,10 +170,22 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                         scenarioType: $scope.type
                     };
 
+
+
                     scenario.conversation = finalQuestions;
 
                     $http.post('/scenario', scenario)
                         .success(function (data) {
+
+                            // if scenario added to database, add additional info for group
+                            data.enabled = true;
+                            if($scope.enableTranslations) {
+                                data.translations = true;
+                                data.containsTranslations = true;
+                            } else {
+                                data.containsTranslations = false;
+                            }
+
                             teacher.addScenario(data);
                             $location.path('/teacher');
                             alert('Your scenario has been successfully created and is now in your game enabler!');

@@ -22,6 +22,9 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             return scenario.enabled;
         };
 
+        $scope.containsTranslations = function(scenario) {
+            return scenario.containsTranslations;
+        }
         $scope.translationsEnabled = function(scenario) {
             if(scenario.translations) {
                 return scenario.translations;
@@ -66,11 +69,9 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             $scope.registrationErrorMessage = "Oops, there was a problem registering - ";
 
             var names = $scope.batchPupilNames.replace(' ', '').split('\n');
-            var isError = false;
 
             $.each(names, function(key, name) {
                 teacher.registerPupil(name, function(response) {
-                    console.log(response);
                     if(response.user) {
                         $scope.pupils.push(response.user);
                     } else {

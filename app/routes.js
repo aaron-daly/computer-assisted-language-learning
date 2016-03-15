@@ -305,8 +305,6 @@ module.exports = function(app) {
 
     app.put('/group/scenario/add', function(req, res, next) {
 
-        console.log(req.body);
-
         Group.findOneAndUpdate({ teacherId: req.body.teacherId },
             {
                 $push: { "scenarios": {
@@ -315,6 +313,7 @@ module.exports = function(app) {
                     scenarioType: req.body.scenarioType,
                     scenarioLevel: req.body.scenarioLevel,
                     translations: req.body.translations,
+                    containsTranslations: req.body.containsTranslations,
                     enabled: req.body.enabled,
                     completionList: []
                 }}
@@ -411,17 +410,9 @@ module.exports = function(app) {
             })
     });
 
-
-
-
     // END OF TEACHER CLASSES ================================================
     // =======================================================================
 
-
-    // FILE TRANSFER =========================================================
-
-
-    // =======================================================================
 
     // =======================================================================
     // FINAL ROUTE TO INDEX.HTML =============================================

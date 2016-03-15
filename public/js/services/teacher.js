@@ -63,12 +63,11 @@ angular.module('calliApp')
                     scenarioName: scenario.name,
                     scenarioType: scenario.scenarioType.name,
                     scenarioLevel: scenario.level,
-                    translations: false,
-                    enabled: false
+                    translations: scenario.translations,
+                    containsTranslations: scenario.containsTranslations,
+                    enabled: scenario.enabled
                 }).error(function(error) {
                     console.log(error);
-                }).success(function(response) {
-                    console.log(response);
                 });
             };
 

@@ -18,7 +18,15 @@ angular.module('calliApp', [
             .when('/', {
                 templateUrl: 'views/home.html',
                 controller: 'MainController',
-                restricted: false
+                restricted: false,
+                resolve: {
+                    session: ['$location', 'token',
+                        function($location, token) {
+                            if(token.isLoggedIn()) {
+                                $location.path('/profile');
+                            }
+                        }]
+                }
             })
 
             // login page
