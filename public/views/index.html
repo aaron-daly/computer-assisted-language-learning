@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="../images/favicon.ico">
 
     <!-- CSS -->
+    <link rel="stylesheet" href="libs/icomoon/style.css">
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 
@@ -66,7 +67,6 @@
 
 
 <body ng-app="calliApp">
-<div id="container">
 
     <!-- HEADER -->
     <nav class="navbar navbar-inverse" ng-controller="NavigationController">
@@ -93,17 +93,16 @@
     </nav>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
-    <div class="container" id="content">
         <div ng-view></div>
-    </div>
 
     <!-- FOOTER -->
     <footer id="footer">
-        <div class="text-center">
-            <p>All rights reserved by Ralphy Enterprises <span class="glyphicon glyphicon-copyright-mark"></span></p>
+        <div id="social-container" class="text-center">
+            <a href="#"><span title="facebook link" class="social-icon icon-facebook"></span></a>
+            <a href="#"><span class="social-icon icon-twitter"></span></a>
+            <a href="#"><span class="social-icon icon-linkedin2"></span></a>
         </div>
     </footer>
 
-</div>
 </body>
 </html>

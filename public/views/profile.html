@@ -1,40 +1,10 @@
-<div class="text-center">
+<section class="text-center">
     <h1>Hello <span class="">{{ username }}!</span></h1>
     <hr>
-</div>
+</section>
 
-<div class="text-center col-sm-10 col-sm-offset-1">
+<section class="text-center col-sm-10 col-sm-offset-1">
 
-    <!--
-    <h2>Available Games</h2>
-    <br>
-    <table class="table table-striped">
-        <thead>
-        <th class="text-left">Name</th>
-        <th class="text-center">Type</th>
-        <th class="text-center">Level</th>
-        <th class="text-center">Play</th>
-        <th class="text-center">Completed</th>
-        </thead>
-        <tr dir-paginate="pupilGame in scenarios | itemsPerPage:5 " pagination-id="pupilGamePagination">
-            <td class="text-left">{{ pupilGame.scenarioName }}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-eye-open" ng-if="pupilGame.scenarioType === 'Conversation'"></span>
-                <span class="glyphicon glyphicon-picture" ng-if="pupilGame.scenarioType === 'Picture'"></span>
-                <span class="glyphicon glyphicon-ice-lolly-tasted" ng-if="pupilGame.scenarioType === 'Word'"></span>
-            </td>
-            <td class="text-center">{{ pupilGame.scenarioLevel }}</td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-play-circle text-danger" ng-click="playScenario(pupilGame)"></span>
-            </td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-ok text-primary" ng-show="checkScenarioCompletion(pupilGame)"></span>
-                <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(pupilGame)"></span>
-            </td>
-        </tr>
-    </table>
-    <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
-    -->
     <div class="row">
         <h2>Play New Games</h2>
         <br>
@@ -56,7 +26,7 @@
         <div class="games-list">
             <div class="col-sm-4 col-xs-6" ng-repeat="completedGame in completedGames">
                 <div class="game-container completed-game" ng-click="playScenario(completedGame)">
-                    <span class="glyphicon glyphicon-eye-open game-type" ng-if="completedGame.scenarioType === 'Conversation'"></span>
+                    <span class="glyphicon icon-bubble" ng-if="completedGame.scenarioType === 'Conversation'"></span>
                     <span class="game-heading">{{completedGame.scenarioName}} {{completedGame.scenarioLevel}}</span>
                 </div>
             </div>
@@ -65,5 +35,5 @@
     </div>
 
     <br>
-</div>
+</section>
 
