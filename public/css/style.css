@@ -169,7 +169,7 @@ footer {
 
 .game-heading {
     color: #ffffff;
-    font-size: 250%;
+    font-size: 175%;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     -ms-transition-duration: .2s;
@@ -179,7 +179,7 @@ footer {
 
 .game-type {
     color: #ffffff;
-    font-size: 250%;
+    font-size: 150%;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     -ms-transition-duration: .2s;
