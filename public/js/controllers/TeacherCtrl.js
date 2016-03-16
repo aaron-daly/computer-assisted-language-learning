@@ -62,7 +62,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         // preview scenario, direct to /scenarioGame view
         $scope.previewScenario = function(scenario) {
-            $location.path('/scenarioGame/:' + scenario.scenarioName);
+            $location.path('/scenarioGame/:' + scenario.scenarioId);
         };
 
         // batch register pupils

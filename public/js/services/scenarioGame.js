@@ -81,15 +81,15 @@ angular.module('calliApp')
                 return question;
             };
 
-            //loaf scenario for the game
-            scenarioGame.loadScenario = function(scenarioName, callback) {
+            //load scenario for the game
+            scenarioGame.loadScenario = function(scenarioId, callback) {
 
                 var i = 0;
                 var len = scenarioGame.scenarioList.length;
                 var data = {};
 
                 for(i; i < len; i++) {
-                    if(scenarioGame.scenarioList[i].name === scenarioName) {
+                    if(scenarioGame.scenarioList[i]._id === scenarioId) {
                         data = scenarioGame.scenarioList[i];
                         angular.copy(data, scenarioGame.scenario);
                         callback(data);
