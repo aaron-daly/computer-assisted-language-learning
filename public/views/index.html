@@ -85,10 +85,11 @@
 
             <div class="collapse navbar-collapse" id="nav-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!isLoggedIn()"><a href="/">Home</a></li>
                     <li ng-if="!isLoggedIn()"><a href="/about">About</a></li>
-                    <li ng-if="isLoggedIn()"><a ng-click="directToProfile()"><span style="font-size:140%" class="glyphicon glyphicon-user"></span></a></li>
+                    <li ng-if="isLoggedIn()"><a href="#" ng-click="directToProfile()"><span style="font-size:140%" class="glyphicon glyphicon-user"></span></a></li>
                     <li ng-if="!isLoggedIn()"><a href="/login">Login</a></li>
-                    <li ng-if="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
+                    <li ng-if="isLoggedIn()"><a href="#" ng-click="logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
