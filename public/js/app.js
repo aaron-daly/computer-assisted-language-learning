@@ -139,7 +139,7 @@ angular.module('calliApp', [
                             $timeout(function () {
                                 scenarioGame.preload();
                                 defer.resolve();
-                            });
+                            },500);
                             return defer.promise;
                         }],
                     //defer to load teacher's pupils
