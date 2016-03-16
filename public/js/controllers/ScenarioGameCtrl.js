@@ -15,7 +15,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
         //draws the answer in the answer containner.
         $scope.drawAnswer = function(answer) {
-            var html = '<button class="btn btn-info answer-btn" /*!--value="' + answer.branch + '"*/>' + answer.answer + '</button>';
+            var html = '<button class="btn btn-info answer-btn" value="' + answer.branch + '">' + answer.answer + '</button>';
             $('#answer-container').append(html);
         };
 
