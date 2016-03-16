@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="../images/favicon.ico">
 
     <!-- CSS -->
+    <link rel="stylesheet" href="libs/icomoon/style.css">
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 
@@ -21,8 +22,6 @@
     <script src="libs/bootstrap/dist/js/bootstrap.js"></script>
     <script src="libs/angular-route/angular-route.min.js"></script>
     <script src="libs/angularUtils-pagination/dirPagination.js"></script>
-    <script src="libs/ng-file-upload/ng-file-upload.js"></script>
-    <script src="libs/ng-file-upload-shim/ng-file-upload-shim.js"></script>
 
     <!-- ANGULAR CONTROLLERS-->
     <script src="js/controllers/MainCtrl.js"></script>
@@ -32,7 +31,8 @@
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/TeacherCtrl.js"></script>
     <script src="js/controllers/ScenarioGameCtrl.js"></script>
-    <script src="js/controllers/AddScenario.js"></script>
+    <script src="js/controllers/AddScenarioCtrl.js"></script>
+    <script src="js/controllers/AboutCtrl.js"></script>
     <script src="js/app.js"></script>
 
     <!-- ANGULAR SERVICES-->
@@ -68,7 +68,6 @@
 
 
 <body ng-app="calliApp">
-<div id="container">
 
     <!-- HEADER -->
     <nav class="navbar navbar-inverse" ng-controller="NavigationController">
@@ -80,32 +79,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/" ng-if="!isLoggedIn()"><span class="glyphicon glyphicon-tree-deciduous"></span> CALLi</a>
-                <a class="navbar-brand" href="#" ng-if="isLoggedIn()"><span class="glyphicon glyphicon-tree-deciduous"></span> CALLi</a>
+                <a class="navbar-brand" href="/" ng-if="!isLoggedIn()"></span> CALLi</a>
+                <a class="navbar-brand" href="/profile" ng-if="isLoggedIn()"></span> CALLi</a>
             </div>
 
             <div class="collapse navbar-collapse" id="nav-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="isLoggedIn()"><a ng-click="directToProfile()"><span style="font-size:140%" class="glyphicon glyphicon-user"></span></a></li>
+                    <li ng-if="!isLoggedIn()"><a href="/">Home</a></li>
+                    <li ng-if="!isLoggedIn()"><a href="/about">About</a></li>
+                    <li ng-if="isLoggedIn()"><a href="#" ng-click="directToProfile()"><span style="font-size:140%" class="glyphicon glyphicon-user"></span></a></li>
                     <li ng-if="!isLoggedIn()"><a href="/login">Login</a></li>
-                    <li ng-if="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
+                    <li ng-if="isLoggedIn()"><a href="#" ng-click="logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
-    <div class="container" id="content">
         <div ng-view></div>
-    </div>
 
     <!-- FOOTER -->
-    <footer id="footer">
-        <div class="text-center">
-            <p>All rights reserved by Ralphy Enterprises <span class="glyphicon glyphicon-copyright-mark"></span></p>
+    <!-- footer>
+        <div id="social-container" class="text-center">
+            <a href="#"><span title="facebook link" class="social-icon icon-facebook"></span></a>
+            <a href="#"><span class="social-icon icon-twitter"></span></a>
+            <a href="#"><span class="social-icon icon-linkedin2"></span></a>
         </div>
-    </footer>
+    </footer -->
 
-</div>
 </body>
 </html>

@@ -6,9 +6,10 @@ angular.module('RegisterCtrl', []).controller('RegisterController', ['$scope', '
             $(this).scrollTop(0);
         });
 
+        // register user using auth.register
         $scope.register = function() {
 
-            //check if all fields are filled in
+            // check valid credentials
             if($scope.username.length < 6 || $scope.username.length > 24) {
                 displayError('Username must be between 6 and 24 characters long.');
             }
@@ -28,6 +29,7 @@ angular.module('RegisterCtrl', []).controller('RegisterController', ['$scope', '
             }
         };
 
+        // display error message
         function displayError(error) {
             $('#error-message').empty().append(error);
         }

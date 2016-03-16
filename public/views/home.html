@@ -1,6 +1,26 @@
-<div class="col-sm-6 col-sm-offset-3 text-center">
-    <h1><span style="font-size: 300%" class="glyphicon glyphicon-tree-deciduous"></span></h1>
-    <h1>Welcome to CALLi, a simple web tool for learning Irish!</h1>
-    <hr>
-    <button class="btn btn-info" ng-if="!isLoggedIn()" ng-click="registerRedirect();">Get started now!</button>
-</div>
+
+
+<main id="home-main" class="margin-top-small">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2 text-center">
+            <p id="home-title-lg" class="lead">CALLi</p>
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <h2 class="lead text-muted">A simple language teaching tool for primary school teachers!</h2>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section id="home-button">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 col-xs-offset-5 col-sm-4 col-sm-offset-4">
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-lg btn-info" ng-click="registerRedirect();">More about CALLi</button>
+    </div>
+    <br>
+</section>

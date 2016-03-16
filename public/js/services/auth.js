@@ -7,12 +7,13 @@ angular.module('calliApp')
 
             return {
 
+                // register user, callback register error if error
                 register: function(user, callback) {
-
                     return $http.post('/register', user)
                         .success(function(data) {
                             if(!token.getToken()) {
                                 token.saveToken(data.token);
+                                // if registered, sign up teacher's group
                                 $http.post('/group', { teacherId: token.currentUserId() })
                                     .success(function(data){
                                         console.log(data);
@@ -32,18 +33,12 @@ angular.module('calliApp')
                         });
                 },
 
+                // login user, callback login error if error
                 login: function(user, callback) {
                     return $http.post('/login', user)
                         .success(function(data) {
                             token.saveToken(data.token);
-                            token.currentUserRole(function(role) {
-                                if(role === 'Student' || role === 'Pupil') {
-                                    $location.path('/profile');
-                                } else {
-                                    $location.path('/teacher');
-                                }
-                            });
-
+                            $location.path('/profile'); // set location to pupil profile, route will redirect if teacher...
                         })
                         .error(function(error) {
                             callback(error);
@@ -51,6 +46,8 @@ angular.module('calliApp')
                         });
                 },
 
+
+                //logout user, remove session token
                 logout: function() {
                     token.removeToken();
                     $location.path('/');

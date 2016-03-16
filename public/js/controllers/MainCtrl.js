@@ -6,10 +6,12 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$locatio
             $(this).scrollTop(0);
         });
 
+        // route to the register page
         $scope.registerRedirect = function() {
-            $location.path('/register');
+            $location.path('/about');
         };
 
+        // check if user is logged in with token.isLoggedIn()
         $scope.isLoggedIn = function() {
             return token.isLoggedIn();
         }

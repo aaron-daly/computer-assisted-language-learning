@@ -2,8 +2,8 @@
 angular.module('calliApp', [
     'ngRoute',
     'angularUtils.directives.dirPagination',
-    'ngFileUpload',
     'MainCtrl',
+    'AboutCtrl',
     'NavigationCtrl',
     'LoginCtrl',
     'RegisterCtrl',
@@ -19,6 +19,21 @@ angular.module('calliApp', [
             .when('/', {
                 templateUrl: 'views/home.html',
                 controller: 'MainController',
+                restricted: false,
+                resolve: {
+                    session: ['$location', 'token',
+                        function($location, token) {
+                            if(token.isLoggedIn()) {
+                                $location.path('/profile');
+                            }
+                        }]
+                }
+            })
+
+            //about page
+            .when('/about', {
+                templateUrl: 'views/about.html',
+                controller: 'AboutController',
                 restricted: false
             })
 
@@ -28,6 +43,8 @@ angular.module('calliApp', [
                 controller: 'LoginController',
                 restricted: false
             })
+
+            //scenario game page, scenario name as param
             .when('/scenarioGame/:name', {
                 templateUrl: 'views/scenarioGame.html',
                 controller: 'ScenarioGameController',
@@ -68,12 +85,13 @@ angular.module('calliApp', [
                 restricted: false
             })
 
-            // user profile page
+            // pupil profile page
             .when('/profile', {
                 templateUrl: 'views/profile.html',
                 controller: 'ProfileController',
                 restricted: true,
                 resolve: {
+                    // defer to preload games
                     scenarioPromise: ['scenarioGame', '$q', '$timeout',
                         function (scenarioGame, $q, $timeout) {
                             var defer = $q.defer();
@@ -83,6 +101,7 @@ angular.module('calliApp', [
                             },1000);
                             return defer.promise;
                         }],
+                    // defer to load pupil's group
                     groupPromise: ['$q', '$timeout', 'auth', 'token', 'teacher',
                         function($q, $timeout, auth, token, teacher) {
                             var defer = $q.defer();
@@ -92,6 +111,7 @@ angular.module('calliApp', [
                             });
                             return defer.promise;
                         }],
+                    //defer to check permissions
                     permissionPromise: ['$q', '$location', 'auth',
                         function($q, $location, auth) {
                             var defer = $q.defer();
@@ -106,11 +126,13 @@ angular.module('calliApp', [
                 }
             })
 
+            // teacher profile page
             .when('/teacher', {
                 templateUrl: 'views/teacher.html',
                 controller: 'TeacherController',
                 restricted: true,
                 resolve: {
+                    // defer to preload games
                     scenarioPromise: ['scenarioGame', '$q', '$timeout',
                         function (scenarioGame, $q, $timeout) {
                             var defer = $q.defer();
@@ -120,6 +142,7 @@ angular.module('calliApp', [
                             });
                             return defer.promise;
                         }],
+                    //defer to load teacher's pupils
                     pupilPromise: ['$q','$timeout', 'teacher',
                         function($q, $timeout, teacher) {
                             var defer = $q.defer();
@@ -129,6 +152,7 @@ angular.module('calliApp', [
                             },1000);
                             return defer.promise;
                         }],
+                    // defer to load teacher's group
                     groupPromise: ['$q', '$timeout', 'token', 'teacher',
                         function($q, $timeout, token, teacher) {
                             var defer = $q.defer();
@@ -138,6 +162,7 @@ angular.module('calliApp', [
                             });
                             return defer.promise;
                         }],
+                    // defer to check permissions
                     permissionPromise: ['$q', '$location', 'auth',
                         function($q, $location, auth) {
                             var defer = $q.defer();
@@ -152,11 +177,13 @@ angular.module('calliApp', [
                 }
             })
 
+            // add scenario page
             .when('/addScenario', {
                 templateUrl: 'views/addScenario.html',
                 controller: 'AddScenarioController',
                 restricted: true,
                 resolve: {
+                    // defer to check permissions
                     permissionPromise: ['$q', '$location', 'auth',
                         function($q, $location, auth) {
                             var defer = $q.defer();
@@ -167,10 +194,23 @@ angular.module('calliApp', [
                                 defer.resolve();
                             });
                             return defer.promise;
+                        }],
+                    //defer to load group scenarios
+                    //TO ENSURE TEACHER'S GROUP IS PRELOADED...
+                    scenarioPromise: ['$q', '$timeout', 'teacher', 'token',
+                        function($q, $timeout, teacher, token) {
+                            var defer = $q.defer();
+                            $timeout( function(){
+                                teacher.getGroup(token.currentUserId());
+                                defer.resolve();
+                            }, 1000);
+
+                            return defer.promise;
                         }]
                 }
             })
 
+            //otherwise redirect to home
             .otherwise({
                 redirectTo: '/',
                 restricted: false
@@ -181,33 +221,14 @@ angular.module('calliApp', [
     }
 ]).run(['$rootScope', '$location', '$timeout', '$q', 'token',
     function($rootScope, $location, $timeout, $q, token) {
-
-
         //on route change...
         $rootScope.$on('$routeChangeStart', function(event, nextRoute) {
-
             //authenticate user is logged in for restricted pages
             if(nextRoute.$$route.restricted) {
                 if(!token.isLoggedIn()) {
                     $location.path('/login');
                 }
             }
-
-            /*if next route is profile page, preload list of games
-            if(nextRoute.$$route.originalPath === '/profile' || nextRoute.$$route.originalPath === '/teacher') {
-
-                conversationGame.preload();
-                pictureGame.preload();
-                wordGame.preload();
-
-                auth.authorize('teacher', function(authorized) {
-                    if(authorized) {
-                        teacher.getPupils();
-                    }
-                });
-
-            } */
-
         });
     }
 ]);

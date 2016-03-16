@@ -7,29 +7,9 @@ angular.module('calliApp')
         function($http, scenario){
 
             var scenarioGame = {
-                scenario: {
-                    name: String,
-                    level: 1,
-                    scenarioType: String,
-                    conversation: [], /*[{
-                     /*question: String,
-                     translation: String,
-                     answers:[{
-                     answer: String,
-                     translation: String,
-                     correct: Boolean
-                     }]
-                     },
-                     {
-                     question: String,
-                     translation: String,
-                     answers:[{
-                     answer: String,
-                     translation: String,
-                     correct: Boolean
-                     }]
-                     }] */
-                },
+
+                scenario: {},
+
                 scenarioList: [],
                 position: 1,
                 recordedQuestions: [],
@@ -167,6 +147,7 @@ angular.module('calliApp')
                 return arr;
             };
 
+            // return true if game scenarioList contains a scenario with the name given, else return false
            scenarioGame.containsScenario = function(scenarioName) {
                 if(scenarioGame.scenarioList) {
                     var i = 0;
@@ -180,6 +161,7 @@ angular.module('calliApp')
                 return false;
             };
 
+            // get info of a scenario by scenarioId
             scenarioGame.getScenarioInfo = function(scenarioId) {
 
                 $.each(scenarioGame.scenarioList, function(key, val) {

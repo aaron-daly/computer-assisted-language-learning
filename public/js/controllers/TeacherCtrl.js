@@ -3,25 +3,26 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
     function($scope, $http, $location, $route, token, auth, scenario, teacher, scenarioGame) {
 
         $scope.username = token.currentUser();
-        $scope.role = {};
-
-        token.currentUserRole(function(role) {
-            $scope.role = role;
-        });
-
         $scope.pupils = teacher.pupils;
         $scope.selectedPupil = '';
-
         $scope.groupScenarios = teacher.group.scenarios;
 
+        // logout using auth.logout()
         $scope.logout = function() {
             auth.logout();
         };
 
+        // check if scenario is enabled
         $scope.isEnabled = function(scenario) {
             return scenario.enabled;
         };
 
+        // check if scenario contains translations
+        $scope.containsTranslations = function(scenario) {
+            return scenario.containsTranslations;
+        };
+
+        // check if scenario has translations enabled
         $scope.translationsEnabled = function(scenario) {
             if(scenario.translations) {
                 return scenario.translations;
@@ -29,37 +30,42 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             return false;
         };
 
+        // enable scenario
         $scope.enableScenario = function(scenario) {
             teacher.enableScenario(scenario);
             scenario.enabled = true;
         };
 
+        // disable scenario
         $scope.disableScenario = function(scenario) {
             teacher.disableScenario(scenario);
             scenario.enabled = false;
         };
 
+        // delete scenario
         $scope.deleteScenario = function(scenario) {
             teacher.deleteScenario(scenario);
             $scope.groupScenarios.splice($scope.groupScenarios.indexOf(scenario), 1);
         };
 
-        //TODO ENABLE/DISABLE TRANSLATIONS
+        // enable scenario translations
         $scope.enableTranslations = function(scenario) {
             teacher.enableTranslations(scenario);
             scenario.translations = true;
         };
 
+        // disable scenario translations
         $scope.disableTranslations = function(scenario) {
             teacher.disableTranslations(scenario);
             scenario.translations = false;
         };
 
+        // preview scenario, direct to /scenarioGame view
         $scope.previewScenario = function(scenario) {
             $location.path('/scenarioGame/:' + scenario.scenarioName);
         };
 
-
+        // batch register pupils
         $scope.batchRegister = function() {
 
             $scope.successfulRegistration = false;
@@ -67,11 +73,13 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             $scope.registrationErrorMessage = "Oops, there was a problem registering - ";
 
             var names = $scope.batchPupilNames.replace(' ', '').split('\n');
-            var isError = false;
 
+            // For each pupil name entered......
+            // register with teacher.registerPupil()
+            // if response contains user, add new pupil to $scope.pupils
+            // else show error
             $.each(names, function(key, name) {
                 teacher.registerPupil(name, function(response) {
-                    console.log(response);
                     if(response.user) {
                         $scope.pupils.push(response.user);
                     } else {
@@ -87,6 +95,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             $scope.successfulRegistration = true;
         };
 
+        // clear pupil registration textfield
         $scope.clearRegistration = function() {
             $('#batch-register-form')[0].reset();
             $scope.successfulRegistration = false;
@@ -94,15 +103,18 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             $scope.registrationErrorMessage = "Oops, there was a problem registering - ";
         };
 
+        // remove pupil using teacher.removePupil()
         $scope.removePupil = function(pupil) {
             teacher.removePupil(pupil);
             $scope.pupils.splice($scope.pupils.indexOf(pupil), 1);
         };
 
+        // toggle a pupil for the pupil progress modal
         $scope.togglePupil = function(pupil) {
             $scope.selectedPupil = pupil;
         };
 
+        // check if a scenario has been completed by a pupil
         $scope.checkScenarioCompletion = function(pupil, scenario) {
             if(!scenario.completionList) {
                 return false;
@@ -111,6 +123,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             }
         };
 
+        // get total number of scenarios completed by a pupil
         $scope.getScenarioCompletionTotal = function(pupil) {
             var count = 0;
             $.each($scope.groupScenarios, function(key, val) {
@@ -121,6 +134,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             return count;
         };
 
+        // get total number of scenarios in the group
         $scope.getNumScenarios = function() {
             if($scope.groupScenarios) {
                 return $scope.groupScenarios.length;
@@ -128,6 +142,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             return 0;
         };
 
+        // get the rank of a pupil
         $scope.getScenarioCompletionRank = function(pupil) {
             var numScenarios = $scope.getNumScenarios().toFixed(1);
             var completionTotal = $scope.getScenarioCompletionTotal(pupil).toFixed(1);
@@ -141,8 +156,9 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
             return 1;
         };
 
-            $scope.routeToAddScenario = function() {
+        // route to the add scenario page
+        $scope.routeToAddScenario = function() {
             $location.path('/addScenario');
-        }
+        };
     }
 ]);

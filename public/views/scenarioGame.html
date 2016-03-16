@@ -1,10 +1,17 @@
-<div class="col-sm-12 col-sm-offset-1" xmlns="">
+<section id="game-container" class="container">
+
+    <div class="text-center">
+        <h1>Playing {{scenario.scenarioType.name}} Game <span class="text-info">'{{scenario.name}}'</span></h1>
+    </div>
+
+    <div class="col-sm-12 col-sm-offset-1" xmlns="">
     <span class="glyphicon glyphicon-volume-up" ng-click="replayGame();" style="float:right;"></span>
 </div>
+
 <div id="scenarioGame-content" class="col-sm-12 col-sm-offset-0 text-center">
     <div id="scenarioGame-container" class="col-sm-6 col-sm-offset-3 text-center">
         <div id="game-screen" class="text-center">
-
+            
            <h1>Playing Scenario <span class="text-info">'{{scenario.name}}'</span></h1>
 
             <div id="scenarioGame-picture" class="col-sm-12 col-sm-offset-0 text-center">
@@ -25,3 +32,5 @@
         </div>
     </div>
 </div>
+
+</section>

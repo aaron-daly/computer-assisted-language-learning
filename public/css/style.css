@@ -7,9 +7,13 @@
 
 /*== LAYOUT ==*/
 html,body {
-    height: 100%;
+    display: block;
     margin: 0;
-    padding: 0;
+    font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+}
+
+.margin-top-small {
+    margin-top: 1%;
 }
 
 #container {
@@ -89,12 +93,13 @@ html,body {
     float: left;
 }
 
-#footer {
+footer {
     position: absolute;
-    height: 30px;
-    width: 100%;
     bottom: 0;
+    height: 2.5em;
+    width: 100%;
 }
+
 
 @media screen and (min-width: 768px) {
     .modal-dialog {
@@ -164,7 +169,7 @@ html,body {
 
 .game-heading {
     color: #ffffff;
-    font-size: 250%;
+    font-size: 175%;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     -ms-transition-duration: .2s;
@@ -174,7 +179,7 @@ html,body {
 
 .game-type {
     color: #ffffff;
-    font-size: 250%;
+    font-size: 150%;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     -ms-transition-duration: .2s;
@@ -187,9 +192,93 @@ html,body {
     color: #5bc0de;
 }
 .new-game:hover .game-heading,
-.new-game:hover .game-heading {
+.new-game:hover .game-type {
     color: #d43f3a;
 }
+
+#home-title {
+    font-size: 300%;
+}
+
+#home-title-lg {
+    font-size: 1400%;
+    margin: 0;
+}
+
+#home-presentation {
+}
+
+.home-glyph-container {
+    height: 10em;
+    line-height: 10em;
+}
+
+.home-glyph {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.home-glyph-small {
+    font-size: 500%;
+}
+
+.home-glyph-main {
+    font-size: 1000%;
+}
+
+.game-glyph {
+    font-size:500%;
+    z-index: -1;
+}
+
+.social-icon {
+    font-size: 200%;
+}
+
+#social-container > a {
+    color: #222222;
+}
+
+
+@media only screen and (max-device-width: 480px) {
+
+    #home-title-lg {
+        font-size: 750%;
+        margin: 0;
+    }
+
+    .home-glyph-container {
+        height: 7.5em;
+        line-height:7.5em;
+    }
+    .home-glyph-small {
+        font-size: 325%;
+    }
+    .home-glyph-main {
+        font-size: 750%;
+    }
+
+    footer {
+        margin-top: 2em;
+        position: absolute;
+    }
+}
+
+@media only screen and (max-device-width: 350px) {
+    #home-title-lg {
+        font-size: 675%;
+        margin: 0;
+    }
+}
+
+@media only screen and (max-device-width: 768px) {
+    footer {
+        margin-top: 2em;
+        position: absolute;
+    }
+}
+
 
 /*--------*/
 

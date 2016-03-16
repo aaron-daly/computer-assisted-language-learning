@@ -21,8 +21,10 @@ UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
+// generate java web token
 UserSchema.methods.generateJWT = function() {
 
+    // set expiry date 60 days away
     var today = new Date();
     var exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -36,10 +38,11 @@ UserSchema.methods.generateJWT = function() {
     }, config.secret);
 };
 
+// set user role
 UserSchema.methods.setRole = function(role) {
     this.role = role._id;
 };
-
+ // set user creator
 UserSchema.methods.setCreator = function(creator) {
   this.creator = creator;
 };

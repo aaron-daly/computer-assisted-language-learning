@@ -5,18 +5,22 @@ angular.module('calliApp')
 
             var token = {};
 
+            // save JWT to local storage
             token.saveToken = function (token){
                 $window.localStorage['calli-token'] = token;
             };
 
+            // get JWT from local storage
             token.getToken = function (){
                 return $window.localStorage['calli-token'];
             };
 
+            // remove JWT from local storage
             token.removeToken = function() {
                 return $window.localStorage.removeItem('calli-token');
             };
 
+            // check if a user is logged in
             token.isLoggedIn = function() {
                 var userToken = token.getToken();
                 var currentDate = Date.now();
@@ -29,6 +33,7 @@ angular.module('calliApp')
                 }
             };
 
+            //get current user's username
             token.currentUser = function(){
                 if(token.isLoggedIn()){
                     var userToken = token.getToken();
@@ -36,6 +41,8 @@ angular.module('calliApp')
                     return user.username;
                 }
             };
+
+            //get current user's id
             token.currentUserId = function(){
                 if(token.isLoggedIn()){
                     var userToken = token.getToken();
@@ -44,6 +51,7 @@ angular.module('calliApp')
                 }
             };
 
+            // get current user's role
             token.currentUserRole = function(callback){
                 if(token.isLoggedIn()){
                     var userToken = token.getToken();
@@ -60,6 +68,7 @@ angular.module('calliApp')
                 }
             };
 
+            //get current user's permission level
             token.currentUserPermission = function(callback) {
                 if(token.isLoggedIn()) {
                     var userToken = token.getToken();
@@ -71,6 +80,7 @@ angular.module('calliApp')
                 }
             };
 
+            // get current user's creator (for pupils to get their teacherid)
             token.currentUserCreator = function() {
                 if(token.isLoggedIn()) {
                     var userToken = token.getToken();
