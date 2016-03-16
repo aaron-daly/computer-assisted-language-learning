@@ -1,36 +1,31 @@
 <section id="game-container" class="container">
-
+    <!--Shows scenario name-->
     <div class="text-center">
         <h1>Playing {{scenario.scenarioType.name}} Game <span class="text-info">'{{scenario.name}}'</span></h1>
     </div>
-
+    <!--icon when clicked shows audio-->
     <div class="col-sm-12 col-sm-offset-1" xmlns="">
-    <span class="glyphicon glyphicon-volume-up" ng-click="showAudio();" style="float:right;"></span>
-</div>
-
-<div id="scenarioGame-content" class="col-sm-12 col-sm-offset-0 text-center">
-    <div id="scenarioGame-container" class="col-sm-6 col-sm-offset-3 text-center">
-        <div id="game-screen" class="text-center">
-
-           <h1>Playing Scenario <span class="text-info">'{{scenario.name}}'</span></h1>
-
-            <div id="scenarioGame-picture" class="col-sm-12 col-sm-offset-0 text-center">
-                <img src="../images/sweetshop.jpg" alt="sweetshop.jpg" style="width:400px;height:275px;">
-            </div>
-            <div id="question-container">
-                <h2 id="current-question" class="text-danger"></h2>
-                <div id="scenarioGame-audio" <!--class="col-sm-6 col-sm-offset-3--> text-center">
-                    <!--<audio controls>
-                        <source src="../audio/sweetshop/level1/q2.wav" type="audio/wav">
-                    </audio>-->
+        <span class="glyphicon glyphicon-volume-up" ng-click="showAudio();" style="float:right;"></span>
+    </div>
+    <div id="scenarioGame-content" class="col-sm-12 col-sm-offset-0 text-center">
+        <div id="scenarioGame-container" class="col-sm-6 col-sm-offset-3 text-center">
+            <div id="game-screen" class="text-center">
+                <!--Shows when the type of scenario is picture-->
+                <div id="scenarioGame-picture" class="col-sm-12 col-sm-offset-0 text-center">
+                    <img src="../images/sweetshop.jpg" alt="sweetshop.jpg" style="width:400px;height:275px;">
                 </div>
+                <div id="question-container">
+                    <h2 id="current-question" class="text-danger"></h2>
+                    <!--div where audio is showed if enabled-->
+                    <div id="scenarioGame-audio">
+                    </div>
+                </div>
+                <div id="answer-container">
+                </div>
+                <!--buttons to replay the game or return to the profile page-->
+                <button role="button" id="replay-btn" class="btn btn-success" ng-click="gameReplay()">Replay Game</button>
+                <button role="button" id="return-btn" class="btn btn-info" ng-click="profileReturn()">Return to profile</button>
             </div>
-            <div id="answer-container">
-            </div>
-            <button role="button" id="replay-btn" class="btn btn-success" ng-click="gameReplay()">Replay Game</button>
-            <button role="button" id="return-btn" class="btn btn-info" ng-click="profileReturn()">Return to profile</button>
         </div>
     </div>
-</div>
-
 </section>
