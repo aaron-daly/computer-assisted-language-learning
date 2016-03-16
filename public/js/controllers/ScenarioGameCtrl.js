@@ -57,7 +57,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
             }
         };
-        
+
         $scope.clearScreen = function() {
             $('#answer-container').empty();
             $('#current-question').empty();
