@@ -42,8 +42,22 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
                  $('#current-question').append(translationHTML);
              }
         };
+        var questionCount=1;
+        var levelCount=0;
+        $scope.showAudio = function() {
+            $('#scenarioGame-audio').empty();
+            if ($scope.scenario.scenarioType.name == "Conversation"){
+                //$('#scenarioGame-audio').show();
+                console.log($scope.scenario.level);
+                levelCount = $scope.scenario.level;
+                var audioHTML = '<h2>' + '<audio controls>'+ '<source src="../audio/sweetshop/level'+levelCount+'/q'+questionCount+'.wav" type="audio/wav">'
+                    + '</audio>' + '</h2>';
+                $('#scenarioGame-audio').append(audioHTML);
+                $('#scenarioGame-audio').show();
 
-
+            }
+        };
+        
         $scope.clearScreen = function() {
             $('#answer-container').empty();
             $('#current-question').empty();
@@ -53,8 +67,11 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
             scenarioGame.tick(answer, function(data) {
                 $scope.clearScreen();
 
+
                 if(data.question) {
+                    $('#scenarioGame-audio').hide();
                     $scope.drawQuestion(data);
+                    questionCount++;
 
                     $scope.drawTranslations(data);                  //!!!!!!!!!!!!!!!!!
 
@@ -74,15 +91,8 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
         };
 
 
-        // TODO AUDIO CLIPS FOR EACH QUESTION...
-        $scope.playAudio = function() {
-
-        };
-
-
-
-
         $scope.finish = function(results) {
+            questionCount=0;
 
             var isCompleted = true;
             if(results.correct) {
@@ -168,7 +178,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
 
 
         scenarioGame.initGame(function(data) {
-
+            $('#scenarioGame-audio').hide();
         //condition for picture scenario
           if ($scope.scenario.scenarioType.name != "Picture"){
                 $('#scenarioGame-picture').hide();

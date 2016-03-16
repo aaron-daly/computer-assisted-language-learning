@@ -5,13 +5,13 @@
     </div>
 
     <div class="col-sm-12 col-sm-offset-1" xmlns="">
-    <span class="glyphicon glyphicon-volume-up" ng-click="replayGame();" style="float:right;"></span>
+    <span class="glyphicon glyphicon-volume-up" ng-click="showAudio();" style="float:right;"></span>
 </div>
 
 <div id="scenarioGame-content" class="col-sm-12 col-sm-offset-0 text-center">
     <div id="scenarioGame-container" class="col-sm-6 col-sm-offset-3 text-center">
         <div id="game-screen" class="text-center">
-            
+
            <h1>Playing Scenario <span class="text-info">'{{scenario.name}}'</span></h1>
 
             <div id="scenarioGame-picture" class="col-sm-12 col-sm-offset-0 text-center">
@@ -19,12 +19,12 @@
             </div>
             <div id="question-container">
                 <h2 id="current-question" class="text-danger"></h2>
+                <div id="scenarioGame-audio" <!--class="col-sm-6 col-sm-offset-3--> text-center">
+                    <!--<audio controls>
+                        <source src="../audio/sweetshop/level1/q2.wav" type="audio/wav">
+                    </audio>-->
+                </div>
             </div>
-            <!--<div id="scenarioGame-audio" class="col-sm-6 col-sm-offset-3 text-center">
-                <audio controls>
-                    <source src="../audio/audio.wav" type="audio/wav">
-                </audio>
-            </div>-->
             <div id="answer-container">
             </div>
             <button id="replay-btn" class="btn btn-success" ng-click="gameReplay()">Replay Game</button>

@@ -33,6 +33,7 @@ angular.module('calliApp')
 
             //receives answer, calls back next question
             scenarioGame.tick = function(answer, callback) {
+                $('#scenarioGame-audio').hide();
                 this.recordedAnswers.push(answer.answer);
 
                 var currentAnswers = scenarioGame.scenario.conversation[scenarioGame.position - 1].answers;
