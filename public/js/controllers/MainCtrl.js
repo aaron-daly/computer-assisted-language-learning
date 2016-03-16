@@ -8,7 +8,7 @@ angular.module('MainCtrl', []).controller('MainController', ['$scope', '$locatio
 
         // route to the register page
         $scope.registerRedirect = function() {
-            $location.path('/register');
+            $location.path('/about');
         };
 
         // check if user is logged in with token.isLoggedIn()

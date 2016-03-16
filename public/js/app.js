@@ -3,6 +3,7 @@ angular.module('calliApp', [
     'ngRoute',
     'angularUtils.directives.dirPagination',
     'MainCtrl',
+    'AboutCtrl',
     'NavigationCtrl',
     'LoginCtrl',
     'RegisterCtrl',
@@ -27,6 +28,13 @@ angular.module('calliApp', [
                             }
                         }]
                 }
+            })
+
+            //about page
+            .when('/about', {
+                templateUrl: 'views/about.html',
+                controller: 'AboutController',
+                restricted: false
             })
 
             // login page

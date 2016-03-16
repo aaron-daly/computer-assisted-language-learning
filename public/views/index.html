@@ -31,7 +31,8 @@
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/TeacherCtrl.js"></script>
     <script src="js/controllers/ScenarioGameCtrl.js"></script>
-    <script src="js/controllers/AddScenario.js"></script>
+    <script src="js/controllers/AddScenarioCtrl.js"></script>
+    <script src="js/controllers/AboutCtrl.js"></script>
     <script src="js/app.js"></script>
 
     <!-- ANGULAR SERVICES-->
@@ -84,6 +85,7 @@
 
             <div class="collapse navbar-collapse" id="nav-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!isLoggedIn()"><a href="/about">About</a></li>
                     <li ng-if="isLoggedIn()"><a ng-click="directToProfile()"><span style="font-size:140%" class="glyphicon glyphicon-user"></span></a></li>
                     <li ng-if="!isLoggedIn()"><a href="/login">Login</a></li>
                     <li ng-if="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
@@ -96,13 +98,13 @@
         <div ng-view></div>
 
     <!-- FOOTER -->
-    <footer>
+    <!-- footer>
         <div id="social-container" class="text-center">
             <a href="#"><span title="facebook link" class="social-icon icon-facebook"></span></a>
             <a href="#"><span class="social-icon icon-twitter"></span></a>
             <a href="#"><span class="social-icon icon-linkedin2"></span></a>
         </div>
-    </footer>
+    </footer -->
 
 </body>
 </html>
