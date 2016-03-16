@@ -11,21 +11,21 @@
 
     <!-- PUPIL LIST  -->
     <h2>Pupils</h2>
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div role="grid" class="table-responsive">
+        <table role="presentation" class="table table-striped">
             <thead>
-            <th class="text-left">Name</th>
-            <th class="text-center">Completed</th>
-            <th class="text-center">Progress</th>
-            <th class="text-center">Remove</th>
+            <th role="columnheader" class="text-left">Name</th>
+            <th role="columnheader" class="text-center">Completed</th>
+            <th role="columnheader" class="text-center">Progress</th>
+            <th role="columnheader" class="text-center">Remove</th>
             </thead>
-            <tr dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
-                <td class="text-left">{{ pupil.username.replace(username, '') }}</td>
-                <td class="text-center">{{ getScenarioCompletionTotal(pupil) }}/{{ getNumScenarios() }}</td>
-                <td class="text-center">
+            <tr role="row" dir-paginate="pupil in pupils | itemsPerPage:5 " pagination-id="pupilPagination">
+                <td role="gridcell" class="text-left">{{ pupil.username.replace(username, '') }}</td>
+                <td role="gridcell" class="text-center">{{ getScenarioCompletionTotal(pupil) }}/{{ getNumScenarios() }}</td>
+                <td role="gridcell" class="text-center">
                     <span class="glyphicon glyphicon-th-list" ng-click="togglePupil(pupil)" data-toggle="modal" data-target="#pupilModal"></span>
                 </td>
-                <td class="text-center">
+                <td role="gridcell" class="text-center">
                     <span class="glyphicon glyphicon-remove" ng-click="removePupil(pupil)"></span>
                 </td>
             </tr>
@@ -40,58 +40,59 @@
 
     <h2>Tools</h2>
     <br>
-    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#gameModal">Enable Games</button>
+    <button role="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#gameModal">Enable Games</button>
     <hr>
-    <button class="btn btn-info btn-block" ng-click="routeToAddScenario()">Create New Game</button>
+    <button role="button" class="btn btn-info btn-block" ng-click="routeToAddScenario()">Create New Game</button>
     <hr>
-    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#registerModal">Register Pupils</button>
+    <button role="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#registerModal">Register Pupils</button>
     <hr>
-    <button class="btn btn-primary btn-block" ng-click="logout()">Logout</button>
+    <button role="button" class="btn btn-primary btn-block" ng-click="logout()">Logout</button>
 
 </section>
 
 <!-- GAME LIST MODAL -->
-<div id="gameModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog">
+<div id="gameModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog" aria-labelledby="gameModalLabel"
+     aria-describedby="Popup for a list of your games" aria-hidden="true">
     <div class="modal-dialog">
 
         <div class="modal-content">
 
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Game List</h3>
+                <button role="button" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="gameModalLabel">Game List</h3>
             </div>
 
             <div class="modal-body">
 
                 <!-- GAME LIST -->
-                <div class="table-responsive">
-                    <table class="table table-striped">
+                <div class="table-responsive" role="grid" aria-readonly="true">
+                    <table class="table table-striped" role="presentation">
                         <thead>
-                        <th class="text-left">Scenario</th>
-                        <th class="text-center">Translations</th>
-                        <th class="text-center">Enabled</th>
-                        <th class="text-center">Preview</th>
-                        <th class="text-center">Remove</th>
+                        <th class="text-left" role="columnheader">Scenario</th>
+                        <th class="text-center" role="columnheader">Translations</th>
+                        <th class="text-center" role="columnheader">Enabled</th>
+                        <th class="text-center" role="columnheader">Preview</th>
+                        <th class="text-center" role="columnheader">Remove</th>
                         </thead>
-                        <tr dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:5 " pagination-id="pupilGamePagination">
-                            <td class="text-left">
+                        <tr role="row" dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:5 " pagination-id="pupilGamePagination">
+                            <td role="gridcell" class="text-left">
                                 <span title="Conversation Game Icon" class="glyphicon icon-bubbles4" ng-if="scenario.scenarioType === 'Conversation'"></span>
                                 <span title="Picture Game Icon" class="glyphicon icon-image" ng-if="scenario.scenarioType === 'Picture'"></span>
                                 <span title="Word Game Icon" class="glyphicon icon-dice" ng-if="scenario.scenarioType === 'Word'"></span>
                                 <span>{{ scenario.scenarioName }} - {{ scenario.scenarioLevel }}</span>
                             </td>
-                            <td class="text-center">
+                            <td role="gridcell" class="text-center">
                                 <span class="glyphicon glyphicon-check" ng-show="containsTranslations(scenario) && !translationsEnabled(scenario)" ng-click="enableTranslations(scenario)"></span>
                                 <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="containsTranslations(scenario) && translationsEnabled(scenario)" ng-click="disableTranslations(scenario)"></span>
                             </td>
-                            <td class="text-center">
+                            <td role="gridcell" class="text-center">
                                 <span class="glyphicon glyphicon-check" ng-show="!isEnabled(scenario)" ng-click="enableScenario(scenario)"></span>
                                 <span class="glyphicon glyphicon-check glyphicon-blue" ng-show="isEnabled(scenario)" ng-click="disableScenario(scenario)"></span>
                             </td>
-                            <td class="text-center">
+                            <td role="gridcell" class="text-center">
                                 <span class="glyphicon glyphicon-play" data-dismiss="modal" ng-click="previewScenario(scenario)"></span>
                             </td>
-                            <td class="text-center">
+                            <td role="gridcell" class="text-center">
                                 <span class="glyphicon glyphicon-remove" ng-click="deleteScenario(scenario)"></span>
                             </td>
                         </tr>
@@ -105,40 +106,41 @@
                 <span title="Word Game Icon" class="glyphicon icon-dice"> - Word</span><br>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button role="button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- PUPIL PROGRESS MODAL -->
-<div id="pupilModal" class="modal fade col-sm-6 col-sm-offset-3" role="dialog">
+<div id="pupilModal" class="modal fade col-sm-6 col-sm-offset-3" tabindex="-1" role="dialog" aria-labelledby="pupilModalLabel"
+     aria-describedby="Popup for progress of pupil" aria-hidden="true">
     <div class="modal-dialog">
 
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Progress of {{ selectedPupil.username.replace(username, '') }}</h3>
+                <button role="button" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="pupilModalLabel">Progress of {{ selectedPupil.username.replace(username, '') }}</h3>
             </div>
             <div class="modal-body">
                 <p>Games completed: {{ getScenarioCompletionTotal(selectedPupil) }}/{{ getNumScenarios() }}</p>
-                <div class="table-responsive">
-                    <table class="table table-striped">
+                <div role="grid" class="table-responsive">
+                    <table role="presentation" class="table table-striped">
                         <thead>
-                        <th class="text-left">Scenario</th>
-                        <th class="text-center">Type</th>
-                        <th class="text-center">Level</th>
-                        <th class="text-center">Completed</th>
+                        <th role="columnheader" class="text-left">Scenario</th>
+                        <th role="columnheader" class="text-center">Type</th>
+                        <th role="columnheader" class="text-center">Level</th>
+                        <th role="columnheader" class="text-center">Completed</th>
                         </thead>
-                        <tr dir-paginate="groupScenario in groupScenarios | itemsPerPage:5 " pagination-id="pupilProgressPagination">
-                            <td class="text-left">{{ groupScenario.scenarioName }}</td>
-                            <td class="text-center">
+                        <tr role="row" dir-paginate="groupScenario in groupScenarios | itemsPerPage:5 " pagination-id="pupilProgressPagination">
+                            <td role="gridcell" class="text-left">{{ groupScenario.scenarioName }}</td>
+                            <td role="gridcell" class="text-center">
                                 <span title="Conversation Game Icon" class="glyphicon icon-bubbles4" ng-if="groupScenario.scenarioType === 'Conversation'"></span>
                                 <span title="Picture Game Icon" class="glyphicon icon-image" ng-if="groupScenario.scenarioType === 'Picture'"></span>
                                 <span title="Word Game Icon" class="glyphicon icon-dice" ng-if="groupScenario.scenarioType === 'Word'"></span>
                             </td>
-                            <td class="text-center">{{ groupScenario.scenarioLevel }}</td>
-                            <td class="text-center">
+                            <td role="gridcell" class="text-center">{{ groupScenario.scenarioLevel }}</td>
+                            <td role="gridcell" class="text-center">
                                 <span class="glyphicon glyphicon-ok text-primary" ng-show="checkScenarioCompletion(selectedPupil, groupScenario)"></span>
                                 <span class="glyphicon glyphicon-remove" ng-show="!checkScenarioCompletion(selectedPupil, groupScenario)"></span>
                             </td>
@@ -148,44 +150,49 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button role="button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- PUPIL REGISTER MODAL -->
-<div id="registerModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog">
+<div id="registerModal" class="modal fade col-sm-8 col-sm-offset-2" role="dialog" aria-labelledby="registerModalLabel"
+     aria-describedby="Popup for pupil registration table" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" ng-click="clearRegistration()">&times;</button>
-                <h3 class="modal-title">Register Pupils</h3>
+                <button role="button" type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clearRegistration()">&times;</button>
+                <h3 class="modal-title" id="registerModalLabel">Register Pupils</h3>
             </div>
             <div class="modal-body">
                 <!-- BATCH REGISTER SECTION -->
                 <p class="text-info">Enter or copy & paste your pupils' names below. Each name must be on a new line, unique and one word only.</p>
                 <form id="batch-register-form" ng-submit="batchRegister()" role="form">
                     <div class="form-group">
-                        <label>Pupil Names</label>
+                        <label for="batch-pupil-names-input">Pupil Names</label>
                         <textarea class="form-control"
                                   id="batch-pupil-names-input"
                                   name="batchPupilNames"
                                   ng-model="batchPupilNames"
                                   rows="9"
                                   cols="10"
-                                  required="required"></textarea>
+                                  required="required"
+                                  aria-required="true">
+                        </textarea>
                     </div>
-                    <button type="submit" class="btn btn-info">Register Pupils</button>
+                    <button role="button" type="submit" class="btn btn-info">Register Pupils</button>
                     <span id="register-error" class="text-danger" ng-if="registrationError">{{ registrationErrorMessage }}</span>
                     <span id="register-success" class="text-success" ng-if="successfulRegistration && !registrationError" >Pupils registered successfully!</span>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearRegistration()">Close</button>
+                <button role="button" type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearRegistration()">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 </div>
+
+<br>

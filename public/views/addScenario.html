@@ -1,81 +1,96 @@
-<div class="container">
+<section>
+    <div class="text-center">
+        <h1 class="text-center">Add Scenario Page</h1>
+    </div>
+    <hr>
+</section>
 
+<section id="addScenario-form" class="container">
 
-<div class="col-sm-6 col-sm-offset-3">
-    <h1 class="text-center">Add Scenario Page</h1>
+    <div class="col-sm-6 col-sm-offset-3">
 
+        <p class="lead">Before creating game scenarios,
+            be sure to visit our <span><a href="/about">'About CALLi'</a></span> page to get an idea
+            of the types of games and levels!</p>
+        <br>
 
-    <form id="scenario-form" name="scenario-form" ng-submit="submitScenario()" role="form">
-        <div class="form-group">
-            <label>Scenario Name</label>
-            <input class="form-control" type="text" name="name" ng-model="name" required="required">
-        </div>
-        <div class="form-group">
-            <label>Scenario Type</label>
-            <select class="form-control" ng-change="setQuestionLimit()" name="type" ng-model="type" required="required">
-                <option value="Conversation" selected="selected">Conversation Game</option>
-                <option value="Picture" selected="selected">Picture Game</option>
-                <option value="Word" selected="selected">Word Game</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Scenario Level</label>
-            <select class="form-control" name="level" ng-change="setQuestionLimit()" ng-model="level" required="required">
-                <option value="1" selected="selected">1 - Up to 5 Questions, 2 answers each</option>
-                <option value="2" selected="selected">2 - Up to 10 Questions, 3 answers each</option>
-                <option value="3" selected="selected">3 - Up to 15 Questions, 3 answers each</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Add Translations</label>
-            <input type="checkbox" name="enableTranslations" ng-model="enableTranslations" value="enabled">
-        </div>
-
-        <div id="question-container" ng-show="type && level">
-            <hr>
+        <form id="scenario-form" name="scenario-form" ng-submit="finish()" role="form">
             <div class="form-group">
-                <label>QUESTION {{currentQuestionIndex+1}}</label>
-                <input class="form-control" type="text" name="question" ng-model="currentQuestion.question" required="required">
-            </div>
-            <div class="form-group" ng-show="enableTranslations">
-                <label>Translation</label>
-                <input class="form-control" type="text" name="question-translation" ng-model="currentQuestion.translation" required="required">
+                <label for="type">Choose a Game Type</label>
+                <select class="form-control" id="type" ng-change="setQuestionLimit()" name="type" ng-model="type" required="required">
+                    <option value="Conversation" selected="selected">Conversation Game</option>
+                    <option value="Picture" selected="selected">Picture Game</option>
+                    <option value="Word" selected="selected">Word Game</option>
+                </select>
             </div>
             <div class="form-group">
-                <label>Answer 1</label>
-                <input class="form-control" type="text" name="answer1" ng-model="currentQuestion.answers[0].answer" required="required">
+                <label for="level">Pick the Scenario's Level</label>
+                <select class="form-control" name="level" id="level" ng-change="setQuestionLimit()" ng-model="level" required="required">
+                    <option value="1" selected="selected">1 - Up to 5 Questions, 2 answers each</option>
+                    <option value="2" selected="selected">2 - Up to 10 Questions, 3 answers each</option>
+                    <option value="3" selected="selected">3 - Up to 15 Questions, 3 answers each</option>
+                </select>
             </div>
             <div class="form-group">
-                <label>Answer 2</label>
-                <input class="form-control" type="text" name="answer2" ng-model="currentQuestion.answers[1].answer" required="required">
+                <label for="name">Give it a Name</label>
+                <input class="form-control" type="text" id="name" name="name" ng-model="name" required="required">
             </div>
-            <div class="form-group" ng-show="level > 1">
-                <label>Answer 3</label>
-                <input class="form-control" type="text" name="answer3" ng-model="currentQuestion.answers[2].answer" required="required">
+            <div class="form-group">
+                <label for="enableTranslations">Add Translations to each question (optional)</label>
+                <input role="checkbox" type="checkbox" id="enableTranslations" name="enableTranslations" ng-model="enableTranslations" value="enabled">
             </div>
-            <div class="form-group" ng-show="type !== 'Conversation' ">
-                <label>Choose correct answer</label>
-                <span><input type="radio" name="correct-answer" ng-model="correctAnswer" value="0">1</span>
-                <span><input type="radio" name="correct-answer" ng-model="correctAnswer" value="1">2</span>
-                <span ng-show="level > 1"><input type="radio" name="correct-answer" ng-model="correctAnswer" value="2">3</span>
+
+            <div id="question-container" ng-show="type && level">
+                <hr>
+                <div class="form-group">
+                    <label for="question">QUESTION {{currentQuestionIndex+1}}</label>
+                    <input class="form-control" type="text" id="question" name="question" ng-model="currentQuestion.question" required="required">
+                </div>
+                <div class="form-group" ng-show="enableTranslations">
+                    <label for="question-translation">Translation</label>
+                    <input class="form-control" type="text" id="question-translation" name="question-translation" ng-model="currentQuestion.translation" >
+                </div>
+                <div class="form-group">
+                    <label for="answer1">Answer 1</label>
+                    <input class="form-control" type="text" id="answer1" name="answer1" ng-model="currentQuestion.answers[0].answer" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="answer2">Answer 2</label>
+                    <input class="form-control" type="text" id="answer2" name="answer2" ng-model="currentQuestion.answers[1].answer" required="required">
+                </div>
+                <div class="form-group" ng-show="level > 1">
+                    <label for="answer3">Answer 3</label>
+                    <input class="form-control" type="text" id="answer3" name="answer3" ng-model="currentQuestion.answers[2].answer" >
+                </div>
+                <div role="radiogroup" class="form-group" ng-show="type !== 'Conversation' ">
+                    <span>
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer1" ng-model="correctAnswer" value="0" required="required" />
+                        <label for="correct-answer1">1 </label>
+                    </span>
+                    <span>
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer2" ng-model="correctAnswer" value="1" required="required"/>
+                        <label for="correct-answer2">2 </label>
+                    </span>
+                    <span ng-show="level > 1">
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer3" ng-model="correctAnswer" value="2" />
+                        <label for="correct-answer3">3 </label>
+                    </span>
+                </div>
+                <hr>
             </div>
-            <hr>
-        </div>
 
-        <div class="question-controls text-right" ng-show="type && level">
-            <button class="btn btn-info" type="button" ng-show="currentQuestionIndex > 0" ng-click="decQuestion()">Previous</button>
-            <button class="btn btn-info" type="button" ng-show="currentQuestionIndex < lastQuestionIndex" ng-click="incQuestion()">Next</button>
-        </div>
+            <div class="question-controls text-right" ng-show="type && level">
+                <button role="button" class="btn btn-info" type="button" ng-show="currentQuestionIndex > 0" ng-click="decQuestion()">Previous</button>
+                <button role="button" class="btn btn-default" type="button" ng-show="currentQuestionIndex < lastQuestionIndex && !nextAvailable()">Next</button>
+                <button role="button" class="btn btn-info" type="button" ng-show="currentQuestionIndex < lastQuestionIndex && nextAvailable()" ng-click="incQuestion()">Next</button>
+                <button role="button" type="button" class="btn btn-default" ng-if="currentQuestionIndex === lastQuestionIndex && !nextAvailable()" type="button">Finish</button>
+                <button role="button" type="submit" class="btn btn-danger" ng-if="currentQuestionIndex === lastQuestionIndex && nextAvailable()" type="button">Finish</button>
+            </div>
 
-        <div class="text-right" ng-if="currentQuestionIndex > 0 && currentQuestion.answers.length > 0">
-            <br>
-            <button class="btn btn-danger" type="button" ng-click="finish()">Finish</button>
-        </div>
+        </form>
 
-    </form>
+        <br>
 
-</div>
+    </div>
 
-
-</div>
+</section>

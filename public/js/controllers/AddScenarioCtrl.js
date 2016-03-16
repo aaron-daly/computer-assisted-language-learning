@@ -13,6 +13,29 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         $scope.lastQuestionIndex = 5;
         $scope.numAnswers = 2;
 
+        //check if all fields are filled out on the current question
+        $scope.nextAvailable = function() {
+
+            // if currentquestion has no question, answer1 or answer2 return false
+            if(!$scope.currentQuestion.question || !$scope.currentQuestion.answers[0].answer || !$scope.currentQuestion.answers[1].answer) {
+                return false;
+            }
+            // if translations are enabled and no translation has been filled in return false
+            if($scope.enableTranslations && !$scope.currentQuestion.translation) {
+                return false;
+            }
+            // if the level is > 1 (3 answers per question) and there's no answer3 filled in, return false
+            if($scope.level > 1 && !$scope.currentQuestion.answers[2].answer) {
+                return false;
+            }
+            // if the type is not 'Conversation' and no correct answer has been chosen, return false
+            if($scope.type != 'Conversation' && !$scope.correctAnswer) {
+                return false;
+            }
+            // else return true
+            return true;
+        };
+
         $scope.incQuestion = function() {
             $scope.saveCurrentQuestion();
             $scope.currentQuestionIndex++;
@@ -26,6 +49,13 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
         };
 
         $scope.saveCurrentQuestion = function() {
+            $scope.setCorrectAnswer();
+            $scope.questions[$scope.currentQuestionIndex] = $scope.currentQuestion;
+        };
+
+        $scope.setCorrectAnswer = function() {
+
+            console.log($scope.currentQuestion, $scope.correctAnswer);
             if($scope.correctAnswersEnabled() && $scope.currentQuestion.answers) {
                 $.each($scope.currentQuestion.answers, function (key, answer) {
                     answer.correct = false;
@@ -34,7 +64,6 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
                     $scope.currentQuestion.answers[$scope.correctAnswer].correct = true;
                 }
             }
-            $scope.questions[$scope.currentQuestionIndex] = $scope.currentQuestion;
         };
 
         $scope.loadCurrentQuestion = function() {
