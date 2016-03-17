@@ -68,15 +68,15 @@
                 </div>
                 <div role="radiogroup" class="form-group" ng-show="type !== 'Conversation' ">
                     <span>
-                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer1" ng-model="correctAnswer" value="0" required="required" />
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correctAnswer" id="correct-answer1" ng-model="correctAnswer" value="0" />
                         <label for="correct-answer1">1 </label>
                     </span>
                     <span>
-                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer2" ng-model="correctAnswer" value="1" required="required"/>
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correctAnswer" id="correct-answer2" ng-model="correctAnswer" value="1" />
                         <label for="correct-answer2">2 </label>
                     </span>
                     <span ng-show="level > 1">
-                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer3" ng-model="correctAnswer" value="2" />
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correctAnswer" id="correct-answer3" ng-model="correctAnswer" value="2" />
                         <label for="correct-answer3">3 </label>
                     </span>
                 </div>
