@@ -1,11 +1,10 @@
-/*-- REMOVE BOOTSTRAP'S ROUNDED CORNERS --*/
+
 * {
     border-radius: 0 !important;
     -moz-border-radius: 0 !important;
     -webkit-border-radius: 0 !important;
 }
 
-/*== LAYOUT ==*/
 html,body {
     display: block;
     margin: 0;
@@ -110,11 +109,6 @@ footer {
 .modal-dialog {
     width: 80%;
 }
-
-/*--------*/
-
-
-/*== STYLE ==*/
 
 .bar-blue {
     border-color: #5bc0de;
@@ -232,15 +226,10 @@ footer {
     z-index: -1;
 }
 
-.social-icon {
-    font-size: 200%;
+.img-centered {
+    display: block;
+    margin: auto;
 }
-
-#social-container > a {
-    color: #222222;
-}
-
-
 @media only screen and (max-device-width: 480px) {
 
     #home-title-lg {
@@ -279,6 +268,4 @@ footer {
     }
 }
 
-
-/*--------*/
 

@@ -17,7 +17,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', ['$scope', '$h
 
         // route to the scenarioGame page with the scenario name of the chosen scenario
         $scope.playScenario = function(scenario) {
-            $location.path('/scenarioGame/:' + scenario.scenarioName);
+            $location.path('/scenarioGame/:' + scenario.scenarioId);
         };
 
         // check if a scenario has been completed by the pupil

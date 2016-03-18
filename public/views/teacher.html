@@ -11,7 +11,7 @@
 
     <!-- PUPIL LIST  -->
     <h2>Pupils</h2>
-    <div role="grid" class="table-responsive">
+    <div ng-if="pupils.length > 0" role="grid" class="table-responsive">
         <table role="presentation" class="table table-striped">
             <thead>
             <th role="columnheader" class="text-left">Name</th>
@@ -32,6 +32,11 @@
         </table>
     </div>
     <dir-pagination-controls pagination-id="pupilPagination" max-size="5" direction-links="true"></dir-pagination-controls>
+
+    <div ng-if="pupils.length < 1">
+        <br>
+        <h4 class="text-muted">Uh oh, you haven't registered any pupils yet! Use the 'Register Pupils' tool to get started...</h4>
+    </div>
 
 </section>
 
@@ -65,7 +70,7 @@
             <div class="modal-body">
 
                 <!-- GAME LIST -->
-                <div class="table-responsive" role="grid" aria-readonly="true">
+                <div ng-if="groupScenarios.length > 0" class="table-responsive" role="grid" aria-readonly="true">
                     <table class="table table-striped" role="presentation">
                         <thead>
                         <th class="text-left" role="columnheader">Scenario</th>
@@ -74,7 +79,7 @@
                         <th class="text-center" role="columnheader">Preview</th>
                         <th class="text-center" role="columnheader">Remove</th>
                         </thead>
-                        <tr role="row" dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:5 " pagination-id="pupilGamePagination">
+                        <tr role="row" dir-paginate="scenario in groupScenarios | orderBy: 'scenarioName' | itemsPerPage:4 " pagination-id="pupilGamePagination">
                             <td role="gridcell" class="text-left">
                                 <span title="Conversation Game Icon" class="glyphicon icon-bubbles4" ng-if="scenario.scenarioType === 'Conversation'"></span>
                                 <span title="Picture Game Icon" class="glyphicon icon-image" ng-if="scenario.scenarioType === 'Picture'"></span>
@@ -97,13 +102,17 @@
                             </td>
                         </tr>
                     </table>
+                    <h4>Game Types:</h4>
+                    <span title="Conversation Game Icon" class="glyphicon icon-bubbles4"> - Conversation</span><br>
+                    <span title="Picture Game Icon" class="glyphicon icon-image"> - Picture</span><br>
+                    <span title="Word Game Icon" class="glyphicon icon-dice"> - Word</span><br>
                 </div>
                 <dir-pagination-controls pagination-id="pupilGamePagination" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
 
-                <h4>Game Types:</h4>
-                <span title="Conversation Game Icon" class="glyphicon icon-bubbles4"> - Conversation</span><br>
-                <span title="Picture Game Icon" class="glyphicon icon-image"> - Picture</span><br>
-                <span title="Word Game Icon" class="glyphicon icon-dice"> - Word</span><br>
+                <div ng-if="groupScenarios.length < 1">
+                    <br>
+                    <h4 class="text-muted">Looks like you haven't created any games yet! Use the 'Create New Game' tool to create your first game...</h4>
+                </div>
             </div>
             <div class="modal-footer">
                 <button role="button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,3 +1,5 @@
+
+<!-- add secenario heading section -->
 <section>
     <div class="text-center">
         <h1 class="text-center">Add Scenario Page</h1>
@@ -5,6 +7,7 @@
     <hr>
 </section>
 
+<!-- add scenario form section -->
 <section id="addScenario-form" class="container">
 
     <div class="col-sm-6 col-sm-offset-3">
@@ -14,6 +17,7 @@
             of the types of games and levels!</p>
         <br>
 
+        <!-- scenario form -->
         <form id="scenario-form" name="scenario-form" ng-submit="finish()" role="form">
             <div class="form-group">
                 <label for="type">Choose a Game Type</label>
@@ -64,21 +68,22 @@
                 </div>
                 <div role="radiogroup" class="form-group" ng-show="type !== 'Conversation' ">
                     <span>
-                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer1" ng-model="correctAnswer" value="0" required="required" />
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correctAnswer" id="correct-answer1" ng-model="correctAnswer" value="0" />
                         <label for="correct-answer1">1 </label>
                     </span>
                     <span>
-                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer2" ng-model="correctAnswer" value="1" required="required"/>
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correctAnswer" id="correct-answer2" ng-model="correctAnswer" value="1" />
                         <label for="correct-answer2">2 </label>
                     </span>
                     <span ng-show="level > 1">
-                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correct-answer" id="correct-answer3" ng-model="correctAnswer" value="2" />
+                        <input role="radio" type="radio" ng-change="setCorrectAnswer()" name="correctAnswer" id="correct-answer3" ng-model="correctAnswer" value="2" />
                         <label for="correct-answer3">3 </label>
                     </span>
                 </div>
                 <hr>
             </div>
 
+            <!-- Question scroll buttons -->
             <div class="question-controls text-right" ng-show="type && level">
                 <button role="button" class="btn btn-info" type="button" ng-show="currentQuestionIndex > 0" ng-click="decQuestion()">Previous</button>
                 <button role="button" class="btn btn-default" type="button" ng-show="currentQuestionIndex < lastQuestionIndex && !nextAvailable()">Next</button>

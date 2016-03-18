@@ -44,8 +44,14 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         // delete scenario
         $scope.deleteScenario = function(scenario) {
-            teacher.deleteScenario(scenario);
-            $scope.groupScenarios.splice($scope.groupScenarios.indexOf(scenario), 1);
+            $.confirm({
+                title: 'Careful!',
+                content: 'Are you sure you want to remove this scenario?',
+                confirm: function() {
+                    teacher.deleteScenario(scenario);
+                    $scope.groupScenarios.splice($scope.groupScenarios.indexOf(scenario), 1);
+                }
+            });
         };
 
         // enable scenario translations
@@ -62,7 +68,7 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         // preview scenario, direct to /scenarioGame view
         $scope.previewScenario = function(scenario) {
-            $location.path('/scenarioGame/:' + scenario.scenarioName);
+            $location.path('/scenarioGame/:' + scenario.scenarioId);
         };
 
         // batch register pupils
@@ -105,8 +111,16 @@ angular.module('TeacherCtrl', []).controller('TeacherController', ['$scope', '$h
 
         // remove pupil using teacher.removePupil()
         $scope.removePupil = function(pupil) {
-            teacher.removePupil(pupil);
-            $scope.pupils.splice($scope.pupils.indexOf(pupil), 1);
+            $.confirm({
+                title: 'Careful!',
+                content: 'Are you sure you want to remove this pupil? Data will be lost...',
+                confirm: function() {
+                    teacher.removePupil(pupil);
+                    $scope.pupils.splice($scope.pupils.indexOf(pupil), 1);
+                }
+            });
+
+
         };
 
         // toggle a pupil for the pupil progress modal

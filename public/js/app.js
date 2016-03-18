@@ -45,7 +45,7 @@ angular.module('calliApp', [
             })
 
             //scenario game page, scenario name as param
-            .when('/scenarioGame/:name', {
+            .when('/scenarioGame/:scenarioId', {
                 templateUrl: 'views/scenarioGame.html',
                 controller: 'ScenarioGameController',
                 restricted: true,
@@ -59,11 +59,11 @@ angular.module('calliApp', [
                                 scenarioGame.preload();
                             }
 
-                            var str = $route.current.params.name;
-                            var name = str.substr(1, str.length);
+                            var str = $route.current.params.scenarioId;
+                            var scenarioId = str.substr(1, str.length);
 
                             $timeout(function() {
-                                scenarioGame.loadScenario(name, function(data) {
+                                scenarioGame.loadScenario(scenarioId, function(data) {
                                     if(data) {
                                         defer.resolve('Scenario loaded');
                                     } else {
@@ -139,7 +139,7 @@ angular.module('calliApp', [
                             $timeout(function () {
                                 scenarioGame.preload();
                                 defer.resolve();
-                            });
+                            },500);
                             return defer.promise;
                         }],
                     //defer to load teacher's pupils

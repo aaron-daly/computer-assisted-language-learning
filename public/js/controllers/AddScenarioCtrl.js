@@ -190,7 +190,10 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
             $scope.ready(finalQuestions, function(status) {
 
                 if(!status.ready) {
-                    alert(status.message);
+                    $.alert({
+                        title: 'Oops, we have a problem!',
+                        content: status.message
+                    });
                 } else {
 
                     var scenario = {
@@ -217,10 +220,17 @@ angular.module('AddScenarioCtrl', []).controller('AddScenarioController', ['$sco
 
                             teacher.addScenario(data);
                             $location.path('/teacher');
-                            alert('Your scenario has been successfully created and is now in your game enabler!');
+
+                            $.alert({
+                                title: 'Success!',
+                                content: 'Your scenario has been successfully created and is now in your game enabler!'
+                            });
                         })
                         .error(function (error) {
-                            alert('Oops, there was a problem adding your scenario to our database! :(');
+                            $.alert({
+                                title: 'Oops, there was a problem!',
+                                message: 'We regret that there was a problem adding your scenario to our system! Please try again later.'
+                            });
                         });
                 }
             });
