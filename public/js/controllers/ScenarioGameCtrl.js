@@ -40,7 +40,7 @@ angular.module('ScenarioGameCtrl', []).controller('ScenarioGameController', ['$s
         //draws translation if translations are enabled by the teacher & if there are any
         $scope.drawTranslations = function(translation) {
             if (scenarioGame.scenario.conversation[scenarioGame.position -1].translation){
-                 var translationHTML = '<h2>' + translation.translation + '</h2>';
+                 var translationHTML = '<h2 class="text-muted">' + translation.translation + '</h2>';
                  $('#current-question').append(translationHTML);
              }
         };
